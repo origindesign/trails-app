@@ -1,0 +1,47 @@
+.c-filter {
+    padding: var(--spacing-xs);
+
+    &__internal {
+        border-radius: var(--border-radius);
+        padding: var(--spacing-xs);
+        width: max-content;
+        gap: var(--spacing-xs);
+        font-family: $font-regular;
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: var(--c-teal);
+    }
+
+    svg {
+        display: none;
+    }
+
+    [class*="control"] {
+        border-color: var(--c-teal);
+        border-radius: 10px;
+    }
+
+    [class*="singleValue"] {
+        color: var(--c-teal);
+    }
+
+    [class*="indicatorSeparator"] {
+        display: none;
+    }
+
+    .filter-activity {
+        // @include fonticonSetup(after);
+        // @include fonticon(
+        //     $icon--arrow,
+        //     1.6rem,
+        //     var(--c-brand-teal),
+        //     50%,
+        //     auto,
+        //     0,
+        //     auto,
+        //     true,
+        //     true,
+        //     $elem: after
+        // );
+    }
+}

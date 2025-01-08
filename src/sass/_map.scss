@@ -1,0 +1,108 @@
+.map-components {
+    z-index: 1000;
+    display: block;
+    position: absolute;
+    width: 100%;
+}
+
+// leaflet.js
+.leaflet-popup {
+    width: 27.6rem;
+
+    .leaflet-popup-content-wrapper {
+        border: 1px solid var(--c-green);
+    }
+
+    .leaflet-popup-content {
+        font-family: $font-regular;
+        font-size: 1.5rem;
+        margin: 2rem;
+    }
+
+    .leaflet-popup-close-button,
+    .leaflet-popup-tip-container {
+        display: none;
+    }
+
+    .card-props {
+        display: flex;
+        gap: 1.5rem;
+        flex-direction: row;
+        margin: 2.5rem 0 3rem;
+    }
+
+    .link {
+        color: var(--c-teal);
+        font-size: 1.6rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 110%;
+        text-transform: uppercase;
+        padding-right: 3.5rem;
+
+        @include fonticonSetup(after);
+        @include fonticon(
+            $icon--arrow,
+            1.6rem,
+            var(--c-brand-teal),
+            50%,
+            auto,
+            0,
+            auto,
+            true,
+            true,
+            $elem: after
+        );
+    }
+
+    .distance {
+        padding-left: 4rem;
+        display: flex;
+        align-items: center;
+        height: 3rem;
+
+        @include fonticonSetup();
+        @include fonticon(
+            $icon--map,
+            3rem,
+            var(--c-teal),
+            auto,
+            0,
+            auto,
+            auto,
+            $elem: before
+        );
+    }
+
+    .difficulty {
+        display: flex;
+        align-items: center;
+
+        &::before {
+            content: "";
+            display: block;
+            height: 2rem;
+            width: 2rem;
+            background-color: var(--c-green);
+            border: 2px solid var(--c-black);
+            margin-right: 1rem;
+            border-radius: 50%;
+        }
+    }
+}
+
+.link--parking {
+    background-color: var(--c-orange);
+    border-radius: 1rem;
+    display: flex;
+    padding: 18px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: var(--c-black) !important;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-top: 1.25rem;
+}

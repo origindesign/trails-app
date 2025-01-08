@@ -1,0 +1,110 @@
+// Fonts/Text
+// -----------------------------------
+.t {
+    &-align {
+        &-center {
+            text-align: center;
+        }
+        &-left {
+            text-align: left;
+        }
+    }
+
+    &-c {
+        &-teal {
+            color: var(--c-teal);
+        }
+    }
+
+    &-t {
+        &-none {
+            text-transform: none;
+        }
+        &-lowercase {
+            text-transform: lowercase;
+        }
+        &-uppercase {
+            text-transform: uppercase;
+        }
+        &-capitalize {
+            text-transform: capitalize;
+        }
+    }
+}
+
+.d {
+    &-none {
+        display: none;
+    }
+
+    &-flex {
+        display: flex;
+    }
+}
+
+// Flex / Grid
+// -----------------------------------
+.jc {
+    &-space-between {
+        justify-content: space-between;
+    }
+    &-space-around {
+        justify-content: space-around;
+    }
+    &-flex-end {
+        justify-content: flex-end;
+    }
+    &-center {
+        justify-content: center;
+    }
+    &-start {
+        justify-content: flex-start !important;
+    }
+}
+
+.ai {
+    &-flex-start {
+        align-items: flex-start;
+    }
+
+    &-baseline {
+        align-items: baseline;
+    }
+
+    &-center {
+        align-items: center;
+    }
+
+    &-flex-end {
+        align-items: flex-end;
+    }
+}
+
+.visibility-hidden {
+    visibility: hidden;
+}
+
+.flex {
+    &-direction {
+        &-column {
+            flex-direction: column;
+        }
+    }
+
+    &-wrap {
+        &-wrap {
+            flex-wrap: wrap;
+        }
+    }
+}
+
+// Backgrounds
+// -----------------------------------
+.bg {
+    &--none {
+        background: none;
+    }
+    &--white {
+        background: white;
+    }
+}

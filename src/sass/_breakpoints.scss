@@ -1,0 +1,41 @@
+/**
+ * Breakpoint Configuration
+ * @see https://github.com/Team-Sass/breakpoint/wiki
+ *
+ */
+
+/////////////////////
+// Global Breakpoints
+
+// Avoid using in favor of atomic, content-specific, breakpoints.
+// These should be used for generic code, like layouts and typography, only.
+
+// Sign posts
+$width-small: 360px;
+$width-tablet-portrait: 740px;
+$width-tablet-landscape: 960px;
+$width-laptop: 1200px;
+$width-laptop-large: 1400px;
+$width-large: 1600px;
+$width-xlarge: 1900px;
+
+$width-large-layout: $width-tablet-landscape;
+$width-condensed-layout: $width-large-layout - 1px;
+
+// Mobile-first queries
+$bp--tiny: 1px $width-small - 1px;
+$bp--small: $width-small;
+$bp--phone: 1px $width-tablet-portrait - 1px;
+$bp--tablet-portrait: $width-tablet-portrait;
+$bp--tablet-portrait-only: $width-tablet-portrait $width-condensed-layout;
+$bp--tablet-landscape: $width-tablet-landscape;
+$bp--tablet-landscape-only: $width-tablet-landscape $width-large - 1px;
+$bp--laptop: $width-laptop;
+$bp--laptop-large: $width-laptop-large;
+$bp--large: $width-large;
+$bp--xlarge: $width-xlarge;
+
+$bp--typography: $width-tablet-portrait;
+$bp--typography-large: $width-laptop;
+$bp--condensed-layout: 1px $width-condensed-layout;
+$bp--large-layout: $width-large-layout;

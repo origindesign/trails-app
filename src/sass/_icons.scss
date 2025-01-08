@@ -1,0 +1,77 @@
+// Icomoon
+@font-face {
+    font-family: "icomoon";
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url("https://i.icomoon.io/public/0c5fd6775a/VernonTrailsApp/icomoon.woff2?r3w12j")
+            format("woff2"),
+        url("https://i.icomoon.io/public/0c5fd6775a/NorthCarolina/icomoon.woff?r3w12j")
+            format("woff");
+}
+
+// Icon include
+@mixin fonticonSetup($elem: before) {
+    position: relative;
+    &:#{$elem} {
+        position: absolute;
+        font-family: "icomoon" !important;
+        font-style: normal;
+        font-weight: normal;
+        speak: none;
+        display: block;
+        text-decoration: none;
+        text-align: center;
+        text-rendering: optimizeLegibility;
+        z-index: 2;
+    }
+}
+
+@mixin fonticon(
+    $content: "",
+    $icon-size: $icon-size,
+    $color: inherit,
+    $top: "",
+    $left: "",
+    $right: "",
+    $bottom: "",
+    $center: false,
+    $middle: false,
+    $elem: before
+) {
+    --icon-size: #{$icon-size};
+    &:#{$elem} {
+        content: $content;
+        color: $color;
+        font-size: var(--icon-size);
+        width: var(--icon-size);
+        height: var(--icon-size);
+        line-height: var(--icon-size);
+        @if $top != "" and $top != "auto" {
+            top: $top;
+        }
+        @if $left != "" and $left != "auto" {
+            left: $left;
+        }
+        @if $right != "" and $right != "auto" {
+            right: $right;
+        }
+        @if $bottom != "" and $bottom != "auto" {
+            bottom: $bottom;
+        }
+        @if $center and $middle {
+            transform: translate(-50%, -50%);
+        } @else {
+            @if $center {
+                transform: translateX(-50%);
+            }
+            @if $middle {
+                transform: translateY(-50%);
+            }
+        }
+    }
+}
+
+$icon--map: "\e900";
+$icon--arrow: "\e901";
+$icon--arrow-down: "\e902";

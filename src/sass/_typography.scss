@@ -1,0 +1,36 @@
+$font-regular: "Montserrat", times, "Times New Roman", serif;
+$font-heading: "Khand", "Helvetica", "Arial", sans-serif;
+
+@mixin fontsize($fontsize: $base-font-size) {
+    font-size: #{$fontsize * 0.1} + rem;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+#app {
+    font-family: $font-regular;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: $font-heading;
+    font-style: normal;
+}
+
+h1 {
+}
+
+h2 {
+}
+
+h3 {
+    font-size: 2.1rem;
+    font-weight: 600;
+    line-height: 110%;
+    margin: 0 0 0.5em 0;
+}
