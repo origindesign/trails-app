@@ -64,6 +64,8 @@
     }
 
     .filter-activity {
+        z-index: 10;
+
         [class*="control"] {
             @include fonticonSetup(after);
             @include fonticon(

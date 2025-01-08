@@ -39,6 +39,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+        transform: scale(1.05);
+    }
 
     &--home {
         @include fonticonSetup(after);
@@ -71,6 +76,24 @@
             display: none;
         }
     }
+
+    &--close {
+        position: absolute !important;
+        right: 2rem;
+        top: 2rem;
+
+        @include fonticonSetup(after);
+        @include fonticon(
+            $icon--close,
+            1.8rem,
+            var(--c-sky-blue),
+            auto,
+            auto,
+            auto,
+            auto,
+            $elem: after
+        );
+    }
 }
 
 // zoom controls
@@ -92,6 +115,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: 0.2s ease-in-out;
+
+            &:hover {
+                transform: scale(1.05);
+            }
         }
 
         &-in {
@@ -154,6 +182,7 @@
 
     .link {
         color: var(--c-teal);
+        cursor: pointer;
         font-size: 1.6rem;
         font-style: normal;
         font-weight: 700;
@@ -226,4 +255,70 @@
     text-transform: uppercase;
     text-decoration: none;
     margin-top: 1.25rem;
+}
+
+// trail detail
+.c-trail-detail {
+    z-index: 999999999;
+    display: none;
+    position: absolute;
+    width: auto;
+    min-width: 45rem;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10rem;
+    padding: 8rem 2rem 4rem 2rem;
+    border-radius: 20px;
+    border: 1px solid var(--Grass, #88ad38);
+
+    &__internal {
+        flex-direction: column;
+    }
+
+    &.open {
+        display: flex;
+    }
+}
+
+.c-trail-props {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 1.5rem;
+    flex-direction: row;
+    margin: 2.5rem 0 3rem;
+
+    .distance {
+        padding-left: 4rem;
+        display: flex;
+        align-items: center;
+        height: 3rem;
+
+        @include fonticonSetup();
+        @include fonticon(
+            $icon--map,
+            3rem,
+            var(--c-teal),
+            auto,
+            0,
+            auto,
+            auto,
+            $elem: before
+        );
+    }
+
+    .difficulty {
+        display: flex;
+        align-items: center;
+
+        &::before {
+            content: "";
+            display: block;
+            height: 2rem;
+            width: 2rem;
+            background-color: var(--c-green);
+            border: 2px solid var(--c-black);
+            margin-right: 1rem;
+            border-radius: 50%;
+        }
+    }
 }
