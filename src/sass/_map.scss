@@ -1,8 +1,129 @@
-.map-components {
+// map controls
+.map-controls {
     z-index: 1000;
     display: block;
     position: absolute;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.c-controls {
+    padding: var(--spacing-xs);
+
+    &__internal {
+        border-radius: var(--border-radius);
+        padding: var(--spacing-xs);
+        width: max-content;
+        gap: var(--spacing-xs);
+        font-family: $font-regular;
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: var(--c-teal);
+        flex-direction: column;
+
+        @media (min-width: $width-tablet-portrait) {
+            flex-direction: row;
+        }
+    }
+}
+
+.control {
+    background-color: var(--c-teal);
+    border-radius: var(--border-radius);
+    color: white;
+    cursor: pointer;
+    font-size: 0;
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &--home {
+        @include fonticonSetup(after);
+        @include fonticon(
+            $icon--home,
+            2.25rem,
+            var(--c-sky-blue),
+            auto,
+            auto,
+            auto,
+            auto,
+            $elem: after
+        );
+    }
+
+    &--filters {
+        @include fonticonSetup(after);
+        @include fonticon(
+            $icon--filter,
+            1.8rem,
+            var(--c-sky-blue),
+            auto,
+            auto,
+            auto,
+            auto,
+            $elem: after
+        );
+
+        @media (min-width: $width-tablet-portrait) {
+            display: none;
+        }
+    }
+}
+
+// zoom controls
+.leaflet-top.leaflet-left {
+    display: none;
+}
+
+.leaflet-control-container {
+    .leaflet-control-zoom {
+        border: none;
+
+        a {
+            background-color: var(--c-teal);
+            border-radius: var(--border-radius) !important;
+            color: white;
+            font-size: 0;
+            width: 5rem;
+            height: 5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &-in {
+            margin-bottom: 0.35rem;
+
+            @include fonticonSetup(after);
+            @include fonticon(
+                $icon--plus,
+                2rem,
+                var(--c-sky-blue),
+                auto,
+                auto,
+                auto,
+                auto,
+                $elem: after
+            );
+        }
+
+        &-out {
+            @include fonticonSetup(after);
+            @include fonticon(
+                $icon--minus,
+                0.2rem,
+                var(--c-sky-blue),
+                auto,
+                1.55rem,
+                auto,
+                auto,
+                $elem: after
+            );
+        }
+    }
 }
 
 // leaflet.js
