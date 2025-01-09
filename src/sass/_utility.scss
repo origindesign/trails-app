@@ -1,3 +1,12 @@
+.visually-hidden {
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    overflow-wrap: normal;
+    position: absolute !important;
+    width: 1px;
+}
+
 // Fonts/Text
 // -----------------------------------
 .t {

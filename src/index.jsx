@@ -1,6 +1,6 @@
 import { render } from 'preact';
 
-import SectionMap from './components/section-map.js';
+import SectionMap from './components/section-map.jsx';
 // import preactLogo from './assets/preact.svg';
 import './style.scss';
 

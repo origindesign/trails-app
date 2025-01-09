@@ -1,0 +1,75 @@
+@keyframes rotate {
+    from {
+        transform: rotate(0deg); /* Start at 0 degrees */
+    }
+    to {
+        transform: rotate(360deg); /* End at 360 degrees */
+    }
+}
+
+.c-loader {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s ease-in-out;
+
+    &.hide {
+        opacity: 0;
+    }
+
+    &__internal {
+        height: 15rem;
+        width: 15rem;
+        position: relative;
+        animation: rotate 1.5s linear infinite;
+
+        span {
+            position: absolute;
+
+            &:nth-child(1) {
+                display: block;
+                height: 1.3rem;
+                width: 1.3rem;
+                background-color: var(--c-black);
+                border: 2px solid var(--c-black);
+                margin-right: 1rem;
+                transform: rotate(45deg);
+                top: 3rem;
+                left: 6.5rem;
+            }
+            &:nth-child(2) {
+                display: block;
+                height: 1.75rem;
+                width: 1.75rem;
+                background-color: var(--c-moderate-blue);
+                border: 1px solid var(--c-black);
+                top: 6rem;
+                left: 3.5rem;
+            }
+            &:nth-child(3) {
+                display: block;
+                height: 1.8rem;
+                width: 1.8rem;
+                background-color: var(--c-green);
+                border: 2px solid var(--c-black);
+                border-radius: 50%;
+                top: 5.85rem;
+                right: 3.5rem;
+            }
+            &:nth-child(4) {
+                display: block;
+                height: 1.5rem;
+                width: 3.2rem;
+                background-color: #f26521;
+                border-radius: 6px;
+                top: 9.5rem;
+                left: 5.75rem;
+            }
+        }
+    }
+}
