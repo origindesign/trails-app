@@ -63,6 +63,25 @@
         );
     }
 
+    [class*="menu"] {
+        color: var(--c-teal);
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+
+        > [role="listbox"] {
+            padding: 0;
+
+            > [role="option"] {
+                line-height: 140%;
+                padding: 1rem 2rem;
+            }
+        }
+    }
+
     .filter-activity {
         z-index: 10;
 

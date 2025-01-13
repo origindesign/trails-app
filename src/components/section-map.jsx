@@ -142,12 +142,21 @@ const SectionMap = ({}) => {
             { value: "Difficult", label: "Difficult" },
         ];
 
+        const customStyles = {
+            option: (provided, state) => ({
+              ...provided,
+              backgroundColor: state.isSelected ? '#346d7a' : state.isFocused ? '#f1f1f1' : 'white',
+              color: state.isSelected ? 'white' : '#346d7a',
+              cursor: 'pointer',
+            }),
+          };
+
         const selectedDifficulty = useRef({ value: 'All' }); // State for difficulty dropdown
         const selectedActivity = useRef({ value: 'All' });// State for activity dropdown
 
         const filterGeoJsonLayer = () => {
-            console.log('DIFFICULTY:', selectedDifficulty.current.value);
-            console.log('ACTIVITY:', selectedActivity.current.value);
+            // console.log('DIFFICULTY:', selectedDifficulty.current.value);
+            // console.log('ACTIVITY:', selectedActivity.current.value);
     
             geojsonLayerRef.current.clearLayers();
 
@@ -193,6 +202,7 @@ const SectionMap = ({}) => {
                         defaultValue={activityOptions[0]}
                         className="filter-activity"
                         onChange={handleActivityChange}
+                        styles={customStyles}
                     />
                     <Select
                         id="filter2"
@@ -200,6 +210,7 @@ const SectionMap = ({}) => {
                         defaultValue={difficultyOptions[0]}
                         className="filter-difficulty"
                         onChange={handleDifficultyChange}
+                        styles={customStyles}
                     />
                 </div>
             </div>
@@ -231,7 +242,7 @@ const SectionMap = ({}) => {
                 const detail = document.querySelector(".c-trail-detail");
                 detail.classList.add("open");
 
-                console.log("open");
+                // console.log("open");
             }
 
             if (event.target.matches(".control--close")) {
@@ -302,11 +313,27 @@ const SectionMap = ({}) => {
 
     const ControlsPrimary = () => {
         useEffect(() => {
+            // mobile controls functionality
             const filterControl = document.querySelector(".control--filters");
             const filterEl = document.querySelector(".c-filter");
             filterControl.addEventListener("click", function () {
                 filterEl.classList.toggle("in");
             });
+
+             // Function to handle click events
+            function searchClick(event) {
+                if (event.target.matches(".control--search")) {
+                    const searchEl = document.querySelector(".leaflet-control-search");
+                    searchEl.classList.toggle("in");
+                    filterEl.classList.remove("in");
+                }
+
+                if (event.target.matches(".control--filters")) {
+                    const searchEl = document.querySelector(".leaflet-control-search");
+                    searchEl.classList.remove("in");
+                }
+            }
+            document.addEventListener("click", searchClick);
         });
 
         return (

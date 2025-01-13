@@ -6,6 +6,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    overflow: hidden;
 }
 
 .c-controls {
@@ -30,10 +31,30 @@
     // search
     .leaflet-control-search {
         border: none;
-        display: none;
+        transform: translateX(500rem);
+        transition: 0.4s ease-in-out;
+        position: absolute;
+        background: none;
+        left: 9rem;
+        top: 1.5rem;
 
         @media (min-width: $width-tablet-portrait) {
             display: flex;
+            transform: translateX(0);
+            transition: none;
+            left: 1rem;
+            top: 9.5rem;
+        }
+
+        @media (min-width: $width-tablet-landscape) {
+            background: #fff;
+            left: unset;
+            top: unset;
+            position: relative;
+        }
+
+        &.in {
+            transform: translateX(0);
         }
 
         .search-alert {
@@ -106,8 +127,12 @@
             padding-left: 2rem;
             height: 5rem;
             margin: 0;
-            width: 40rem;
+            width: calc(80vw - 7.5rem);
             transition: 0.2s ease-in-out;
+
+            @media (min-width: 740px) {
+                width: 40rem;
+            }
 
             @media (min-width: 1100px) {
                 width: 45rem;
@@ -127,6 +152,7 @@
 
         input.search-input {
             display: block !important;
+            color: var(--c-teal);
         }
 
         .search-tooltip {
@@ -147,6 +173,10 @@
                 padding: 1rem 2rem;
                 background: white;
                 color: var(--c-teal);
+
+                &:hover {
+                    background-color: #f1f1f1;
+                }
             }
         }
     }
@@ -430,16 +460,23 @@
 .c-trail-detail {
     z-index: 999999999;
     position: absolute;
-    width: auto;
-    min-width: 45rem;
     left: 50%;
     transform: translateX(-50%) translateY(500rem);
-    top: 14rem;
     padding: 8rem 2rem 4rem 2rem;
     border-radius: 20px;
     border: 1px solid var(--Grass, #88ad38);
     display: flex;
     transition: 0.35s ease-in-out;
+
+    width: 85vw;
+    min-width: auto;
+    top: 1rem;
+
+    @media (min-width: $width-tablet-portrait) {
+        width: auto;
+        min-width: 45rem;
+        top: 14rem;
+    }
 
     &__internal {
         flex-direction: column;
