@@ -1,27 +1,19 @@
 // map controls
 .map-controls {
     z-index: 1000;
-    display: block;
-    position: absolute;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    overflow: hidden;
 }
 
 .c-controls {
     padding: var(--spacing-xs);
+    left: 0;
 
     &__internal {
         border-radius: var(--border-radius);
         padding: var(--spacing-xs);
         width: max-content;
         gap: var(--spacing-xs);
-        font-family: $font-regular;
-        font-size: 1.6rem;
-        font-weight: 500;
         color: var(--c-teal);
-        flex-direction: column;
 
         @media (min-width: $width-tablet-portrait) {
             flex-direction: row;
@@ -36,13 +28,13 @@
         position: absolute;
         background: none;
         left: 9rem;
-        top: 1.5rem;
+        top: var(--spacing-sm);
 
         @media (min-width: $width-tablet-portrait) {
             display: flex;
             transform: translateX(0);
             transition: none;
-            left: 1rem;
+            left: var(--spacing-xs);
             top: 9.5rem;
         }
 
@@ -58,24 +50,20 @@
         }
 
         .search-alert {
-            font-family: Montserrat;
-            font-size: 16px;
+            font-family: var(--font-regular);
+            font-size: 1.6rem;
             font-style: normal;
             font-weight: 500;
             line-height: 140%;
             display: block;
-            margin-top: 1.5rem;
+            margin-top: var(--spacing-sm);
             color: #ff4e4e;
-            padding-left: 1rem;
+            padding-left: var(--spacing-xs);
             height: 100%;
         }
 
         .search-cancel {
             display: none !important;
-        }
-
-        &.search-exp {
-            // width: 40vw;
         }
 
         .search-button {
@@ -119,11 +107,11 @@
             border: 2px solid var(--c-teal);
             height: auto;
             width: inherit;
-            font-family: Montserrat;
-            font-size: 16px;
+            font-family: var(--font-regular);
+            font-size: 1.6rem;
             font-style: normal;
             font-weight: 500;
-            line-height: 140%; /* 22.4px */
+            line-height: 140%;
             padding-left: 2rem;
             height: 5rem;
             margin: 0;
@@ -133,15 +121,13 @@
             @media (min-width: 740px) {
                 width: 40rem;
             }
-
             @media (min-width: 1100px) {
                 width: 45rem;
             }
             @media (min-width: 1300px) {
                 width: 50rem;
             }
-
-            @media (min-width: $width-large) {
+            @media (min-width: 1650px) {
                 width: 80rem;
             }
 
@@ -159,18 +145,18 @@
             width: 100%;
             background: white;
             max-height: 27rem;
-            padding: 1rem 0;
+            padding: var(--spacing-xs) 0;
             margin: 0;
             border-bottom-left-radius: 1rem;
             border-bottom-right-radius: 1rem;
 
             .search-tip {
-                font-family: Montserrat;
-                font-size: 16px;
+                font-family: var(--font-regular);
+                font-size: 1.6rem;
                 font-style: normal;
                 font-weight: 500;
-                line-height: 140%; /* 22.4px */
-                padding: 1rem 2rem;
+                line-height: 140%;
+                padding: var(--spacing-xs) var(--spacing-md);
                 background: white;
                 color: var(--c-teal);
 
@@ -238,7 +224,7 @@
             1.8rem,
             var(--c-sky-blue),
             auto,
-            auto,
+            1.5rem,
             auto,
             auto,
             $elem: after
@@ -251,8 +237,8 @@
 
     &--close {
         position: absolute !important;
-        right: 2rem;
-        top: 2rem;
+        right: var(--spacing-md);
+        top: var(--spacing-md);
 
         @include fonticonSetup(after);
         @include fonticon(
@@ -337,9 +323,9 @@
     }
 
     .leaflet-popup-content {
-        font-family: $font-regular;
+        font-family: var(--font-regular);
         font-size: 1.5rem;
-        margin: 2rem;
+        margin: var(--spacing-md);
     }
 
     .leaflet-popup-close-button {
@@ -348,7 +334,7 @@
 
     .card-props {
         display: flex;
-        gap: 1.5rem;
+        gap: var(--spacing-sm);
         flex-direction: row;
         margin: 2.5rem 0 3rem;
     }
@@ -380,8 +366,6 @@
 
     .distance {
         padding-left: 4rem;
-        display: flex;
-        align-items: center;
         height: 3rem;
 
         @include fonticonSetup();
@@ -399,9 +383,6 @@
 }
 
 .difficulty {
-    display: flex;
-    align-items: center;
-
     &.easy {
         &::before {
             content: "";
@@ -444,10 +425,10 @@
     background-color: var(--c-orange);
     border-radius: 1rem;
     display: flex;
-    padding: 18px 30px;
+    padding: 1.8rem 3rem;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: var(--spacing-xs);
     color: var(--c-black) !important;
     font-size: 1.8rem;
     font-weight: 700;
@@ -463,11 +444,10 @@
     left: 50%;
     transform: translateX(-50%) translateY(500rem);
     padding: 8rem 2rem 4rem 2rem;
-    border-radius: 20px;
+    border-radius: 2rem;
     border: 1px solid var(--Grass, #88ad38);
     display: flex;
     transition: 0.35s ease-in-out;
-
     width: 85vw;
     min-width: auto;
     top: 1rem;
@@ -478,18 +458,13 @@
         top: 14rem;
     }
 
-    &__internal {
-        flex-direction: column;
-    }
-
     &.open {
         transform: translateX(-50%);
     }
 }
 
 .c-trail-props {
-    display: flex;
-    gap: 1.5rem;
+    gap: var(--spacing-sm);
     font-size: 1.5rem;
     flex-direction: row;
     margin: 2.5rem 0 3rem;

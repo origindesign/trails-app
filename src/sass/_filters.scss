@@ -3,8 +3,15 @@
     padding: var(--spacing-xs);
     transform: translateX(500rem);
     transition: 0.4s ease-in-out;
+    right: 0;
 
     @media (min-width: $width-tablet-portrait) {
+        width: 85vw;
+        transform: translateX(0);
+    }
+
+    @media (min-width: $width-tablet-landscape) {
+        width: 42vw;
         transform: translateX(0);
     }
 
@@ -15,13 +22,12 @@
     &__internal {
         border-radius: var(--border-radius);
         padding: var(--spacing-xs);
-        width: max-content;
+        width: 100%;
         gap: var(--spacing-xs);
-        font-family: $font-regular;
+        font-family: var(--font-regular);
         font-size: 1.6rem;
         font-weight: 500;
         color: var(--c-teal);
-        flex-direction: column;
 
         @media (min-width: 510px) {
             flex-direction: row;
@@ -35,7 +41,7 @@
     [class*="control"] {
         border-color: var(--c-teal);
         border-radius: 10px;
-        padding: 0.5rem 1rem 0.5rem 4rem;
+        padding: 0.75rem 1rem 0.75rem 4rem;
     }
 
     [class*="singleValue"] {
@@ -48,6 +54,7 @@
 
     [class*="indicatorContainer"] {
         padding-right: 4rem;
+        transition: 0.2s ease-in-out;
         @include fonticonSetup(after);
         @include fonticon(
             $icon--arrow-down,
@@ -78,6 +85,18 @@
             > [role="option"] {
                 line-height: 140%;
                 padding: 1rem 2rem;
+            }
+        }
+    }
+
+    .filter {
+        @media (min-width: $width-tablet-portrait) {
+            width: 50%;
+        }
+
+        &:has([class*="menu"]) {
+            [class*="indicatorContainer"] {
+                transform: translateY(-2px) translatex(1px) rotate(180deg);
             }
         }
     }

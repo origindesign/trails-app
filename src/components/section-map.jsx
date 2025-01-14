@@ -78,8 +78,8 @@ const SectionMap = ({}) => {
                     popup.setContent(`
 						<h3 class="t-c-teal">${feature.properties.Name}</h3>
 						<div class="card-props t-c-teal">
-							<span class="distance">${JSON.stringify(feature.properties.Distance)} km</span>
-							<span class="difficulty ${feature.properties.Difficulty.toLowerCase().replace(
+							<span class="distance d-flex ai-center">${JSON.stringify(feature.properties.Distance)} km</span>
+							<span class="difficulty d-flex ai-center ${feature.properties.Difficulty.toLowerCase().replace(
                                 /\s+/g,
                                 "-"
                             )}">${feature.properties.Difficulty}</span>
@@ -194,13 +194,13 @@ const SectionMap = ({}) => {
         };
 
         return (
-            <div className={"c-filter d-flex jc-flex-end"}>
-                <div className={"c-filter__internal bg--white d-flex"}>
+            <div className={"c-filter pos-absolute d-flex jc-flex-end"}>
+                <div className={"c-filter__internal bg--white d-flex flex-direction-column"}>
                     <Select
                         id="filter"
                         options={activityOptions}
                         defaultValue={activityOptions[0]}
-                        className="filter-activity"
+                        className="filter filter-activity"
                         onChange={handleActivityChange}
                         styles={customStyles}
                     />
@@ -208,7 +208,7 @@ const SectionMap = ({}) => {
                         id="filter2"
                         options={difficultyOptions}
                         defaultValue={difficultyOptions[0]}
-                        className="filter-difficulty"
+                        className="filter filter-difficulty"
                         onChange={handleDifficultyChange}
                         styles={customStyles}
                     />
@@ -263,7 +263,7 @@ const SectionMap = ({}) => {
 
         return (
             <div className={"c-trail-detail bg--white d-flex"}>
-                <div className={"c-trail-detail__internal d-flex"}>
+                <div className={"c-trail-detail__internal d-flex flex-direction-column"}>
                     <a class="control control--close">
                         Close trail detail modal
                     </a>
@@ -271,12 +271,12 @@ const SectionMap = ({}) => {
                     {trailDetails.description && (
                         <p>{trailDetails.description}</p>
                     )}
-                    <div className="c-trail-props t-c-teal">
-                        <span className="distance">
+                    <div className="c-trail-props d-flex t-c-teal">
+                        <span className="distance d-flex ai-center">
                             {trailDetails.distance} km
                         </span>
                         <span
-                            className={`difficulty ${trailDetails.difficulty
+                            className={`difficulty d-flex ai-center ${trailDetails.difficulty
                                 ?.toLowerCase()
                                 .replace(/\s+/g, "-")}`}
                         >
@@ -337,10 +337,10 @@ const SectionMap = ({}) => {
         });
 
         return (
-            <div className={"c-controls d-flex"}>
+            <div className={"c-controls pos-absolute d-flex"}>
                 <div
                     id="controls-internal"
-                    className={"c-controls__internal bg--white d-flex"}
+                    className={"c-controls__internal body-copy bg--white d-flex flex-direction-column"}
                 >
                     <a
                         class="control control--home"
@@ -361,7 +361,7 @@ const SectionMap = ({}) => {
                 id="map"
                 style="width: 100%; height: 100%; top: 0; bottom: 0; position: absolute;"
             />
-            <div className={"map-controls"}>
+            <div className={"map-controls pos-absolute d-flex jc-space-between"}>
                 <ControlsPrimary />
                 <Filters />
             </div>

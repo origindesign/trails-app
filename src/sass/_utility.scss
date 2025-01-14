@@ -107,6 +107,16 @@
     }
 }
 
+.pos {
+    &-relative {
+        position: relative;
+    }
+
+    &-absolute {
+        position: absolute;
+    }
+}
+
 // Backgrounds
 // -----------------------------------
 .bg {

@@ -1,5 +1,7 @@
-$font-regular: "Montserrat", times, "Times New Roman", serif;
-$font-heading: "Khand", "Helvetica", "Arial", sans-serif;
+:root {
+    --font-regular: "Montserrat", Times, "Times New Roman", serif;
+    --font-heading: "Khand", "Helvetica", "Arial", sans-serif;
+}
 
 @mixin fontsize($fontsize: $base-font-size) {
     font-size: #{$fontsize * 0.1} + rem;
@@ -10,7 +12,9 @@ html {
 }
 
 #app {
-    font-family: $font-regular;
+    height: 100vh;
+    position: relative;
+    font-family: var(--font-regular);
     overflow: hidden;
 }
 
@@ -19,7 +23,7 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: $font-heading;
+    font-family: var(--font-heading);
     font-style: normal;
 }
 
@@ -42,6 +46,15 @@ h3 {
 
 p {
     font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 140%;
+}
+
+// utility classes
+.body-copy {
+    font-family: var(--font-regular);
+    font-size: 1.6rem;
+    font-style: normal;
     font-weight: 500;
     line-height: 140%;
 }
