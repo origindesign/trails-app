@@ -84,6 +84,8 @@
             margin-left: -5rem;
             height: 5.4rem;
             width: 5.4rem;
+            position: absolute !important;
+            right: 0;
 
             &:hover {
                 transform: scale(1.05);
