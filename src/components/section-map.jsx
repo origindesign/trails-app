@@ -75,6 +75,24 @@ const SectionMap = ({}) => {
                 layer.bindPopup("");
                 layer.on("popupopen", function (e) {
                     var popup = e.popup;
+
+                    // Get the bounds of the feature (LineString, Polygon, or any other feature)
+        const bounds = layer.getBounds ? layer.getBounds() : layer.getLatLng(); // Get bounds or position based on layer type
+
+        // If the feature is a single point (marker), use getLatLng(). If it's a polygon/line, use getBounds().getCenter().
+        let center;
+        if (layer instanceof L.Marker) {
+            center = layer.getLatLng();
+        } else if (layer instanceof L.Polygon || layer instanceof L.Polyline) {
+            center = bounds.getCenter();
+        }
+
+        // Pan to the center of the feature
+        map.panTo(center, { animate: true, duration: 1 });
+
+        // Offset the map by 100px from the top
+        map.panBy([0, -100], { animate: true, duration: 1 });
+
                     popup.setContent(`
 						<h3 class="t-c-teal">${feature.properties.Name}</h3>
 						<div class="card-props t-c-teal">
@@ -88,6 +106,7 @@ const SectionMap = ({}) => {
                             feature.properties.Name
                         }" data-distance="${JSON.stringify(feature.properties.Distance)}" data-difficulty="${feature.properties.Difficulty}" data-description="${feature.properties.Description}">More details</span>
 					`);
+
                 });
             },
         }).addTo(map);
@@ -127,6 +146,10 @@ const SectionMap = ({}) => {
     
     }, []);
 
+    /**
+     * Filters() function returns html for the UI filters.
+     * @returns 
+     */
     const Filters = () => {
 
         const activityOptions = [
@@ -217,6 +240,10 @@ const SectionMap = ({}) => {
         );
     };
 
+    /**
+     * TrailDetail() function returns html for the trail modal.
+     * @returns 
+     */
     function TrailDetail() {
         // Define state variables for trail details
         const [trailDetails, setTrailDetails] = useState({
@@ -288,12 +315,25 @@ const SectionMap = ({}) => {
         );
     }
 
+    /**
+     * Loader() function returns html for the loader element.
+     * @returns 
+     */
     function Loader() {
         useEffect(() => {
             var loader = document.querySelector(".c-loader");
+            var controls = document.querySelector(".c-controls");
+            var filters = document.querySelector(".c-filter");
+
             setTimeout(function () {
                 loader.classList.add("hide");
             }, 1000);
+            setTimeout(function () {
+                controls.classList.add("in");
+            }, 1350);
+            setTimeout(function () {
+                filters.classList.add("in");
+            }, 1500);
             setTimeout(function () {
                 loader.classList.add("visually-hidden");
             }, 2000);
@@ -311,6 +351,10 @@ const SectionMap = ({}) => {
         );
     }
 
+    /**
+     * ControlsPrimary() function returns html for the app controls.
+     * @returns 
+     */
     const ControlsPrimary = () => {
         useEffect(() => {
             // mobile controls functionality

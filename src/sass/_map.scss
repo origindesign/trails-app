@@ -5,8 +5,14 @@
 }
 
 .c-controls {
-    padding: var(--spacing-xs);
+    padding: var(--spacing-md);
     left: 0;
+    transform: translateY(-500rem);
+    transition: 0.4s ease-in-out;
+
+    &.in {
+        transform: translateY(0);
+    }
 
     &__internal {
         border-radius: var(--border-radius);
@@ -24,7 +30,7 @@
     .leaflet-control-search {
         border: none;
         transform: translateX(500rem);
-        transition: 0.4s ease-in-out;
+        transition: var(--transition-slow);
         position: absolute;
         background: none;
         left: 9rem;
@@ -39,7 +45,7 @@
         }
 
         @media (min-width: $width-tablet-landscape) {
-            background: #fff;
+            background: white;
             left: unset;
             top: unset;
             position: relative;
@@ -51,13 +57,13 @@
 
         .search-alert {
             font-family: var(--font-regular);
-            font-size: 1.6rem;
+            font-size: var(--font-size-body);
             font-style: normal;
             font-weight: 500;
             line-height: 140%;
             display: block;
             margin-top: var(--spacing-sm);
-            color: #ff4e4e;
+            color: var(--c-warning);
             padding-left: var(--spacing-xs);
             height: 100%;
         }
@@ -80,7 +86,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.2s ease-in-out;
+            transition: var(--transition-med);
             margin-left: -5rem;
             height: 5.4rem;
             width: 5.4rem;
@@ -110,7 +116,7 @@
             height: auto;
             width: inherit;
             font-family: var(--font-regular);
-            font-size: 1.6rem;
+            font-size: var(--font-size-body);
             font-style: normal;
             font-weight: 500;
             line-height: 140%;
@@ -118,7 +124,7 @@
             height: 5rem;
             margin: 0;
             width: calc(80vw - 7.5rem);
-            transition: 0.2s ease-in-out;
+            transition: var(--transition-med);
 
             @media (min-width: 740px) {
                 width: 40rem;
@@ -154,7 +160,7 @@
 
             .search-tip {
                 font-family: var(--font-regular);
-                font-size: 1.6rem;
+                font-size: var(--font-size-body);
                 font-style: normal;
                 font-weight: 500;
                 line-height: 140%;
@@ -181,7 +187,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: 0.2s ease-in-out;
+    transition: var(--transition-med);
 
     &:hover {
         transform: scale(1.05);
@@ -266,6 +272,7 @@
 .leaflet-control-container {
     .leaflet-control-zoom {
         border: none;
+        margin: var(--spacing-md);
 
         a {
             background-color: var(--c-teal);
@@ -277,7 +284,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.2s ease-in-out;
+            transition: var(--transition-med);
 
             &:hover {
                 transform: scale(1.05);
@@ -326,7 +333,7 @@
 
     .leaflet-popup-content {
         font-family: var(--font-regular);
-        font-size: 1.5rem;
+        font-size: var(--font-size-label);
         margin: var(--spacing-md);
     }
 
@@ -344,7 +351,7 @@
     .link {
         color: var(--c-teal);
         cursor: pointer;
-        font-size: 1.6rem;
+        font-size: var(--font-size-link);
         font-style: normal;
         font-weight: 700;
         line-height: 110%;
@@ -432,7 +439,7 @@
     align-items: center;
     gap: var(--spacing-xs);
     color: var(--c-black) !important;
-    font-size: 1.8rem;
+    font-size: var(--font-size-button);
     font-weight: 700;
     text-transform: uppercase;
     text-decoration: none;
@@ -447,7 +454,7 @@
     transform: translateX(-50%) translateY(500rem);
     padding: 8rem 2rem 4rem 2rem;
     border-radius: 2rem;
-    border: 1px solid var(--Grass, #88ad38);
+    border: 1px solid var(--c-green);
     display: flex;
     transition: 0.35s ease-in-out;
     width: 85vw;
@@ -467,7 +474,7 @@
 
 .c-trail-props {
     gap: var(--spacing-sm);
-    font-size: 1.5rem;
+    font-size: var(--font-size-label);
     flex-direction: row;
     margin: 2.5rem 0 3rem;
 

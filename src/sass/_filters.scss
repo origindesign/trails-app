@@ -1,22 +1,22 @@
 .c-filter {
     height: max-content;
-    padding: var(--spacing-xs);
+    padding: var(--spacing-md);
     transform: translateX(500rem);
-    transition: 0.4s ease-in-out;
+    transition: var(--transition-slow);
     right: 0;
-
-    @media (min-width: $width-tablet-portrait) {
-        width: 85vw;
-        transform: translateX(0);
-    }
-
-    @media (min-width: $width-tablet-landscape) {
-        width: 42vw;
-        transform: translateX(0);
-    }
 
     &.in {
         transform: translateX(0);
+
+        @media (min-width: $width-tablet-portrait) {
+            width: 85vw;
+            transform: translateX(0);
+        }
+
+        @media (min-width: $width-tablet-landscape) {
+            width: 42vw;
+            transform: translateX(0);
+        }
     }
 
     &__internal {
@@ -25,7 +25,7 @@
         width: 100%;
         gap: var(--spacing-xs);
         font-family: var(--font-regular);
-        font-size: 1.6rem;
+        font-size: var(--font-size-body);
         font-weight: 500;
         color: var(--c-teal);
 
@@ -40,8 +40,8 @@
 
     [class*="control"] {
         border-color: var(--c-teal);
-        border-radius: 10px;
-        padding: 0.75rem 1rem 0.75rem 4rem;
+        border-radius: 1rem;
+        padding: 0.75rem var(--spacing-xs) 0.75rem 4rem;
     }
 
     [class*="singleValue"] {
@@ -54,7 +54,7 @@
 
     [class*="indicatorContainer"] {
         padding-right: 4rem;
-        transition: 0.2s ease-in-out;
+        transition: var(--transition-med);
         @include fonticonSetup(after);
         @include fonticon(
             $icon--arrow-down,
@@ -84,7 +84,7 @@
 
             > [role="option"] {
                 line-height: 140%;
-                padding: 1rem 2rem;
+                padding: var(--spacing-xs) var(--spacing-md);
             }
         }
     }

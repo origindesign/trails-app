@@ -1,10 +1,23 @@
 :root {
     --font-regular: "Montserrat", Times, "Times New Roman", serif;
     --font-heading: "Khand", "Helvetica", "Arial", sans-serif;
+
+    --font-size-body: 1.6rem;
+    --font-size-label: 1.3rem;
+    --font-size-link: 1.4rem;
+    --font-size-button: 1.5rem;
+    --font-size-h2: 2.8rem;
+    --font-size-h3: 1.9rem;
 }
 
-@mixin fontsize($fontsize: $base-font-size) {
-    font-size: #{$fontsize * 0.1} + rem;
+@media (min-width: 740px) {
+    :root {
+        --font-size-label: 1.5rem;
+        --font-size-link: 1.6rem;
+        --font-size-button: 1.8rem;
+        --font-size-h2: 4.5rem;
+        --font-size-h3: 2.1rem;
+    }
 }
 
 html {
@@ -27,25 +40,22 @@ h5 {
     font-style: normal;
 }
 
-h1 {
-}
-
 h2 {
-    font-size: 4.5rem;
+    font-size: var(--font-size-h2);
     font-weight: 600;
     line-height: 120%;
     margin: 0 0 0.2em 0;
 }
 
 h3 {
-    font-size: 2.1rem;
+    font-size: var(--font-size-h3);
     font-weight: 600;
     line-height: 110%;
     margin: 0 0 0.5em 0;
 }
 
 p {
-    font-size: 1.5rem;
+    font-size: var(--font-size-body);
     font-weight: 500;
     line-height: 140%;
 }
@@ -53,7 +63,7 @@ p {
 // utility classes
 .body-copy {
     font-family: var(--font-regular);
-    font-size: 1.6rem;
+    font-size: var(--font-size-body);
     font-style: normal;
     font-weight: 500;
     line-height: 140%;
