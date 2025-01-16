@@ -76,22 +76,31 @@ const SectionMap = ({}) => {
                 layer.on("popupopen", function (e) {
                     var popup = e.popup;
 
+                    let coords = feature.geometry.coordinates; // first get all coords
+                    let elevationArray = []; // Initialize an empty elevation array
+
+                    // Using a for loop
+                    for (let i = 0; i < coords.length; i++) {
+                        elevationArray.push(coords[i][2]); // Push the last item (elevation) of each coordinate
+                    }
+                    // console.log('eleva', elevationArray);
+
                     // Get the bounds of the feature (LineString, Polygon, or any other feature)
-        const bounds = layer.getBounds ? layer.getBounds() : layer.getLatLng(); // Get bounds or position based on layer type
+                    const bounds = layer.getBounds ? layer.getBounds() : layer.getLatLng(); // Get bounds or position based on layer type
 
-        // If the feature is a single point (marker), use getLatLng(). If it's a polygon/line, use getBounds().getCenter().
-        let center;
-        if (layer instanceof L.Marker) {
-            center = layer.getLatLng();
-        } else if (layer instanceof L.Polygon || layer instanceof L.Polyline) {
-            center = bounds.getCenter();
-        }
+                    // If the feature is a single point (marker), use getLatLng(). If it's a polygon/line, use getBounds().getCenter().
+                    let center;
+                    if (layer instanceof L.Marker) {
+                        center = layer.getLatLng();
+                    } else if (layer instanceof L.Polygon || layer instanceof L.Polyline) {
+                        center = bounds.getCenter();
+                    }
 
-        // Pan to the center of the feature
-        map.panTo(center, { animate: true, duration: 1 });
+                    // Pan to the center of the feature
+                    map.panTo(center, { animate: true, duration: 1 });
 
-        // Offset the map by 100px from the top
-        map.panBy([0, -100], { animate: true, duration: 1 });
+                    // Offset the map by 100px from the top
+                    map.panBy([0, -100], { animate: true, duration: 1 });
 
                     popup.setContent(`
 						<h3 class="t-c-teal">${feature.properties.Name}</h3>
@@ -104,7 +113,7 @@ const SectionMap = ({}) => {
 						</div>
 						<span class="link t-c-teal" data-name="${
                             feature.properties.Name
-                        }" data-distance="${JSON.stringify(feature.properties.Distance)}" data-difficulty="${feature.properties.Difficulty}" data-description="${feature.properties.Description}">More details</span>
+                        }" data-distance="${JSON.stringify(feature.properties.Distance)}" data-difficulty="${feature.properties.Difficulty}" data-description="${feature.properties.Description}" data-elevation="${elevationArray}">More details</span>
 					`);
 
                 });
@@ -115,12 +124,12 @@ const SectionMap = ({}) => {
 
         // Add the Leaflet Search control
         const searchControl = new L.Control.Search({
-            layer: geojsonLayer, // Layer to search in
+            layer: geojsonLayer,
             propertyName: "Name",
-            initial: false, // Whether to show an initial marker
-            zoom: 16, // Zoom level when an item is found
-            marker: false, // Disable additional marker creation
-            textPlaceholder: "Search by trail name", // Placeholder text
+            initial: false,
+            zoom: 16,
+            marker: false,
+            textPlaceholder: "Search by trail name",
             collapsed: false,
         });
 
@@ -251,12 +260,13 @@ const SectionMap = ({}) => {
             distance: "",
             difficulty: "",
             description: "",
+            elevation: "",
         });
 
         // Function to handle click events
         function handleClick(event) {
             if (event.target.matches(".link")) {
-                const { name, distance, difficulty, description } =
+                const { name, distance, difficulty, description, elevation } =
                     event.target.dataset;
 
                 setTrailDetails({
@@ -264,6 +274,7 @@ const SectionMap = ({}) => {
                     distance,
                     difficulty,
                     description,
+                    elevation,
                 });
 
                 const detail = document.querySelector(".c-trail-detail");
@@ -288,6 +299,37 @@ const SectionMap = ({}) => {
             };
         }, []);
 
+        const ctx = document.getElementById('elevationChart');
+
+        // console.log(332, trailDetails.elevation);
+
+        let elevationArray = trailDetails.elevation.split(',');
+        console.log(3323, elevationArray.map(Number));
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    data: elevationArray.map(Number)
+                }],
+                labels: elevationArray.map((_, index) => `Point ${index + 1}`)
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
         return (
             <div className={"c-trail-detail bg--white d-flex"}>
                 <div className={"c-trail-detail__internal d-flex flex-direction-column"}>
@@ -309,6 +351,9 @@ const SectionMap = ({}) => {
                         >
                             {trailDetails.difficulty}
                         </span>
+                    </div>
+                    <div>
+                        <canvas id="elevationChart"></canvas>
                     </div>
                 </div>
             </div>
