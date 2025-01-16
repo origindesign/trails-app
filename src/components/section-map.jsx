@@ -299,14 +299,19 @@ const SectionMap = ({}) => {
             };
         }, []);
 
+
+        if (samsChart) {
+            samsChart.destroy();
+        }
+
         const ctx = document.getElementById('elevationChart');
 
-        // console.log(332, trailDetails.elevation);
+        console.log(332, trailDetails.elevation);
 
         let elevationArray = trailDetails.elevation.split(',');
         console.log(3323, elevationArray.map(Number));
 
-        new Chart(ctx, {
+        var samsChart = new Chart(ctx, {
             type: 'line',
             data: {
                 datasets: [{
