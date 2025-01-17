@@ -462,7 +462,7 @@
     top: 1rem;
 
     @media (min-width: $width-tablet-portrait) {
-        width: auto;
+        max-width: 61rem;
         min-width: 45rem;
         top: 14rem;
     }
