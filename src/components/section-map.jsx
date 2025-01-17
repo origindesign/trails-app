@@ -263,6 +263,8 @@ const SectionMap = ({}) => {
             elevation: "",
         });
 
+        const chartRef = useRef(null);
+
         // Function to handle click events
         function handleClick(event) {
             if (event.target.matches(".link")) {
@@ -279,8 +281,6 @@ const SectionMap = ({}) => {
 
                 const detail = document.querySelector(".c-trail-detail");
                 detail.classList.add("open");
-
-                // console.log("open");
             }
 
             if (event.target.matches(".control--close")) {
@@ -299,41 +299,71 @@ const SectionMap = ({}) => {
             };
         }, []);
 
-
-        if (samsChart) {
-            samsChart.destroy();
-        }
-
+        useEffect(() => {
         const ctx = document.getElementById('elevationChart');
+
+         // Destroy the existing chart instance if it exists
+         if (chartRef.current) {
+            chartRef.current.destroy();
+        }
 
         console.log(332, trailDetails.elevation);
 
         let elevationArray = trailDetails.elevation.split(',');
         console.log(3323, elevationArray.map(Number));
 
-        var samsChart = new Chart(ctx, {
+        chartRef.current = new Chart(ctx, {
             type: 'line',
             data: {
                 datasets: [{
-                    data: elevationArray.map(Number)
+                    data: elevationArray.map(Number),
+                    pointRadius: 0,
+                    borderColor: 'black',
+                    borderWidth: 2,
                 }],
-                labels: elevationArray.map((_, index) => `Point ${index + 1}`)
+                labels: elevationArray.map((_, index) => `Point ${index + 1}`),
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: true,
                 plugins: {
                     legend: {
                         display: false
-                    },
+                    }
                 },
                 scales: {
                     x: {
                         ticks: {
                             display: false
+                        },
+                        grid: {
+                            display: false, // Disable vertical grid lines
+                            color: '#88AD38',
                         }
+                    },
+                    y: {
+                        ticks: {
+                            callback: function(value) {
+                                return `${value}m`; // Add 'm' suffix for meters
+                            }
+                        },
+                        grid: {
+                            color: '#88AD38',
+                        },
+                        border: {
+                            color: '#88AD38',
+                        },
                     }
-                }
+                },
             }
         });
+        // Cleanup: Destroy the chart when the component unmounts
+        return () => {
+            if (chartRef.current) {
+                chartRef.current.destroy();
+            }
+        };
+        }, [trailDetails.elevation]);
 
         return (
             <div className={"c-trail-detail bg--white d-flex"}>
@@ -357,7 +387,7 @@ const SectionMap = ({}) => {
                             {trailDetails.difficulty}
                         </span>
                     </div>
-                    <div>
+                    <div className={'chart-container'}>
                         <canvas id="elevationChart"></canvas>
                     </div>
                 </div>
