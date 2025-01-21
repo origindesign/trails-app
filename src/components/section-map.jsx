@@ -69,6 +69,7 @@ const SectionMap = ({}) => {
                     color: colorMap[feature.properties.Difficulty] || "#88AD38",
                     weight: 2.25,
                     opacity: 1,
+                    interactive: true
                 };
             },
             onEachFeature(feature, layer) {
@@ -79,9 +80,22 @@ const SectionMap = ({}) => {
                     let coords = feature.geometry.coordinates; // first get all coords
                     let elevationArray = []; // Initialize an empty elevation array
 
-                    // Using a for loop
-                    for (let i = 0; i < coords.length; i++) {
-                        elevationArray.push(coords[i][2]); // Push the last item (elevation) of each coordinate
+                    let trailType = feature.geometry.type;
+                    console.log('trail type', feature.geometry.type );
+
+                    if ( trailType == 'LineString' ) { 
+                        // Using a for loop
+                        for (let i = 0; i < coords.length; i++) {
+                            elevationArray.push(coords[i][2]); // Push the elevation (3rd value) of each coordinate
+                        }
+                    } else if ( trailType === 'MultiLineString' ) {
+                        // For MultiLineString, iterate through each sub-array of coordinates
+                        for (let i = 0; i < coords.length; i++) {
+                            let subCoords = coords[i]; // Access each sub-array of LineStrings
+                            for (let j = 0; j < subCoords.length; j++) {
+                                elevationArray.push(subCoords[j][2]); // Push the elevation (3rd value) of each coordinate
+                            }
+                        }
                     }
                     // console.log('eleva', elevationArray);
 
@@ -117,6 +131,52 @@ const SectionMap = ({}) => {
 					`);
 
                 });
+
+                // Generate a buffer polygon for each feature
+                const bufferDistance = 0.02; // Buffer distance in kilometers (50 meters)
+                const buffered = turf.buffer(feature, bufferDistance, { units: "kilometers" });
+
+                // Add the buffer as a separate invisible layer
+                const bufferLayer = L.geoJSON(buffered, {
+                    style: {
+                        color: "transparent", // Optional: Outline color for debugging
+                        weight: 0, // No visible outline
+                        fillOpacity: 0.3, // Semi-transparent for debugging
+                    },
+                }).addTo(map);
+
+                // Add click event to the buffer layer
+                bufferLayer.on("click", function (e) {
+                    // Get the location where the buffer was clicked
+                    const clickLatLng = e.latlng;
+
+                    // Open the popup at the clicked location
+                    const popupContent = `
+                        <h3 class="t-c-teal">${feature.properties.Name}</h3>
+                        <div class="card-props t-c-teal">
+                            <span class="distance d-flex ai-center">${JSON.stringify(
+                                feature.properties.Distance
+                            )} km</span>
+                            <span class="difficulty d-flex ai-center ${feature.properties.Difficulty.toLowerCase().replace(
+                                /\s+/g,
+                                "-"
+                            )}">${feature.properties.Difficulty}</span>
+                        </div>
+                        <span class="link t-c-teal" data-name="${
+                            feature.properties.Name
+                        }" data-distance="${JSON.stringify(
+                        feature.properties.Distance
+                    )}" data-difficulty="${feature.properties.Difficulty}" data-description="${
+                        feature.properties.Description
+                    }">More details</span>
+                    `;
+
+                    L.popup()
+                        .setLatLng(clickLatLng) // Set popup location to the click
+                        .setContent(popupContent) // Set the popup content dynamically
+                        .openOn(map); // Open the popup on the map
+                });
+
             },
         }).addTo(map);
 
