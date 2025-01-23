@@ -8,14 +8,35 @@ import "leaflet-search";
 import Logo from "./../assets/pin.png";
 
 import parkingData from "./../data/parking";
-import trailsData from "./../data/trails";
+
+import tempData from "./../data/temp";
+import { fetchTrailsData } from "./../data/trails";
+
 
 const SectionMap = ({}) => {
     const geojsonLayerRef = useRef(null); // Ref to store the GeoJSON layer
+    const [trails, setTrails] = useState(null); // State to hold trails data
+    const mapRef = useRef(null); // Ref to hold the map instance
+    
+    const temp = tempData;
 
-    let trails = trailsData // import data
+    // Fetch trails data before rendering
+    useEffect(() => {
+        const loadTrailsData = async () => {
+            try {
+                const fetchedData = await fetchTrailsData();
+                setTrails(fetchedData);
+            } catch (error) {
+                console.error("Error fetching trails data:", error);
+            }
+        };
+
+        loadTrailsData();
+    }, []);
+    
 
     useEffect(() => {
+        if (!trails) return; // Wait until trails is loaded
 
         // Creating map options
         const mapOptions = {
@@ -38,6 +59,9 @@ const SectionMap = ({}) => {
         );
         map.addLayer(layer);
 
+        // Save map instance to ref
+        mapRef.current = map;
+
         L.control
             .zoom({
                 position: "bottomright",
@@ -56,7 +80,10 @@ const SectionMap = ({}) => {
                 .bindPopup(marker.popupContent);
         });
 
-        let geojsonLayer = L.geoJSON(trails.features, {
+        console.log(trails.features, 'REAL');
+        console.log(temp.features, 'TEST');
+
+        let geojsonLayer = L.geoJSON(temp.features, {
             style(feature) {
                 const colorMap = {
                     Difficult: "#1A2A33",
@@ -213,7 +240,7 @@ const SectionMap = ({}) => {
             }
         });
     
-    }, []);
+    }, [trails]); // Re-run when `trails` changes
 
     /**
      * Filters() function returns html for the UI filters.
@@ -367,10 +394,7 @@ const SectionMap = ({}) => {
             chartRef.current.destroy();
         }
 
-        console.log(332, trailDetails.elevation);
-
         let elevationArray = trailDetails.elevation.split(',');
-        console.log(3323, elevationArray.map(Number));
 
         chartRef.current = new Chart(ctx, {
             type: 'line',
