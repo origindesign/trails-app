@@ -8,35 +8,31 @@ import "leaflet-search";
 import Logo from "./../assets/pin.png";
 
 import parkingData from "./../data/parking";
-
-import tempData from "./../data/temp";
-import { fetchTrailsData } from "./../data/trails";
-
+// import trailsData from "./../data/trails";
+// import tempData from "./../data/temp";
+import { fetchTrailsData } from "./../data/trails"; // Import the async fetch function
 
 const SectionMap = ({}) => {
     const geojsonLayerRef = useRef(null); // Ref to store the GeoJSON layer
-    const [trails, setTrails] = useState(null); // State to hold trails data
-    const mapRef = useRef(null); // Ref to hold the map instance
-    
-    const temp = tempData;
 
-    // Fetch trails data before rendering
+    // let trails = tempData // import data
+    const [trails, setTrailsData] = useState(null); // State to manage trails data
+
+    /**
+     * Fetch trails data asynchronously
+     * use useEffect() to run only once on component mount
+     */ 
     useEffect(() => {
-        const loadTrailsData = async () => {
-            try {
-                const fetchedData = await fetchTrailsData();
-                setTrails(fetchedData);
-            } catch (error) {
-                console.error("Error fetching trails data:", error);
-            }
+        const fetchData = async () => {
+            const data = await fetchTrailsData();
+            setTrailsData(data); // Update state with fetched data
         };
-
-        loadTrailsData();
+        fetchData();
     }, []);
-    
 
     useEffect(() => {
-        if (!trails) return; // Wait until trails is loaded
+
+        if (!trails) return; 
 
         // Creating map options
         const mapOptions = {
@@ -46,8 +42,7 @@ const SectionMap = ({}) => {
 
         const JAWG_API_KEY =
             "UlhmB9TdxEsUaPuIVrKDpmk5oM2qRX3IsK3hdoLnBDgkztJS86cE1GxVofqZWZmu"; // custom map style here https://www.jawg.io/lab/
-
-        const map = new L.map("map", mapOptions);
+        const map = L.map("map", mapOptions);
         const layer = new L.TileLayer(
             "https://{s}.tile.jawg.io/jawg-terrain/{z}/{x}/{y}.png?access-token=" +
                 JAWG_API_KEY,
@@ -58,9 +53,6 @@ const SectionMap = ({}) => {
             }
         );
         map.addLayer(layer);
-
-        // Save map instance to ref
-        mapRef.current = map;
 
         L.control
             .zoom({
@@ -80,10 +72,7 @@ const SectionMap = ({}) => {
                 .bindPopup(marker.popupContent);
         });
 
-        console.log(trails.features, 'REAL');
-        console.log(temp.features, 'TEST');
-
-        let geojsonLayer = L.geoJSON(temp.features, {
+        let geojsonLayer = L.geoJSON(trails.features, {
             style(feature) {
                 const colorMap = {
                     Difficult: "#1A2A33",
@@ -108,9 +97,9 @@ const SectionMap = ({}) => {
                     let elevationArray = []; // Initialize an empty elevation array
 
                     let trailType = feature.geometry.type;
-                    console.log('trail type', feature.geometry.type );
+                    //console.log('trail type', feature.geometry.type );//debug
 
-                    if ( trailType == 'LineString' ) { 
+                    if ( trailType == 'LineString' ) {
                         // Using a for loop
                         for (let i = 0; i < coords.length; i++) {
                             elevationArray.push(coords[i][2]); // Push the elevation (3rd value) of each coordinate
@@ -124,7 +113,7 @@ const SectionMap = ({}) => {
                             }
                         }
                     }
-                    // console.log('eleva', elevationArray);
+                    // console.log('elevation', elevationArray);//debug
 
                     // Get the bounds of the feature (LineString, Polygon, or any other feature)
                     const bounds = layer.getBounds ? layer.getBounds() : layer.getLatLng(); // Get bounds or position based on layer type
@@ -240,7 +229,7 @@ const SectionMap = ({}) => {
             }
         });
     
-    }, [trails]); // Re-run when `trails` changes
+    }, [trails]);
 
     /**
      * Filters() function returns html for the UI filters.
