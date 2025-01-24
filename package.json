@@ -10,7 +10,8 @@
 		"leaflet-search": "^4.0.0",
 		"preact": "^10.22.1",
 		"react-select": "^5.9.0",
-		"sass": "^1.83.1"
+		"sass": "^1.83.1",
+		"simplebar": "^6.3.0"
 	},
 	"devDependencies": {
 		"@preact/preset-vite": "^2.9.0",

@@ -143,7 +143,7 @@ const SectionMap = ({}) => {
 						</div>
 						<span class="link t-c-teal" data-name="${
                             feature.properties.Name
-                        }" data-distance="${JSON.stringify(feature.properties.Distance)}" data-difficulty="${feature.properties.Difficulty}" data-description="${feature.properties.Description}" data-elevation="${elevationArray}">More details</span>
+                        }" data-distance="${JSON.stringify(feature.properties.Distance)}" data-difficulty="${feature.properties.Difficulty}" data-description="${feature.properties.Description}" data-access="${feature.properties.Access}" data-elevation="${elevationArray}">More details</span>
 					`);
 
                 });
@@ -182,7 +182,7 @@ const SectionMap = ({}) => {
                             feature.properties.Name
                         }" data-distance="${JSON.stringify(
                         feature.properties.Distance
-                    )}" data-difficulty="${feature.properties.Difficulty}" data-description="${
+                    )}" data-difficulty="${feature.properties.Difficulty}" data-access="${feature.properties.Access}" data-description="${
                         feature.properties.Description
                     }">More details</span>
                     `;
@@ -336,6 +336,7 @@ const SectionMap = ({}) => {
             distance: "",
             difficulty: "",
             description: "",
+            access: "",
             elevation: "",
         });
 
@@ -344,7 +345,7 @@ const SectionMap = ({}) => {
         // Function to handle click events
         function handleClick(event) {
             if (event.target.matches(".link")) {
-                const { name, distance, difficulty, description, elevation } =
+                const { name, distance, difficulty, description, access, elevation } =
                     event.target.dataset;
 
                 setTrailDetails({
@@ -352,6 +353,7 @@ const SectionMap = ({}) => {
                     distance,
                     difficulty,
                     description,
+                    access,
                     elevation,
                 });
 
@@ -439,7 +441,7 @@ const SectionMap = ({}) => {
         }, [trailDetails.elevation]);
 
         return (
-            <div className={"c-trail-detail bg--white d-flex"}>
+            <div className={"c-trail-detail bg--white d-flex scrollable "}>
                 <div className={"c-trail-detail__internal d-flex flex-direction-column"}>
                     <a class="control control--close">
                         Close trail detail modal
@@ -447,6 +449,12 @@ const SectionMap = ({}) => {
                     <h2 class="t-c-teal">{trailDetails.name}</h2>
                     {trailDetails.description && (
                         <p>{trailDetails.description}</p>
+                    )}
+                    {trailDetails.access && (
+                        <div class='access' style={'margin-top: 2rem;'}>
+                            <h3 class='t-c-teal'>Access</h3>
+                            <p>{trailDetails.access}</p>
+                        </div>
                     )}
                     <div className="c-trail-props d-flex t-c-teal">
                         <span className="distance d-flex ai-center">
