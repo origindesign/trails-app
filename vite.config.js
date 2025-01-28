@@ -7,9 +7,9 @@ export default defineConfig({
     server: {
         proxy: {
             "/trail-data": {
-                target: "https://trails-app-tourismvernon.pantheonsite.io",
+                target: "https://tov.lndo.site",
                 changeOrigin: true,
-                secure: true, // Set to true if the target has a valid SSL certificate
+                secure: false, // Set to true if the target has a valid SSL certificate
             },
         },
     },

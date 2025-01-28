@@ -371,6 +371,16 @@
             true,
             $elem: after
         );
+
+        &::after {
+            transition: 0.2s ease-in-out;
+        }
+
+        &:hover {
+            &::after {
+                right: -0.5rem;
+            }
+        }
     }
 
     .distance {
@@ -502,8 +512,10 @@
         }
 
         .c-trail-detail__internal {
+            margin-top: 4rem;
             @media (min-width: $width-tablet-landscape) {
                 width: 50%;
+                margin-top: 8rem;
             }
         }
     }
@@ -586,7 +598,7 @@
 }
 
 .c-trail-props {
-    gap: var(--spacing-sm);
+    gap: 2.4rem;
     font-size: var(--font-size-label);
     flex-direction: row;
     margin: 2.5rem 0 3.5rem;
