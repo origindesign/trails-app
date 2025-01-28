@@ -65,7 +65,7 @@ const SectionMap = ({}) => {
             iconSize: [21, 31],
         });
 
-        // Loop over marker data
+        // Loop over parking data
         parkingData.forEach((marker) => {
             L.marker(marker.latLng, { icon: carParkIcon })
                 .addTo(map)
@@ -500,6 +500,7 @@ const SectionMap = ({}) => {
                     callback: function (value) {
                       return `${value}m`; // Add 'm' suffix for meters
                     },
+                    stepSize: 50,
                   },
                   grid: {
                     color: "#88AD38",
