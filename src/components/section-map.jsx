@@ -479,7 +479,7 @@ const SectionMap = ({}) => {
             },
             options: {
               responsive: true,
-              maintainAspectRatio: true,
+              maintainAspectRatio: false,
               plugins: {
                 legend: {
                   display: false,
@@ -500,7 +500,7 @@ const SectionMap = ({}) => {
                     callback: function (value) {
                       return `${value}m`; // Add 'm' suffix for meters
                     },
-                    stepSize: 50,
+                    stepSize: 30,
                   },
                   grid: {
                     color: "#88AD38",
