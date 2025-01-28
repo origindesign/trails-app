@@ -33,7 +33,7 @@
         transition: var(--transition-slow);
         position: absolute;
         background: none;
-        left: 9rem;
+        left: 11rem;
         top: var(--spacing-sm);
 
         @media (min-width: $width-tablet-portrait) {
@@ -123,7 +123,7 @@
             padding-left: 2rem;
             height: 5rem;
             margin: 0;
-            width: calc(80vw - 7.5rem);
+            width: calc(80vw - 9.5rem);
             transition: var(--transition-med);
 
             @media (min-width: 740px) {
@@ -452,30 +452,60 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%) translateY(500rem);
-    padding: 8rem 4rem 4rem 2rem;
+    padding: 2rem;
     border-radius: 2rem;
     border: 1px solid var(--c-green);
     display: flex;
     transition: 0.35s ease-in-out;
     width: 85vw;
+    height: 90vh;
     min-width: auto;
     top: 1rem;
+    flex-direction: column;
+    overflow: scroll;
 
-    @media (min-width: $width-tablet-portrait) {
+    @media (min-width: $width-tablet-landscape) {
+        padding: 2rem 4rem 2rem 2rem;
         max-width: 61rem;
         min-width: 45rem;
         top: 14rem;
+        height: auto;
+    }
+
+    @media (min-width: $width-tablet-landscape) {
+        flex-direction: row;
     }
 
     &__internal {
         width: 100%;
-        max-height: 50vh;
-        overflow: scroll;
-        padding-right: 4rem;
+        padding-top: 0;
+        margin-top: 8rem;
+        margin-bottom: 4rem;
+
+        @media (min-width: $width-tablet-landscape) {
+            max-height: 50vh;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            padding-right: 4rem;
+        }
     }
 
     &.open {
         transform: translateX(-50%);
+    }
+
+    // image gallery
+    &.has-gallery {
+        @media (min-width: $width-tablet-portrait) {
+            max-width: 130rem;
+            gap: 6rem;
+        }
+
+        .c-trail-detail__internal {
+            @media (min-width: $width-tablet-landscape) {
+                width: 50%;
+            }
+        }
     }
 
     .access {
@@ -494,6 +524,63 @@
                 auto,
                 $elem: before
             );
+        }
+    }
+}
+
+// image slider
+.splide {
+    @media (min-width: $width-tablet-landscape) {
+        width: 50%;
+    }
+
+    &__track {
+        height: 100%;
+    }
+
+    &__slide {
+        img {
+            width: 100%;
+            height: 100%; /* Make the image fill the height of the container */
+            object-fit: cover; /* Ensures the image maintains its aspect ratio and covers the container */
+            display: block; /* Prevents inline gaps between images */
+            border-radius: 1rem;
+        }
+    }
+
+    &__arrow {
+        display: flex;
+        width: 5.3rem;
+        height: 5.3rem;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0.3rem;
+        border-radius: 1rem;
+        border: 1px solid var(--c-orange);
+        background: var(--c-orange);
+        position: absolute !important;
+        opacity: 1;
+
+        svg {
+            display: none;
+        }
+
+        @include fonticonSetup();
+        @include fonticon(
+            $icon--arrow,
+            2.2rem,
+            var(--c-black),
+            auto,
+            auto,
+            auto,
+            auto,
+            $elem: before
+        );
+
+        &--prev {
+            &::before {
+                transform: rotate(180deg);
+            }
         }
     }
 }
@@ -527,28 +614,38 @@
 // chart.js
 .chart-container {
     max-width: 47rem;
+    padding-right: 4rem;
+
+    @media (min-width: $width-tablet-portrait) {
+        padding-right: 0;
+    }
+
+    canvas {
+        width: 100% !important;
+        height: auto !important;
+    }
 }
 
 // scrollbar
-:root {
-    --scrollbar-track: #f1f1f1;
-    --scrollbar-thumb: #888;
-}
+.c-trail-detail {
+    ::-webkit-scrollbar {
+        width: 1rem;
+    }
 
-.scrollable {
-    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
-}
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 0.6rem;
+    }
 
-.scrollable::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-}
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: var(--c-teal);
+        border-radius: 0.6rem;
+    }
 
-.scrollable::-webkit-scrollbar-track {
-    background: var(--scrollbar-track);
-}
-
-.scrollable::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-thumb);
-    border-radius: 10px;
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
 }

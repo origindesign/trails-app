@@ -89,84 +89,75 @@ const SectionMap = ({}) => {
                 };
             },
             onEachFeature(feature, layer) {
+                // Initialize elevationArray at the top of onEachFeature
+                let elevationArray = [];
+            
+                // Populate elevationArray based on feature.geometry.type
+                let coords = feature.geometry.coordinates;
+                let trailType = feature.geometry.type;
+            
+                if (trailType === 'LineString') {
+                    for (let i = 0; i < coords.length; i++) {
+                        elevationArray.push(coords[i][2]); // Push the elevation (3rd value)
+                    }
+                } else if (trailType === 'MultiLineString') {
+                    for (let i = 0; i < coords.length; i++) {
+                        let subCoords = coords[i];
+                        for (let j = 0; j < subCoords.length; j++) {
+                            elevationArray.push(subCoords[j][2]); // Push elevation
+                        }
+                    }
+                }
+            
                 layer.bindPopup("");
                 layer.on("popupopen", function (e) {
                     var popup = e.popup;
-
-                    let coords = feature.geometry.coordinates; // first get all coords
-                    let elevationArray = []; // Initialize an empty elevation array
-
-                    let trailType = feature.geometry.type;
-                    //console.log('trail type', feature.geometry.type );//debug
-
-                    if ( trailType == 'LineString' ) {
-                        // Using a for loop
-                        for (let i = 0; i < coords.length; i++) {
-                            elevationArray.push(coords[i][2]); // Push the elevation (3rd value) of each coordinate
-                        }
-                    } else if ( trailType === 'MultiLineString' ) {
-                        // For MultiLineString, iterate through each sub-array of coordinates
-                        for (let i = 0; i < coords.length; i++) {
-                            let subCoords = coords[i]; // Access each sub-array of LineStrings
-                            for (let j = 0; j < subCoords.length; j++) {
-                                elevationArray.push(subCoords[j][2]); // Push the elevation (3rd value) of each coordinate
-                            }
-                        }
-                    }
-                    // console.log('elevation', elevationArray);//debug
-
-                    // Get the bounds of the feature (LineString, Polygon, or any other feature)
-                    const bounds = layer.getBounds ? layer.getBounds() : layer.getLatLng(); // Get bounds or position based on layer type
-
-                    // If the feature is a single point (marker), use getLatLng(). If it's a polygon/line, use getBounds().getCenter().
+            
+                    // Get the bounds of the feature
+                    const bounds = layer.getBounds ? layer.getBounds() : layer.getLatLng();
                     let center;
                     if (layer instanceof L.Marker) {
                         center = layer.getLatLng();
                     } else if (layer instanceof L.Polygon || layer instanceof L.Polyline) {
                         center = bounds.getCenter();
                     }
-
-                    // Pan to the center of the feature
-                    map.panTo(center, { animate: true, duration: 1 });
-
-                    // Offset the map by 100px from the top
-                    map.panBy([0, -100], { animate: true, duration: 1 });
-
+            
                     popup.setContent(`
-						<h3 class="t-c-teal">${feature.properties.Name}</h3>
-						<div class="card-props t-c-teal">
-							<span class="distance d-flex ai-center">${JSON.stringify(feature.properties.Distance)} km</span>
-							<span class="difficulty d-flex ai-center ${feature.properties.Difficulty.toLowerCase().replace(
+                        <h3 class="t-c-teal">${feature.properties.Name}</h3>
+                        <div class="card-props t-c-teal">
+                            <span class="distance d-flex ai-center">${JSON.stringify(feature.properties.Distance)} km</span>
+                            <span class="difficulty d-flex ai-center ${feature.properties.Difficulty.toLowerCase().replace(
                                 /\s+/g,
                                 "-"
                             )}">${feature.properties.Difficulty}</span>
-						</div>
-						<span class="link t-c-teal" data-name="${
+                        </div>
+                        <span class="link t-c-teal" data-name="${
                             feature.properties.Name
-                        }" data-distance="${JSON.stringify(feature.properties.Distance)}" data-difficulty="${feature.properties.Difficulty}" data-description="${feature.properties.Description}" data-access="${feature.properties.Access}" data-elevation="${elevationArray}">More details</span>
-					`);
+                        }" data-distance="${JSON.stringify(feature.properties.Distance)}" data-difficulty="${feature.properties.Difficulty}" data-description="${feature.properties.Description}" data-access="${feature.properties.Access}" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}">More details</span>
+                    `);
 
+                    // Pan the map
+                    map.setView(center, map.getZoom(), { animate: true, duration: 1 });
                 });
-
-                // Generate a buffer polygon for each feature
-                const bufferDistance = 0.02; // Buffer distance in kilometers (50 meters)
+            
+                // Generate a buffer polygon
+                const bufferDistance = 0.02; // Buffer distance in kilometers
                 const buffered = turf.buffer(feature, bufferDistance, { units: "kilometers" });
-
-                // Add the buffer as a separate invisible layer
+            
+                // Add the buffer layer
                 const bufferLayer = L.geoJSON(buffered, {
                     style: {
-                        color: "transparent", // Optional: Outline color for debugging
-                        weight: 0, // No visible outline
-                        fillOpacity: 0.3, // Semi-transparent for debugging
+                        color: "transparent",
+                        weight: 0,
+                        fillOpacity: 0.3,
                     },
                 }).addTo(map);
-
-                // Add click event to the buffer layer
+            
                 bufferLayer.on("click", function (e) {
-                    // Get the location where the buffer was clicked
+                    // Get the location of the click
                     const clickLatLng = e.latlng;
-
-                    // Open the popup at the clicked location
+            
+                    // Open a popup at the clicked location
                     const popupContent = `
                         <h3 class="t-c-teal">${feature.properties.Name}</h3>
                         <div class="card-props t-c-teal">
@@ -184,15 +175,27 @@ const SectionMap = ({}) => {
                         feature.properties.Distance
                     )}" data-difficulty="${feature.properties.Difficulty}" data-access="${feature.properties.Access}" data-description="${
                         feature.properties.Description
-                    }">More details</span>
+                    }" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}">More details</span>
                     `;
-
+            
                     L.popup()
-                        .setLatLng(clickLatLng) // Set popup location to the click
-                        .setContent(popupContent) // Set the popup content dynamically
-                        .openOn(map); // Open the popup on the map
-                });
+                        .setLatLng(clickLatLng)
+                        .setContent(popupContent)
+                        .openOn(map);
 
+                         // Get the bounds of the feature
+                    const bounds = layer.getBounds ? layer.getBounds() : layer.getLatLng();
+                    let center;
+                    if (layer instanceof L.Marker) {
+                        center = layer.getLatLng();
+                    } else if (layer instanceof L.Polygon || layer instanceof L.Polyline) {
+                        center = bounds.getCenter();
+                    }
+
+                    // Pan the map
+                    map.setView(center, map.getZoom(), { animate: true, duration: 1 });
+
+                });
             },
         }).addTo(map);
 
@@ -228,6 +231,48 @@ const SectionMap = ({}) => {
                 layer.openPopup();
             }
         });
+
+        // Call the URL param function
+        selectTrailFromURL(map);
+
+        /**
+         * Open trail popup based on URL parameters
+         * @param {*} map 
+         */
+        function selectTrailFromURL(map) {
+            const params = new URLSearchParams(window.location.search);
+            const trailName = params.get("trail"); // URL Pattern: ?trail=<trail-name>
+        
+            if (trailName) {
+                let popupOpened = false;
+        
+                map.eachLayer((layer) => {
+                    // Check if the layer has a popup and matches the trail name
+                    if (layer.getPopup && layer.feature && layer.feature.properties.Name === trailName) {
+
+                        // Get the bounds of the feature
+                        const bounds = layer.getBounds ? layer.getBounds() : layer.getLatLng();
+                        let center;
+                        if (layer instanceof L.Marker) {
+                            center = layer.getLatLng();
+                        } else if (layer instanceof L.Polygon || layer instanceof L.Polyline) {
+                            center = bounds.getCenter();
+                        }
+                
+                        map.setView(center, map.getZoom(), { animate: true, duration: 1 });
+
+                        // Open the popup
+                        layer.openPopup();
+                        popupOpened = true;
+                    }
+                });
+        
+                if (!popupOpened) {
+                    console.warn(`No trail found with the name: ${trailName}`);
+                }
+            }
+        }
+        
     
     }, [trails]);
 
@@ -330,149 +375,208 @@ const SectionMap = ({}) => {
      * @returns 
      */
     function TrailDetail() {
-        // Define state variables for trail details
         const [trailDetails, setTrailDetails] = useState({
-            name: "",
-            distance: "",
-            difficulty: "",
-            description: "",
-            access: "",
-            elevation: "",
+          name: "",
+          distance: "",
+          difficulty: "",
+          description: "",
+          access: "",
+          elevation: "",
+          imagery: [],
         });
-
+        const [isModalOpen, setIsModalOpen] = useState(false);
+      
         const chartRef = useRef(null);
-
+        const splideRef = useRef(null);
+      
+        useEffect(() => {
+          // Initialize Splide whenever imagery changes
+          if (
+            Array.isArray(trailDetails.imagery) &&
+            trailDetails.imagery.filter((image) => image.trim() !== "").length > 0
+          ) {
+            if (splideRef.current) {
+              splideRef.current.destroy();
+            }
+            splideRef.current = new Splide(".splide", {
+              type: "fade",
+              perPage: 1,
+              autoplay: true,
+              arrows: true,
+              pagination: true,
+            });
+            splideRef.current.mount();
+          }
+        }, [trailDetails.imagery]);
+      
         // Function to handle click events
         function handleClick(event) {
-            if (event.target.matches(".link")) {
-                const { name, distance, difficulty, description, access, elevation } =
-                    event.target.dataset;
-
-                setTrailDetails({
-                    name,
-                    distance,
-                    difficulty,
-                    description,
-                    access,
-                    elevation,
-                });
-
-                const detail = document.querySelector(".c-trail-detail");
-                detail.classList.add("open");
+          if (event.target.matches(".link")) {
+            const {
+              name,
+              distance,
+              difficulty,
+              description,
+              access,
+              elevation,
+              imagery,
+            } = event.target.dataset;
+      
+            setTrailDetails({
+              name,
+              distance,
+              difficulty,
+              description,
+              access,
+              elevation,
+              imagery: imagery.split(", "),
+            });
+      
+            setIsModalOpen(true); // Ensure the modal opens on the first click
+          }
+      
+          if (event.target.matches(".control--close")) {
+            setIsModalOpen(false); // Close the modal
+            if (splideRef.current) {
+              splideRef.current.destroy();
+              splideRef.current = null;
             }
-
-            if (event.target.matches(".control--close")) {
-                const detail = document.querySelector(".c-trail-detail");
-                detail.classList.remove("open");
-            }
+          }
         }
-
+      
         // Add the event listener when the component mounts
         useEffect(() => {
-            document.addEventListener("click", handleClick);
-
-            // Clean up the event listener when the component unmounts
-            return () => {
-                document.removeEventListener("click", handleClick);
-            };
+          document.addEventListener("click", handleClick);
+      
+          // Clean up the event listener when the component unmounts
+          return () => {
+            document.removeEventListener("click", handleClick);
+          };
         }, []);
-
+      
         useEffect(() => {
-        const ctx = document.getElementById('elevationChart');
+          // scroll trail detail to top each time re-opened
+          const trailDetailInt = document.querySelector('.c-trail-detail__internal');
+          trailDetailInt.scrollTo({ top: 0, behavior: 'smooth' });
 
-         // Destroy the existing chart instance if it exists
-         if (chartRef.current) {
-            chartRef.current.destroy();
-        }
-
-        let elevationArray = trailDetails.elevation.split(',');
-
-        chartRef.current = new Chart(ctx, {
-            type: 'line',
+          const ctx = document.getElementById("elevationChart");
+      
+        //   console.log('elevation: ', trailDetails.elevation);//debug
+          let elevationArray = trailDetails.elevation.split(",");
+      
+          chartRef.current = new Chart(ctx, {
+            type: "line",
             data: {
-                datasets: [{
-                    data: elevationArray.map(Number),
-                    pointRadius: 0,
-                    borderColor: 'black',
-                    borderWidth: 2,
-                }],
-                labels: elevationArray.map((_, index) => `Point ${index + 1}`),
+              datasets: [
+                {
+                  data: elevationArray.map(Number),
+                  pointRadius: 0,
+                  borderColor: "black",
+                  borderWidth: 2,
+                },
+              ],
+              labels: elevationArray.map((_, index) => `Point ${index + 1}`),
             },
             options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
+              responsive: true,
+              maintainAspectRatio: true,
+              plugins: {
+                legend: {
+                  display: false,
                 },
-                scales: {
-                    x: {
-                        ticks: {
-                            display: false
-                        },
-                        grid: {
-                            display: false, // Disable vertical grid lines
-                            color: '#88AD38',
-                        }
+              },
+              scales: {
+                x: {
+                  ticks: {
+                    display: false,
+                  },
+                  grid: {
+                    display: false, // Disable vertical grid lines
+                    color: "#88AD38",
+                  },
+                },
+                y: {
+                  ticks: {
+                    callback: function (value) {
+                      return `${value}m`; // Add 'm' suffix for meters
                     },
-                    y: {
-                        ticks: {
-                            callback: function(value) {
-                                return `${value}m`; // Add 'm' suffix for meters
-                            }
-                        },
-                        grid: {
-                            color: '#88AD38',
-                        },
-                        border: {
-                            color: '#88AD38',
-                        },
-                    }
+                  },
+                  grid: {
+                    color: "#88AD38",
+                  },
+                  border: {
+                    color: "#88AD38",
+                  },
                 },
-            }
-        });
-        // Cleanup: Destroy the chart when the component unmounts
-        return () => {
+              },
+            },
+          });
+      
+          // Cleanup: Destroy the chart when the component unmounts
+          return () => {
             if (chartRef.current) {
-                chartRef.current.destroy();
+              chartRef.current.destroy();
             }
-        };
+          };
         }, [trailDetails.elevation]);
-
+      
         return (
-            <div className={"c-trail-detail bg--white d-flex scrollable "}>
-                <div className={"c-trail-detail__internal d-flex flex-direction-column"}>
-                    <a class="control control--close">
-                        Close trail detail modal
-                    </a>
-                    <h2 class="t-c-teal">{trailDetails.name}</h2>
-                    {trailDetails.description && (
-                        <p>{trailDetails.description}</p>
-                    )}
-                    {trailDetails.access && (
-                        <div class='access' style={'margin-top: 2rem;'}>
-                            <h3 class='t-c-teal'>Access</h3>
-                            <p>{trailDetails.access}</p>
-                        </div>
-                    )}
-                    <div className="c-trail-props d-flex t-c-teal">
-                        <span className="distance d-flex ai-center">
-                            {trailDetails.distance} km
-                        </span>
-                        <span
-                            className={`difficulty d-flex ai-center ${trailDetails.difficulty
-                                ?.toLowerCase()
-                                .replace(/\s+/g, "-")}`}
-                        >
-                            {trailDetails.difficulty}
-                        </span>
-                    </div>
-                    <div className={'chart-container'}>
-                        <canvas id="elevationChart"></canvas>
-                    </div>
+          <div
+            className={`c-trail-detail bg--white d-flex scrollable ${
+              Array.isArray(trailDetails.imagery) &&
+              trailDetails.imagery.filter((image) => image.trim() !== "").length > 0
+                ? "has-gallery"
+                : ""
+            } ${isModalOpen ? "open" : ""}`}
+          >
+            {Array.isArray(trailDetails.imagery) &&
+              trailDetails.imagery.filter((image) => image.trim() !== "").length >
+                0 && (
+                <div
+                  className="splide"
+                  role="group"
+                  aria-label="Splide Basic HTML Example"
+                >
+                  <div className="splide__track">
+                    <ul className="splide__list">
+                      {trailDetails.imagery
+                        .filter((image) => image.trim() !== "")
+                        .map((imageUrl, index) => (
+                          <li className="splide__slide" key={index}>
+                            <img src={imageUrl} alt={`Trail image ${index + 1}`} />
+                          </li>
+                        ))}
+                    </ul>
+                  </div>
                 </div>
+              )}
+            <div className={"c-trail-detail__internal d-flex flex-direction-column"}>
+              <a className="control control--close">Close trail detail modal</a>
+              <h2 className="t-c-teal">{trailDetails.name}</h2>
+              {trailDetails.description && <p>{trailDetails.description}</p>}
+              {trailDetails.access && (
+                <div className="access" style={{ marginTop: "2rem" }}>
+                  <h3 className="t-c-teal">Access</h3>
+                  <p>{trailDetails.access}</p>
+                </div>
+              )}
+              <div className="c-trail-props d-flex t-c-teal">
+                <span className="distance d-flex ai-center">
+                  {trailDetails.distance} km
+                </span>
+                <span
+                  className={`difficulty d-flex ai-center ${trailDetails.difficulty
+                    ?.toLowerCase()
+                    .replace(/\s+/g, "-")}`}
+                >
+                  {trailDetails.difficulty}
+                </span>
+              </div>
+              <div className={"chart-container"}>
+                <canvas id="elevationChart"></canvas>
+              </div>
             </div>
+          </div>
         );
     }
 
@@ -529,7 +633,7 @@ const SectionMap = ({}) => {
             function searchClick(event) {
                 if (event.target.matches(".control--search")) {
                     const searchEl = document.querySelector(".leaflet-control-search");
-                    searchEl.classList.toggle("in");
+                    searchEl.classList.add("in");
                     filterEl.classList.remove("in");
                 }
 
