@@ -21,6 +21,12 @@ The child components are both defined and called in this file.
 
 We are using SASS for css compiling. Run the `dev` script to build locally.
 
+### Data Structure
+
+The data comes in as a csv spreadsheet. It is two sets of data that are merged using a python script you can find in the `data/` directory.
+
+It is imported to Drupal, then exported in JSON format for us to read.
+
 ### URL Parameters
 
 Users can open specific trails from a URL, by following the URL parameter pattern. Search for the `selectTrailFromURL` function in `section-map.jsx`;
