@@ -9,7 +9,7 @@ export default defineConfig({
             "/trail-data": {
                 target: "https://trails-app-tourismvernon.pantheonsite.io",
                 changeOrigin: true,
-                secure: false, // Set to true if the target has a valid SSL certificate
+                secure: true, // Set to true if the target has a valid SSL certificate
             },
         },
     },
