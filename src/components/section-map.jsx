@@ -555,7 +555,7 @@ const SectionMap = ({}) => {
               <h2 className="t-c-teal">{trailDetails.name}</h2>
               {trailDetails.description && <p>{trailDetails.description}</p>}
               {trailDetails.access && (
-                <div className={"access d-flex ai-center"} style={{ marginTop: "2rem" }}>
+                <div className={"access d-flex flex-direction-column"} style={{ marginTop: "2rem" }}>
                   <h3 className="t-c-teal">Access</h3>
                   <p>{trailDetails.access}</p>
                 </div>
