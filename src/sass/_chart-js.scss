@@ -1,0 +1,13 @@
+.chart-container {
+    max-width: 47rem;
+    padding-right: calc(var(--spacing-md) * 2);
+
+    @media (min-width: $width-tablet-portrait) {
+        padding-right: 0;
+    }
+
+    canvas {
+        width: 100% !important;
+        height: auto !important;
+    }
+}

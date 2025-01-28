@@ -522,7 +522,7 @@ const SectionMap = ({}) => {
       
         return (
           <div
-            className={`c-trail-detail bg--white d-flex scrollable ${
+            className={`c-trail-detail bg--white d-flex flex-direction-column pos-absolute scrollable ${
               Array.isArray(trailDetails.imagery) &&
               trailDetails.imagery.filter((image) => image.trim() !== "").length > 0
                 ? "has-gallery"
@@ -555,7 +555,7 @@ const SectionMap = ({}) => {
               <h2 className="t-c-teal">{trailDetails.name}</h2>
               {trailDetails.description && <p>{trailDetails.description}</p>}
               {trailDetails.access && (
-                <div className="access" style={{ marginTop: "2rem" }}>
+                <div className={"access d-flex ai-center"} style={{ marginTop: "2rem" }}>
                   <h3 className="t-c-teal">Access</h3>
                   <p>{trailDetails.access}</p>
                 </div>

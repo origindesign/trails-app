@@ -1,0 +1,85 @@
+.control {
+    background-color: var(--c-teal);
+    border-radius: var(--border-radius);
+    color: white;
+    cursor: pointer;
+    font-size: 0;
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-med);
+
+    &:hover {
+        transform: scale(1.05);
+    }
+
+    &--home {
+        @include fonticonSetup(after);
+        @include fonticon(
+            $icon--home,
+            2.25rem,
+            var(--c-sky-blue),
+            auto,
+            auto,
+            auto,
+            auto,
+            $elem: after
+        );
+    }
+
+    &--search {
+        @include fonticonSetup(after);
+        @include fonticon(
+            $icon--search,
+            2.25rem,
+            var(--c-sky-blue),
+            auto,
+            auto,
+            auto,
+            auto,
+            $elem: after
+        );
+
+        @media (min-width: $width-tablet-portrait) {
+            display: none;
+        }
+    }
+
+    &--filters {
+        @include fonticonSetup(after);
+        @include fonticon(
+            $icon--filter,
+            1.8rem,
+            var(--c-sky-blue),
+            auto,
+            1.5rem,
+            auto,
+            auto,
+            $elem: after
+        );
+
+        @media (min-width: $width-tablet-portrait) {
+            display: none;
+        }
+    }
+
+    &--close {
+        position: absolute !important;
+        right: var(--spacing-md);
+        top: var(--spacing-md);
+
+        @include fonticonSetup(after);
+        @include fonticon(
+            $icon--close,
+            1.8rem,
+            var(--c-sky-blue),
+            auto,
+            auto,
+            auto,
+            auto,
+            $elem: after
+        );
+    }
+}

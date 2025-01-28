@@ -8,7 +8,7 @@
     padding: var(--spacing-md);
     left: 0;
     transform: translateY(-500rem);
-    transition: 0.4s ease-in-out;
+    transition: var(--transition-long);
 
     &.in {
         transform: translateY(0);
@@ -176,92 +176,6 @@
     }
 }
 
-.control {
-    background-color: var(--c-teal);
-    border-radius: var(--border-radius);
-    color: white;
-    cursor: pointer;
-    font-size: 0;
-    width: 5rem;
-    height: 5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition-med);
-
-    &:hover {
-        transform: scale(1.05);
-    }
-
-    &--home {
-        @include fonticonSetup(after);
-        @include fonticon(
-            $icon--home,
-            2.25rem,
-            var(--c-sky-blue),
-            auto,
-            auto,
-            auto,
-            auto,
-            $elem: after
-        );
-    }
-
-    &--search {
-        @include fonticonSetup(after);
-        @include fonticon(
-            $icon--search,
-            2.25rem,
-            var(--c-sky-blue),
-            auto,
-            auto,
-            auto,
-            auto,
-            $elem: after
-        );
-
-        @media (min-width: $width-tablet-portrait) {
-            display: none;
-        }
-    }
-
-    &--filters {
-        @include fonticonSetup(after);
-        @include fonticon(
-            $icon--filter,
-            1.8rem,
-            var(--c-sky-blue),
-            auto,
-            1.5rem,
-            auto,
-            auto,
-            $elem: after
-        );
-
-        @media (min-width: $width-tablet-portrait) {
-            display: none;
-        }
-    }
-
-    &--close {
-        position: absolute !important;
-        right: var(--spacing-md);
-        top: var(--spacing-md);
-
-        @include fonticonSetup(after);
-        @include fonticon(
-            $icon--close,
-            1.8rem,
-            var(--c-sky-blue),
-            auto,
-            auto,
-            auto,
-            auto,
-            $elem: after
-        );
-    }
-}
-
 // zoom controls
 .leaflet-top.leaflet-left {
     .leaflet-control-zoom {
@@ -401,6 +315,7 @@
     }
 }
 
+// trail difficulty shapes
 .difficulty {
     &.easy {
         &::before {
@@ -459,23 +374,21 @@
 // trail detail
 .c-trail-detail {
     z-index: 999999999;
-    position: absolute;
     left: 50%;
     transform: translateX(-50%) translateY(500rem);
     padding: 2rem;
     border-radius: 2rem;
     border: 1px solid var(--c-green);
-    display: flex;
     transition: 0.35s ease-in-out;
     width: 85vw;
     height: 90vh;
     min-width: auto;
     top: 1rem;
-    flex-direction: column;
     overflow: scroll;
 
     @media (min-width: $width-tablet-landscape) {
-        padding: 2rem 4rem 2rem 2rem;
+        padding: var(--spacing-md) calc(var(--spacing-md) * 2) var(--spacing-md)
+            var(--spacing-md);
         max-width: 61rem;
         min-width: 45rem;
         top: 14rem;
@@ -490,13 +403,13 @@
         width: 100%;
         padding-top: 0;
         margin-top: 8rem;
-        margin-bottom: 4rem;
+        margin-bottom: calc(var(--spacing-md) * 2);
 
         @media (min-width: $width-tablet-landscape) {
             max-height: 50vh;
             overflow-y: scroll;
             overflow-x: hidden;
-            padding-right: 4rem;
+            padding-right: calc(var(--spacing-md) * 2);
         }
     }
 
@@ -512,7 +425,8 @@
         }
 
         .c-trail-detail__internal {
-            margin-top: 4rem;
+            margin-top: calc(var(--spacing-md) * 2);
+
             @media (min-width: $width-tablet-landscape) {
                 width: 50%;
                 margin-top: 8rem;
@@ -522,8 +436,6 @@
 
     .access {
         h3 {
-            display: flex;
-            align-items: center;
             padding-left: 4.5rem;
             @include fonticonSetup();
             @include fonticon(
@@ -540,63 +452,6 @@
     }
 }
 
-// image slider
-.splide {
-    @media (min-width: $width-tablet-landscape) {
-        width: 50%;
-    }
-
-    &__track {
-        height: 100%;
-    }
-
-    &__slide {
-        img {
-            width: 100%;
-            height: 100%; /* Make the image fill the height of the container */
-            object-fit: cover; /* Ensures the image maintains its aspect ratio and covers the container */
-            display: block; /* Prevents inline gaps between images */
-            border-radius: 1rem;
-        }
-    }
-
-    &__arrow {
-        display: flex;
-        width: 5.3rem;
-        height: 5.3rem;
-        justify-content: center;
-        align-items: center;
-        border-radius: 0.3rem;
-        border-radius: 1rem;
-        border: 1px solid var(--c-orange);
-        background: var(--c-orange);
-        position: absolute !important;
-        opacity: 1;
-
-        svg {
-            display: none;
-        }
-
-        @include fonticonSetup();
-        @include fonticon(
-            $icon--arrow,
-            2.2rem,
-            var(--c-black),
-            auto,
-            auto,
-            auto,
-            auto,
-            $elem: before
-        );
-
-        &--prev {
-            &::before {
-                transform: rotate(180deg);
-            }
-        }
-    }
-}
-
 .c-trail-props {
     gap: 2.4rem;
     font-size: var(--font-size-label);
@@ -604,9 +459,7 @@
     margin: 2.5rem 0 3.5rem;
 
     .distance {
-        padding-left: 4rem;
-        display: flex;
-        align-items: center;
+        padding-left: calc(var(--spacing-md) * 2);
         height: 3rem;
 
         @include fonticonSetup();
@@ -623,23 +476,10 @@
     }
 }
 
-// chart.js
-.chart-container {
-    max-width: 47rem;
-    padding-right: 4rem;
-
-    @media (min-width: $width-tablet-portrait) {
-        padding-right: 0;
-    }
-
-    canvas {
-        width: 100% !important;
-        height: auto !important;
-    }
-}
-
 // scrollbar
 .c-trail-detail {
+    --border-radius: 0.6rem;
+
     ::-webkit-scrollbar {
         width: 1rem;
     }
@@ -647,13 +487,13 @@
     /* Track */
     ::-webkit-scrollbar-track {
         background: #f1f1f1;
-        border-radius: 0.6rem;
+        border-radius: var(--border-radius);
     }
 
     /* Handle */
     ::-webkit-scrollbar-thumb {
         background: var(--c-teal);
-        border-radius: 0.6rem;
+        border-radius: var(--border-radius);
     }
 
     /* Handle on hover */
