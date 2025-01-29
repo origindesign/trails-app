@@ -1,19 +1,99 @@
+:root {
+    --dm-text: #cae8e5;
+    --dm-background: #4a585c;
+    --dm-background-hover: #454647;
+}
+
+.leaflet-control-mode {
+    border: none !important;
+    cursor: pointer;
+    height: 4rem;
+    width: 4rem;
+    background-color: var(--c-teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include fonticonSetup();
+    @include fonticon(
+        $icon--sun,
+        3.25rem,
+        var(--c-sky-blue),
+        auto,
+        auto,
+        auto,
+        auto
+    );
+
+    &.dm {
+        @include fonticonSetup();
+        @include fonticon(
+            $icon--moon,
+            2.25rem,
+            var(--c-sky-blue),
+            auto,
+            auto,
+            auto,
+            auto
+        );
+    }
+}
+
 .dark-mode {
     + .map-controls {
         .c-controls__internal,
         .c-filter__internal,
         .c-controls .leaflet-control-search,
         .c-controls .leaflet-control-search input.search-input,
-        .c-filter [class*="control"] {
-            background: #4a585c !important;
-            color: #cae8e5;
+        .c-filter [class*="control"],
+        .c-controls .leaflet-control-search .search-tooltip,
+        .c-controls .leaflet-control-search .search-tooltip .search-tip,
+        .c-filter [class*="menu"],
+        .c-filter [class*="menu"] > [role="listbox"],
+        .c-filter [class*="menu"] > [role="listbox"] > [role="option"] {
+            background: var(--dm-background) !important;
+            color: var(--dm-text);
+        }
+
+        .c-filter [class*="menu"] > [role="listbox"] > [role="option"]:hover,
+        .c-controls .leaflet-control-search .search-tooltip .search-tip:hover {
+            background: var(--dm-background-hover) !important;
+            color: var(--dm-text);
         }
 
         .c-controls .leaflet-control-search input.search-input,
         .c-controls .leaflet-control-search input.search-input::placeholder,
         .c-filter [class*="singleValue"],
         .c-filter [class*="indicatorContainer"]:after {
-            color: #cae8e5;
+            color: var(--dm-text);
+        }
+
+        .c-controls *:focus-visible {
+            outline: 1px solid var(--dm-text);
+        }
+    }
+
+    .leaflet-pane {
+        .leaflet-popup-content-wrapper,
+        .leaflet-popup-tip {
+            background: var(--dm-background) !important;
+            border: 1px solid var(--dm-text);
+
+            .t-c-teal,
+            .distance:before {
+                color: var(--dm-text);
+            }
+        }
+    }
+
+    + .map-controls + .c-trail-detail {
+        background: var(--dm-background-hover) !important;
+        border: 1px solid var(--dm-text);
+        color: var(--dm-text);
+
+        .t-c-teal,
+        *:before {
+            color: var(--dm-text);
         }
     }
 }

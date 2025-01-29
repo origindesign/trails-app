@@ -84,18 +84,9 @@ const SectionMap = ({}) => {
             options: { position: "bottomleft" },
         
             onAdd: function (map) {
-                const container = L.DomUtil.create("div", "leaflet-bar leaflet-control leaflet-control-custom");
+                const container = L.DomUtil.create("div", "leaflet-bar leaflet-control leaflet-control-mode");
         
-                container.innerHTML = "🌙"; // Default to Moon Icon (Dark Mode)
-                container.style.backgroundColor = "white";
-                container.style.width = "35px";
-                container.style.height = "35px";
-                container.style.cursor = "pointer";
-                container.style.display = "flex";
-                container.style.alignItems = "center";
-                container.style.justifyContent = "center";
-                container.style.fontSize = "20px";
-                container.style.borderRadius = "4px";
+                container.classList.add('dm');
 
                 const app = document.querySelector('#map');
         
@@ -105,16 +96,12 @@ const SectionMap = ({}) => {
                     if (darkModeEnabled) {
                         map.removeLayer(darkModeLayer);
                         map.addLayer(lightModeLayer);
-                        container.innerHTML = "🌙"; // Show Moon Icon
-                        container.style.backgroundColor = "white";
-                        container.style.color = "black";
+                        container.classList.add('dm');
                         app.classList.remove('dark-mode');
                     } else {
                         map.removeLayer(lightModeLayer);
                         map.addLayer(darkModeLayer);
-                        container.innerHTML = "☀️"; // Show Sun Icon
-                        container.style.backgroundColor = "black";
-                        container.style.color = "white";
+                        container.classList.remove('dm');
                         app.classList.add('dark-mode');
                     }
                     darkModeEnabled = !darkModeEnabled;
@@ -447,6 +434,7 @@ const SectionMap = ({}) => {
                         className="filter filter-activity"
                         onChange={handleActivityChange}
                         styles={customStyles}
+                        menuIsOpen={true}
                     />
                     <Select
                         id="filter2"
