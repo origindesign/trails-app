@@ -434,7 +434,6 @@ const SectionMap = ({}) => {
                         className="filter filter-activity"
                         onChange={handleActivityChange}
                         styles={customStyles}
-                        menuIsOpen={true}
                     />
                     <Select
                         id="filter2"
