@@ -433,6 +433,7 @@ const SectionMap = ({}) => {
                         className="filter filter-activity"
                         onChange={handleActivityChange}
                         styles={customStyles}
+                        isSearchable={false}
                     />
                     <Select
                         id="filter2"
@@ -441,6 +442,7 @@ const SectionMap = ({}) => {
                         className="filter filter-difficulty"
                         onChange={handleDifficultyChange}
                         styles={customStyles}
+                        isSearchable={false}
                     />
                 </div>
             </div>

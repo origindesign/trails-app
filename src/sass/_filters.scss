@@ -43,6 +43,7 @@
         border-radius: 1rem;
         cursor: pointer;
         padding: 0.75rem var(--spacing-xs) 0.75rem 4rem;
+        min-height: 4.5rem;
     }
 
     [class*="singleValue"] {
