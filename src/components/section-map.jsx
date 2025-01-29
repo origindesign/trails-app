@@ -6,6 +6,7 @@ import "leaflet-search/dist/leaflet-search.min.css";
 import "leaflet-search";
 
 import Logo from "./../assets/pin.png";
+import VernonLogo from "./../assets/vernon-logo.svg";
 
 import parkingData from "./../data/parking";
 // import trailsData from "./../data/trails";
@@ -43,16 +44,30 @@ const SectionMap = ({}) => {
         const JAWG_API_KEY =
             "UlhmB9TdxEsUaPuIVrKDpmk5oM2qRX3IsK3hdoLnBDgkztJS86cE1GxVofqZWZmu"; // custom map style here https://www.jawg.io/lab/
         const map = L.map("map", mapOptions);
-        const layer = new L.TileLayer(
-            "https://{s}.tile.jawg.io/jawg-terrain/{z}/{x}/{y}.png?access-token=" +
-                JAWG_API_KEY,
+
+
+        // Define Light Mode Tile Layer (Default)
+        const lightModeLayer = L.tileLayer(
+            "https://{s}.tile.jawg.io/jawg-terrain/{z}/{x}/{y}.png?access-token=" + JAWG_API_KEY,
             {
                 attribution: `
-					<a href="https://www.jawg.io" target="_blank">© Jawg Maps</a>, 
-					<a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>`,
+                    <a href="https://www.jawg.io" target="_blank">© Jawg Maps</a>, 
+                    <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>`,
             }
         );
-        map.addLayer(layer);
+
+        // Define Dark Mode Tile Layer
+        const darkModeLayer = L.tileLayer(
+            "https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}.png?access-token=" + JAWG_API_KEY,
+    {
+        attribution: `
+            <a href="https://www.jawg.io" target="_blank">© Jawg Maps</a>, 
+            <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>`,
+    }
+        );
+
+        // Start with Light Mode
+        map.addLayer(lightModeLayer);
 
         L.control
             .zoom({
@@ -65,12 +80,88 @@ const SectionMap = ({}) => {
             iconSize: [21, 31],
         });
 
-        // Loop over parking data
-        parkingData.forEach((marker) => {
-            L.marker(marker.latLng, { icon: carParkIcon })
-                .addTo(map)
-                .bindPopup(marker.popupContent);
+        const DarkModeControl = L.Control.extend({
+            options: { position: "bottomleft" },
+        
+            onAdd: function (map) {
+                const container = L.DomUtil.create("div", "leaflet-bar leaflet-control leaflet-control-custom");
+        
+                container.innerHTML = "🌙"; // Default to Moon Icon (Dark Mode)
+                container.style.backgroundColor = "white";
+                container.style.width = "35px";
+                container.style.height = "35px";
+                container.style.cursor = "pointer";
+                container.style.display = "flex";
+                container.style.alignItems = "center";
+                container.style.justifyContent = "center";
+                container.style.fontSize = "20px";
+                container.style.borderRadius = "4px";
+
+                const app = document.querySelector('#map');
+        
+                let darkModeEnabled = false;
+        
+                container.onclick = function () {
+                    if (darkModeEnabled) {
+                        map.removeLayer(darkModeLayer);
+                        map.addLayer(lightModeLayer);
+                        container.innerHTML = "🌙"; // Show Moon Icon
+                        container.style.backgroundColor = "white";
+                        container.style.color = "black";
+                        app.classList.remove('dark-mode');
+                    } else {
+                        map.removeLayer(lightModeLayer);
+                        map.addLayer(darkModeLayer);
+                        container.innerHTML = "☀️"; // Show Sun Icon
+                        container.style.backgroundColor = "black";
+                        container.style.color = "white";
+                        app.classList.add('dark-mode');
+                    }
+                    darkModeEnabled = !darkModeEnabled;
+                };
+        
+                return container;
+            }
         });
+        
+        // Add Dark Mode Control to Map
+        map.addControl(new DarkModeControl());
+
+        /**
+         * Parking markers layer
+         */
+        let parkingMarkers = [];
+        let parkingVisible = false; // Markers should be hidden by default
+
+        // Function to add parking markers to the map
+        function addParkingMarkers() {
+            parkingMarkers = parkingData.map((marker) => 
+                L.marker(marker.latLng, { icon: carParkIcon })
+                    .bindPopup(marker.popupContent)
+                    .addTo(map) // Add to map only when function is called
+            );
+        }
+
+        // Function to remove parking markers from the map
+        function removeParkingMarkers() {
+            parkingMarkers.forEach(marker => map.removeLayer(marker));
+            parkingMarkers = []; // Clear the array
+        }
+
+        // Function to toggle parking markers
+        function toggleParkingMarkers() {
+            if (parkingVisible) {
+                removeParkingMarkers();
+            } else {
+                addParkingMarkers();
+            }
+            parkingVisible = !parkingVisible; // Toggle visibility state
+        }
+
+        // Add event listener to the button
+        document.querySelector(".control--parking").addEventListener("click", toggleParkingMarkers);
+
+        // Do NOT call addParkingMarkers() initially – they stay hidden by default
 
         let geojsonLayer = L.geoJSON(trails.features, {
             style(feature) {
@@ -607,11 +698,27 @@ const SectionMap = ({}) => {
 
         return (
             <div class="c-loader">
-                <div class="c-loader__internal">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <div class="c-loader__wrapper">
+                    <div class="c-loader__internal">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <img src={VernonLogo} alt="Vernon Logo" />
                 </div>
             </div>
         );
@@ -659,6 +766,7 @@ const SectionMap = ({}) => {
                         Home
                     </a>
                     <a class="control control--search">Open search</a>
+                    <a class="control control--parking">Toggle parking markers</a>
                     <a class="control control--filters">Open filters</a>
                 </div>
             </div>

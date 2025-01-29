@@ -9,7 +9,7 @@
         transform: translateX(0);
 
         @media (min-width: $width-tablet-portrait) {
-            width: 85vw;
+            width: 76vw;
             transform: translateX(0);
         }
 
@@ -41,6 +41,7 @@
     [class*="control"] {
         border-color: var(--c-teal);
         border-radius: 1rem;
+        cursor: pointer;
         padding: 0.75rem var(--spacing-xs) 0.75rem 4rem;
     }
 
@@ -84,7 +85,6 @@
 
             > [role="option"] {
                 line-height: 140%;
-                padding: var(--spacing-xs) var(--spacing-md);
             }
         }
     }
@@ -119,6 +119,51 @@
                 $elem: after
             );
         }
+
+        [class*="menu"] {
+            > [role="listbox"] {
+                > [role="option"] {
+                    // option: alpine ski
+                    &:nth-child(2) {
+                        padding: var(--spacing-xs) var(--spacing-md)
+                            var(--spacing-xs) 5rem;
+
+                        @include fonticonSetup(after);
+                        @include fonticon(
+                            $icon--ski,
+                            2.3rem,
+                            var(--c-brand-teal),
+                            50%,
+                            2.5rem,
+                            auto,
+                            auto,
+                            true,
+                            true,
+                            $elem: after
+                        );
+                    }
+                    // option: biking
+                    &:nth-child(3) {
+                        padding: var(--spacing-xs) var(--spacing-md)
+                            var(--spacing-xs) 5rem;
+
+                        @include fonticonSetup(after);
+                        @include fonticon(
+                            $icon--bike,
+                            3.5rem,
+                            var(--c-brand-teal),
+                            50%,
+                            2.5rem,
+                            auto,
+                            auto,
+                            true,
+                            true,
+                            $elem: after
+                        );
+                    }
+                }
+            }
+        }
     }
 
     .filter-difficulty {
@@ -136,6 +181,64 @@
                 true,
                 $elem: after
             );
+        }
+
+        [class*="menu"] {
+            > [role="listbox"] {
+                > [role="option"] {
+                    // option: easy
+                    &:nth-child(2) {
+                        padding: var(--spacing-xs) var(--spacing-md)
+                            var(--spacing-xs) 5.5rem;
+
+                        &::before {
+                            content: "";
+                            display: block;
+                            height: 1.8rem;
+                            width: 1.8rem;
+                            background-color: var(--c-green);
+                            border: 2px solid var(--c-black);
+                            border-radius: 50%;
+                            position: absolute;
+                            left: 2rem;
+                        }
+                    }
+                    // option: moderate
+                    &:nth-child(3) {
+                        padding: var(--spacing-xs) var(--spacing-md)
+                            var(--spacing-xs) 5.5rem;
+
+                        &::before {
+                            content: "";
+                            display: block;
+                            height: 1.75rem;
+                            width: 1.75rem;
+                            background-color: var(--c-moderate-blue);
+                            border: 1px solid var(--c-black);
+                            position: absolute;
+                            left: 2rem;
+                        }
+                    }
+                    // option: difficult
+                    &:nth-child(4) {
+                        padding: var(--spacing-xs) var(--spacing-md)
+                            var(--spacing-xs) 5.5rem;
+
+                        &::before {
+                            content: "";
+                            display: block;
+                            height: 1.3rem;
+                            width: 1.3rem;
+                            background-color: var(--c-black);
+                            border: 2px solid var(--c-black);
+                            margin-right: 1rem;
+                            transform: rotate(45deg);
+                            position: absolute;
+                            left: 2rem;
+                        }
+                    }
+                }
+            }
         }
     }
 }

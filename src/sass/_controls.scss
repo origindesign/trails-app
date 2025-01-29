@@ -29,6 +29,20 @@
         );
     }
 
+    &--parking {
+        @include fonticonSetup(after);
+        @include fonticon(
+            $icon--car,
+            1.45rem,
+            var(--c-sky-blue),
+            auto,
+            1.2rem,
+            auto,
+            auto,
+            $elem: after
+        );
+    }
+
     &--search {
         @include fonticonSetup(after);
         @include fonticon(

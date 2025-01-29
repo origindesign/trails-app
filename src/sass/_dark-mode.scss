@@ -1,0 +1,19 @@
+.dark-mode {
+    + .map-controls {
+        .c-controls__internal,
+        .c-filter__internal,
+        .c-controls .leaflet-control-search,
+        .c-controls .leaflet-control-search input.search-input,
+        .c-filter [class*="control"] {
+            background: #4a585c !important;
+            color: #cae8e5;
+        }
+
+        .c-controls .leaflet-control-search input.search-input,
+        .c-controls .leaflet-control-search input.search-input::placeholder,
+        .c-filter [class*="singleValue"],
+        .c-filter [class*="indicatorContainer"]:after {
+            color: #cae8e5;
+        }
+    }
+}
