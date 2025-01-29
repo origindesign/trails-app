@@ -3,10 +3,10 @@ let trailsData = {};
 // Function to fetch and populate trailsData
 export const fetchTrailsData = async () => {
     try {
-        // const response = await fetch(
-        //     "https://trails-app-tourismvernon.pantheonsite.io/trail-data/geojson"
-        // );
-        const response = await fetch("trail-data/geojson");
+        const response = await fetch(
+            "https://trails-app-tourismvernon.pantheonsite.io/trail-data/geojson"
+        );
+        // const response = await fetch("trail-data/geojson");
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
