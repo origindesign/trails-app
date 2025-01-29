@@ -32,7 +32,6 @@ const SectionMap = ({}) => {
     }, []);
 
     useEffect(() => {
-
         if (!trails) return; 
 
         // Creating map options
@@ -44,7 +43,6 @@ const SectionMap = ({}) => {
         const JAWG_API_KEY =
             "UlhmB9TdxEsUaPuIVrKDpmk5oM2qRX3IsK3hdoLnBDgkztJS86cE1GxVofqZWZmu"; // custom map style here https://www.jawg.io/lab/
         const map = L.map("map", mapOptions);
-
 
         // Define Light Mode Tile Layer (Default)
         const lightModeLayer = L.tileLayer(
@@ -59,11 +57,11 @@ const SectionMap = ({}) => {
         // Define Dark Mode Tile Layer
         const darkModeLayer = L.tileLayer(
             "https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}.png?access-token=" + JAWG_API_KEY,
-    {
-        attribution: `
-            <a href="https://www.jawg.io" target="_blank">© Jawg Maps</a>, 
-            <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>`,
-    }
+            {
+                attribution: `
+                    <a href="https://www.jawg.io" target="_blank">© Jawg Maps</a>, 
+                    <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>`,
+            }
         );
 
         // Start with Light Mode
@@ -371,6 +369,7 @@ const SectionMap = ({}) => {
             { value: "Easy", label: "Easy" },
             { value: "Moderate", label: "Moderate" },
             { value: "Difficult", label: "Difficult" },
+            { value: "Most Difficult", label: "Most Difficult" },
         ];
 
         const customStyles = {

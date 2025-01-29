@@ -317,7 +317,8 @@
 
 // trail difficulty shapes
 .difficulty {
-    &.easy {
+    &.easy,
+    &.easiest {
         &::before {
             content: "";
             display: block;
@@ -341,7 +342,8 @@
         }
     }
     &.difficult,
-    &.most-difficult {
+    &.most-difficult,
+    &.most_difficult {
         &::before {
             content: "";
             display: block;

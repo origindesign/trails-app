@@ -220,7 +220,8 @@
                         }
                     }
                     // option: difficult
-                    &:nth-child(4) {
+                    &:nth-child(4),
+                    &:nth-child(5) {
                         padding: var(--spacing-xs) var(--spacing-md)
                             var(--spacing-xs) 5.5rem;
 
