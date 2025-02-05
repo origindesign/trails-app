@@ -43,7 +43,7 @@
         border-radius: 1rem;
         cursor: pointer;
         padding: 0.75rem var(--spacing-xs) 0.75rem 4rem;
-        min-height: 4.5rem;
+        min-height: 5.4rem;
     }
 
     [class*="singleValue"] {
@@ -152,6 +152,82 @@
                         @include fonticon(
                             $icon--bike,
                             3.5rem,
+                            var(--c-brand-teal),
+                            50%,
+                            2.5rem,
+                            auto,
+                            auto,
+                            true,
+                            true,
+                            $elem: after
+                        );
+                    }
+                    // option: hiking
+                    &:nth-child(4) {
+                        padding: var(--spacing-xs) var(--spacing-md)
+                            var(--spacing-xs) 5rem;
+
+                        @include fonticonSetup(after);
+                        @include fonticon(
+                            $icon--hike,
+                            2.75rem,
+                            var(--c-brand-teal),
+                            50%,
+                            2.5rem,
+                            auto,
+                            auto,
+                            true,
+                            true,
+                            $elem: after
+                        );
+                    }
+                    // option: nordic
+                    &:nth-child(5) {
+                        padding: var(--spacing-xs) var(--spacing-md)
+                            var(--spacing-xs) 5rem;
+
+                        @include fonticonSetup(after);
+                        @include fonticon(
+                            $icon--nordic,
+                            3rem,
+                            var(--c-brand-teal),
+                            50%,
+                            2.5rem,
+                            auto,
+                            auto,
+                            true,
+                            true,
+                            $elem: after
+                        );
+                    }
+                    // option: multi
+                    &:nth-child(6) {
+                        padding: var(--spacing-xs) var(--spacing-md)
+                            var(--spacing-xs) 5rem;
+
+                        @include fonticonSetup(after);
+                        @include fonticon(
+                            $icon--multi,
+                            3.75rem,
+                            var(--c-brand-teal),
+                            50%,
+                            2.5rem,
+                            auto,
+                            auto,
+                            true,
+                            true,
+                            $elem: after
+                        );
+                    }
+                    // option: motorized
+                    &:nth-child(7) {
+                        padding: var(--spacing-xs) var(--spacing-md)
+                            var(--spacing-xs) 5rem;
+
+                        @include fonticonSetup(after);
+                        @include fonticon(
+                            $icon--atv,
+                            3.4rem,
                             var(--c-brand-teal),
                             50%,
                             2.5rem,

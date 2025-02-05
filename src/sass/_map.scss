@@ -111,7 +111,7 @@
         }
 
         .search-input {
-            border-radius: 1rem;
+            border-radius: var(--border-radius);
             border: 2px solid var(--c-teal);
             height: auto;
             width: inherit;
@@ -187,6 +187,11 @@
     .leaflet-control-zoom {
         border: none;
         margin: var(--spacing-md);
+        display: none;
+
+        @media (min-width: $width-tablet-landscape) {
+            display: block;
+        }
 
         a {
             background-color: var(--c-teal);
@@ -437,8 +442,14 @@
     }
 
     .access {
+        margin-top: 2rem;
+        padding: 3rem 2rem 1.5rem;
+        background: #f4f4f4;
+        border-radius: 1.5rem;
+
         h3 {
             padding-left: 4.5rem;
+            margin-bottom: 0;
             @include fonticonSetup();
             @include fonticon(
                 $icon--car,
@@ -450,6 +461,10 @@
                 auto,
                 $elem: before
             );
+        }
+
+        p {
+            margin-top: 1rem;
         }
     }
 }
@@ -502,4 +517,9 @@
     ::-webkit-scrollbar-thumb:hover {
         background: #555;
     }
+}
+
+.trail-active {
+    filter: drop-shadow(2px 2px 0px white) drop-shadow(-2px -2px 0px white)
+        drop-shadow(2px -2px 0px white) drop-shadow(-2px 2px 0px white);
 }

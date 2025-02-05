@@ -135,10 +135,13 @@ const SectionMap = ({}) => {
 
         // Function to toggle parking markers
         function toggleParkingMarkers() {
+            let parkingControl = document.querySelector(".control--parking");
             if (parkingVisible) {
                 removeParkingMarkers();
+                parkingControl.classList.remove('control--active');
             } else {
                 addParkingMarkers();
+                parkingControl.classList.add('control--active');
             }
             parkingVisible = !parkingVisible; // Toggle visibility state
         }
@@ -188,7 +191,32 @@ const SectionMap = ({}) => {
                 layer.bindPopup("");
                 layer.on("popupopen", function (e) {
                     var popup = e.popup;
-            
+
+                    const trailDetail = document.querySelector('.c-trail-detail');
+                    if (trailDetail.classList.contains('open')) {
+                        trailDetail.classList.remove('open');
+                    }
+
+                    // Active trail style
+                    map.eachLayer(function (l) {
+                        if (l instanceof L.Polyline) {
+                            l.setStyle({ weight: 2.25 }); // Reset weight
+                            const el = l.getElement();
+                            if (el) {
+                                el.classList.remove("trail-active"); // Remove active class
+                                el.classList.add("trail"); // Reset to default
+                            }
+                        }
+                    });
+                    if (layer instanceof L.Polyline) {
+                        layer.setStyle({ weight: 5 }); // Highlight weight
+                        const el = layer.getElement();
+                        if (el) {
+                            el.classList.remove("trail"); // Remove default class
+                            el.classList.add("trail-active"); // Add active class
+                        }
+                    }
+
                     // Get the bounds of the feature
                     const bounds = layer.getBounds ? layer.getBounds() : layer.getLatLng();
                     let center;
@@ -232,7 +260,32 @@ const SectionMap = ({}) => {
                 bufferLayer.on("click", function (e) {
                     // Get the location of the click
                     const clickLatLng = e.latlng;
-            
+
+                    const trailDetail = document.querySelector('.c-trail-detail');
+                    if (trailDetail.classList.contains('open')) {
+                        trailDetail.classList.remove('open');
+                    }
+
+                     // Active trail style
+                     map.eachLayer(function (l) {
+                        if (l instanceof L.Polyline) {
+                            l.setStyle({ weight: 2.25 }); // Reset weight
+                            const el = l.getElement();
+                            if (el) {
+                                el.classList.remove("trail-active"); // Remove active class
+                                el.classList.add("trail"); // Reset to default
+                            }
+                        }
+                    });
+                    if (layer instanceof L.Polyline) {
+                        layer.setStyle({ weight: 5 }); // Highlight weight
+                        const el = layer.getElement();
+                        if (el) {
+                            el.classList.remove("trail"); // Remove default class
+                            el.classList.add("trail-active"); // Add active class
+                        }
+                    }
+
                     // Open a popup at the clicked location
                     const popupContent = `
                         <h3 class="t-c-teal">${feature.properties.Name}</h3>
@@ -253,7 +306,7 @@ const SectionMap = ({}) => {
                         feature.properties.Description
                     }" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}">More details</span>
                     `;
-            
+
                     L.popup()
                         .setLatLng(clickLatLng)
                         .setContent(popupContent)
@@ -362,6 +415,10 @@ const SectionMap = ({}) => {
             { value: "All", label: "All Activities" },
             { value: "Alpine Ski", label: "Alpine Ski" },
             { value: "Biking", label: "Biking" },
+            { value: "Hiking", label: "Hiking" },
+            { value: "Nordic Ski", label: "Nordic Ski" },
+            { value: "Multi-Use", label: "Multi-Use" },
+            { value: "Motorized", label: "Motorized" },
         ];
 
         const difficultyOptions = [
@@ -676,9 +733,11 @@ const SectionMap = ({}) => {
             setTimeout(function () {
                 controls.classList.add("in");
             }, 1350);
-            setTimeout(function () {
-                filters.classList.add("in");
-            }, 1500);
+            if (window.innerWidth > 740) {
+                setTimeout(() => {
+                    filters.classList.add("in");
+                }, 1500);
+            }
             setTimeout(function () {
                 loader.classList.add("visually-hidden");
             }, 2000);
@@ -731,6 +790,10 @@ const SectionMap = ({}) => {
                     const searchEl = document.querySelector(".leaflet-control-search");
                     searchEl.classList.add("in");
                     filterEl.classList.remove("in");
+
+                    // if ( searchEl.classList.contains('in')) {
+                    //     searchEl.classList.remove("in");
+                    // }
                 }
 
                 if (event.target.matches(".control--filters")) {
