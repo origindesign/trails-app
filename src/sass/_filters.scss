@@ -297,7 +297,24 @@
                         }
                     }
                     // option: difficult
-                    &:nth-child(4),
+                    &:nth-child(4) {
+                        padding: var(--spacing-xs) var(--spacing-md)
+                            var(--spacing-xs) 5.5rem;
+
+                        &::before {
+                            content: "";
+                            display: block;
+                            height: 1.3rem;
+                            width: 1.3rem;
+                            background-color: var(--c-black);
+                            border: 2px solid var(--c-black);
+                            margin-right: 1rem;
+                            transform: rotate(45deg);
+                            position: absolute;
+                            left: 2rem;
+                        }
+                    }
+                    // option: most difficult
                     &:nth-child(5) {
                         padding: var(--spacing-xs) var(--spacing-md)
                             var(--spacing-xs) 5.5rem;
