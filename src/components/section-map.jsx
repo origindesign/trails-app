@@ -18,6 +18,7 @@ const SectionMap = ({}) => {
 
     // let trails = tempData // import data
     const [trails, setTrailsData] = useState(null); // State to manage trails data
+    const [loading, setLoading] = useState(true); // State to track loading status
 
     /**
      * Fetch trails data asynchronously
@@ -25,11 +26,34 @@ const SectionMap = ({}) => {
      */ 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true); // Set loading to true before fetching
             const data = await fetchTrailsData();
-            setTrailsData(data); // Update state with fetched data
+            setTrailsData(data);
+            setLoading(false); // Set loading to false once data is fetched
         };
+
         fetchData();
     }, []);
+
+    // Update classes when loading finishes
+    useEffect(() => {
+        if (!loading) {
+            // setTimeout(() => {
+            //     document.querySelector(".c-loader")?.classList.add("hide");
+            // }, 1000);
+            setTimeout(() => {
+                document.querySelector(".c-controls")?.classList.add("in");
+            }, 1000);
+            if (window.innerWidth > 740) {
+                setTimeout(() => {
+                    document.querySelector(".c-filter")?.classList.add("in");
+                }, 1100);
+            }
+            // setTimeout(() => {
+            //     document.querySelector(".c-loader")?.classList.add("visually-hidden");
+            // }, 2000);
+        }
+    }, [loading]);
 
     useEffect(() => {
         if (!trails) return; 
@@ -638,7 +662,8 @@ const SectionMap = ({}) => {
                       return `${value}m`; // Add 'm' suffix for meters
                     },
                     stepSize: 30,
-                    color: "#346d7a"
+                    color: "#346d7a",
+                    maxTicksLimit: 5,
                   },
                   grid: {
                     color: "#88AD38",
@@ -725,24 +750,24 @@ const SectionMap = ({}) => {
      */
     function Loader() {
         useEffect(() => {
-            var loader = document.querySelector(".c-loader");
-            var controls = document.querySelector(".c-controls");
-            var filters = document.querySelector(".c-filter");
+            // var loader = document.querySelector(".c-loader");
+            // var controls = document.querySelector(".c-controls");
+            // var filters = document.querySelector(".c-filter");
 
-            setTimeout(function () {
-                loader.classList.add("hide");
-            }, 1000);
-            setTimeout(function () {
-                controls.classList.add("in");
-            }, 1350);
-            if (window.innerWidth > 740) {
-                setTimeout(() => {
-                    filters.classList.add("in");
-                }, 1500);
-            }
-            setTimeout(function () {
-                loader.classList.add("visually-hidden");
-            }, 2000);
+            // setTimeout(function () {
+            //     loader.classList.add("hide");
+            // }, 1000);
+            // setTimeout(function () {
+            //     controls.classList.add("in");
+            // }, 1350);
+            // if (window.innerWidth > 740) {
+            //     setTimeout(() => {
+            //         filters.classList.add("in");
+            //     }, 1500);
+            // }
+            // setTimeout(function () {
+            //     loader.classList.add("visually-hidden");
+            // }, 2000);
         }, []);
 
         return (
@@ -837,7 +862,7 @@ const SectionMap = ({}) => {
                 <Filters />
             </div>
             <TrailDetail />
-            <Loader />
+            {loading && <Loader />} {/* Show Loader only when loading is true */}
         </div>
     );
 };
