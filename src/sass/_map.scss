@@ -89,7 +89,15 @@
 
         &.in {
             // transform: translateX(0);
-            transform: translateX(-50%); /* Adjust for exact centering */
+            transform: translate(-50%, -74dvh);
+
+            @media (min-width: 414px) {
+                transform: translate(-50%, -78dvh);
+            }
+
+            @media (min-width: 500px) {
+                transform: translate(-50%, -66dvh);
+            }
 
             @media (min-width: $width-tablet-landscape) {
                 transform: translateX(0);
