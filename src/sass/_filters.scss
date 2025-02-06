@@ -1,6 +1,7 @@
 .c-filter {
     height: max-content;
     padding: var(--spacing-md);
+    pointer-events: all;
     transform: translateX(500rem);
     transition: var(--transition-slow);
     right: 0;
@@ -263,6 +264,7 @@
         [class*="menu"] {
             > [role="listbox"] {
                 > [role="option"] {
+                    position: relative;
                     // option: easy
                     &:nth-child(2) {
                         padding: var(--spacing-xs) var(--spacing-md)
@@ -329,7 +331,20 @@
                             margin-right: 1rem;
                             transform: rotate(45deg);
                             position: absolute;
-                            left: 2rem;
+                            left: 1.25rem;
+                        }
+                        &::after {
+                            content: "";
+                            display: block;
+                            height: 1.3rem;
+                            width: 1.3rem;
+                            background-color: var(--c-black);
+                            border: 2px solid var(--c-black);
+                            margin-right: 1rem;
+                            transform: rotate(45deg);
+                            position: absolute;
+                            left: 2.85rem;
+                            top: 1rem;
                         }
                     }
                 }

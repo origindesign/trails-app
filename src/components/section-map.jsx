@@ -625,6 +625,7 @@ const SectionMap = ({}) => {
                 x: {
                   ticks: {
                     display: false,
+                    color: "#346d7a"
                   },
                   grid: {
                     display: false, // Disable vertical grid lines
@@ -637,6 +638,7 @@ const SectionMap = ({}) => {
                       return `${value}m`; // Add 'm' suffix for meters
                     },
                     stepSize: 30,
+                    color: "#346d7a"
                   },
                   grid: {
                     color: "#88AD38",
@@ -808,7 +810,7 @@ const SectionMap = ({}) => {
             <div className={"c-controls pos-absolute d-flex"}>
                 <div
                     id="controls-internal"
-                    className={"c-controls__internal body-copy bg--white d-flex flex-direction-column"}
+                    className={"c-controls__internal body-copy bg--white d-flex flex-direction-row"}
                 >
                     <a
                         class="control control--home"
