@@ -603,3 +603,11 @@
     filter: drop-shadow(2px 2px 0px white) drop-shadow(-2px -2px 0px white)
         drop-shadow(2px -2px 0px white) drop-shadow(-2px 2px 0px white);
 }
+
+.parking-marker {
+    height: 0.75rem !important;
+    width: 0.75rem !important;
+    border-radius: 50%;
+    background-color: #f26521;
+    border: 1.5px solid black;
+}

@@ -142,10 +142,17 @@ const SectionMap = ({}) => {
         let parkingMarkers = [];
         let parkingVisible = false; // Markers should be hidden by default
 
+        const customIcon = L.divIcon({
+            className: "parking-marker", // Class for styling
+            html: "<div class='parking-content'></div>", // Custom HTML inside marker
+            iconSize: [30, 30], // Size of the marker
+            iconAnchor: [15, 15] // Center it correctly
+        });
+
         // Function to add parking markers to the map
         function addParkingMarkers() {
             parkingMarkers = parkingData.map((marker) => 
-                L.marker(marker.latLng, { icon: carParkIcon })
+                L.marker(marker.latLng, { icon: customIcon })
                     .bindPopup(marker.popupContent)
                     .addTo(map) // Add to map only when function is called
             );
