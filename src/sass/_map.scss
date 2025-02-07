@@ -41,9 +41,11 @@
         width: max-content;
         gap: var(--spacing-xs);
         color: var(--c-teal);
+        position: relative;
 
         @media (min-width: $width-tablet-landscape) {
             flex-direction: row;
+            position: unset;
         }
     }
 
@@ -56,6 +58,7 @@
         background: none;
         left: 0;
         width: 100%;
+        width: 33rem;
         top: -5rem;
         left: 50%; /* Center horizontally */
 
@@ -89,14 +92,25 @@
 
         &.in {
             // transform: translateX(0);
-            transform: translate(-50%, -74dvh);
+            transform: translate(-50%, -76dvh);
+
+            @media (min-width: 390px) {
+                transform: translate(-50%, -81dvh);
+            }
 
             @media (min-width: 414px) {
-                transform: translate(-50%, -78dvh);
+                transform: translate(-50%, -82dvh);
+            }
+            @media (min-width: 430px) {
+                transform: translate(-50%, -83dvh);
             }
 
             @media (min-width: 500px) {
                 transform: translate(-50%, -66dvh);
+            }
+
+            @media (min-width: $width-tablet-portrait) {
+                transform: translate(-50%, -84dvh);
             }
 
             @media (min-width: $width-tablet-landscape) {

@@ -824,10 +824,6 @@ const SectionMap = ({}) => {
                     const searchEl = document.querySelector(".leaflet-control-search");
                     searchEl.classList.add("in");
                     filterEl.classList.remove("in");
-
-                    // if ( searchEl.classList.contains('in')) {
-                    //     searchEl.classList.remove("in");
-                    // }
                 }
 
                 if (event.target.matches(".control--filters")) {
