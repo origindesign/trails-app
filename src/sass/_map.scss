@@ -482,6 +482,10 @@
         flex-direction: row;
     }
 
+    p {
+        color: var(--c-black);
+    }
+
     &__internal {
         width: 100%;
         padding-top: 0;
