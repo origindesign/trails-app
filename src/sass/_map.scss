@@ -512,6 +512,9 @@
             overflow-x: hidden;
             padding-right: calc(var(--spacing-md) * 2);
         }
+        @media (min-width: $width-laptop) {
+            max-height: 58vh;
+        }
     }
 
     &.open {

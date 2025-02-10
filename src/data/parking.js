@@ -402,12 +402,16 @@ const parkingDataRaw = [
 ];
 
 // markerData.js
-const parkingData = parkingDataRaw.map((item) => ({
-    latLng: item.latLng,
-    popupContent: `
-        <h3 class='t-c-teal'>Parking</h3>
-        <a class='link--parking' href='' data-coord='${item.latLng}'>Directions</a>
-    `,
-}));
+const parkingData = parkingDataRaw.map((item) => {
+    const [lat, lng] = item.latLng;
+
+    return {
+        latLng: item.latLng,
+        popupContent: `
+            <h3 class='t-c-teal'>Parking</h3>
+            <a class='link--parking' href='http://maps.google.com/maps?z=12&t=m&q=loc:${lat}+${lng}' data-coord='${lat},${lng}' target="_blank">Directions</a>
+        `,
+    };
+});
 
 export default parkingData;
