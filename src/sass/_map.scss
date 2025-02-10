@@ -20,6 +20,9 @@
     left: 50%;
     transform: translate(-50%, 500%);
 
+    height: 100%;
+    align-items: flex-end;
+
     @media (min-width: $width-tablet-landscape) {
         left: unset;
         transform: translate(-500%, 0%);
@@ -41,7 +44,7 @@
         width: max-content;
         gap: var(--spacing-xs);
         color: var(--c-teal);
-        position: relative;
+        // position: relative;
 
         @media (min-width: $width-tablet-landscape) {
             flex-direction: row;
@@ -58,9 +61,11 @@
         background: none;
         left: 0;
         width: 100%;
-        width: 33rem;
-        top: -5rem;
-        left: 50%; /* Center horizontally */
+        top: 6rem;
+        left: 50%;
+
+        position: absolute;
+        left: 0;
 
         @media (min-width: $width-tablet-landscape) {
             display: flex;
@@ -80,6 +85,9 @@
         @media (min-width: 740px) {
             width: 45rem;
         }
+        @media (min-width: 1024px) {
+            width: 37rem;
+        }
         @media (min-width: 1100px) {
             width: 41rem;
         }
@@ -91,31 +99,8 @@
         }
 
         &.in {
-            // transform: translateX(0);
-            transform: translate(-50%, -73dvh);
-
-            @media (min-width: 390px) {
-                transform: translate(-50%, -76dvh);
-            }
-
-            @media (min-width: 414px) {
-                transform: translate(-50%, -79dvh);
-            }
-            @media (min-width: 430px) {
-                transform: translate(-50%, -80dvh);
-            }
-
-            @media (min-width: 500px) {
-                transform: translate(-50%, -65dvh);
-            }
-
-            @media (min-width: $width-tablet-portrait) {
-                transform: translate(-50%, -84dvh);
-            }
-
-            @media (min-width: $width-tablet-landscape) {
-                transform: translateX(0);
-            }
+            transform: translate(-50%, 0);
+            left: 50%;
         }
 
         .search-alert {
@@ -189,19 +174,6 @@
             margin: 0;
             width: calc(100% - 10rem);
             transition: var(--transition-med);
-
-            // @media (min-width: 740px) {
-            //     width: 34rem;
-            // }
-            // @media (min-width: 1100px) {
-            //     width: 41rem;
-            // }
-            // @media (min-width: 1300px) {
-            //     width: 50rem;
-            // }
-            // @media (min-width: 1650px) {
-            //     width: 74rem;
-            // }
 
             &::placeholder {
                 color: var(--c-teal);
