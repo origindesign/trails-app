@@ -16,7 +16,7 @@ import { fetchTrailsData } from "./../data/trails"; // Import the async fetch fu
 const SectionMap = ({}) => {
     const geojsonLayerRef = useRef(null); // Ref to store the GeoJSON layer
 
-    // let trails = tempData // import data
+    // let trails = tempData // import test data
     const [trails, setTrailsData] = useState(null); // State to manage trails data
     const [loading, setLoading] = useState(true); // State to track loading status
 
@@ -38,9 +38,6 @@ const SectionMap = ({}) => {
     // Update classes when loading finishes
     useEffect(() => {
         if (!loading) {
-            // setTimeout(() => {
-            //     document.querySelector(".c-loader")?.classList.add("hide");
-            // }, 1000);
             setTimeout(() => {
                 document.querySelector(".c-controls")?.classList.add("in");
             }, 1000);
@@ -432,13 +429,6 @@ const SectionMap = ({}) => {
                 }
             }
         }
-
-        // reload page if screen size changed across 740px wide
-        // const mediaQuery = window.matchMedia("(max-width: 740px)");
-        // mediaQuery.addEventListener("change", () => {
-        //     location.reload(); // Refresh the page when switching above/below 740px
-        // });
-    
     }, [trails]);
 
     /**
@@ -875,7 +865,6 @@ const SectionMap = ({}) => {
             </div>
         );
     };
-    
 
     return (
         <div>
