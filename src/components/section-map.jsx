@@ -432,7 +432,12 @@ const SectionMap = ({}) => {
                 }
             }
         }
-        
+
+        // reload page if screen size changed across 740px wide
+        // const mediaQuery = window.matchMedia("(max-width: 740px)");
+        // mediaQuery.addEventListener("change", () => {
+        //     location.reload(); // Refresh the page when switching above/below 740px
+        // });
     
     }, [trails]);
 
@@ -811,29 +816,46 @@ const SectionMap = ({}) => {
      */
     const ControlsPrimary = () => {
         useEffect(() => {
-            // mobile controls functionality
-            const filterControl = document.querySelector(".control--filters");
-            const filterEl = document.querySelector(".c-filter");
-            filterControl.addEventListener("click", function () {
-                filterEl.classList.toggle("in");
-            });
-
-             // Function to handle click events
+    
             function searchClick(event) {
+                const searchEl = document.querySelector(".leaflet-control-search");
+                const filterEl = document.querySelector(".c-filter");
+            
                 if (event.target.matches(".control--search")) {
-                    const searchEl = document.querySelector(".leaflet-control-search");
-                    searchEl.classList.add("in");
+                    const isSearchOpen = searchEl.classList.contains("in");
+                    searchEl.classList.toggle("in");
                     filterEl.classList.remove("in");
                 }
 
                 if (event.target.matches(".control--filters")) {
-                    const searchEl = document.querySelector(".leaflet-control-search");
+                    const isFilterOpen = filterEl.classList.contains("in");
+                    filterEl.classList.toggle("in");
                     searchEl.classList.remove("in");
                 }
             }
-            document.addEventListener("click", searchClick);
-        });
 
+            function handleResize() {
+                if (window.innerWidth < 960) {
+                    document.querySelector(".leaflet-control-search")?.classList.remove("in");
+                    document.querySelector(".c-filter")?.classList.remove("in");
+                }
+                else if (window.innerWidth > 960) {
+                    document.querySelector(".leaflet-control-search")?.classList.remove("in");
+                    document.querySelector(".c-filter")?.classList.add("in");
+                }
+            }
+
+            // Add event listeners
+            document.addEventListener("click", searchClick);
+            window.addEventListener("resize", handleResize);
+    
+            // Cleanup function to remove event listeners
+            return () => {
+                document.removeEventListener("click", searchClick);
+                window.removeEventListener("resize", handleResize);
+            };
+        }, []); // Empty dependency array ensures effect runs only once
+    
         return (
             <div className={"c-controls pos-absolute d-flex"}>
                 <div
@@ -841,18 +863,19 @@ const SectionMap = ({}) => {
                     className={"c-controls__internal body-copy bg--white d-flex flex-direction-row"}
                 >
                     <a
-                        class="control control--home"
+                        className="control control--home"
                         href="https://www.tourismvernon.com"
                     >
                         Home
                     </a>
-                    <a class="control control--search">Open search</a>
-                    <a class="control control--parking">Toggle parking markers</a>
-                    <a class="control control--filters">Open filters</a>
+                    <a className="control control--search">Open search</a>
+                    <a className="control control--parking">Toggle parking markers</a>
+                    <a className="control control--filters">Open filters</a>
                 </div>
             </div>
         );
     };
+    
 
     return (
         <div>

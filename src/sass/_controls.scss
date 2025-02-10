@@ -76,7 +76,7 @@
             $elem: after
         );
 
-        @media (min-width: $width-tablet-portrait) {
+        @media (min-width: $width-tablet-landscape) {
             display: none;
         }
     }
