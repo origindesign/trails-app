@@ -253,9 +253,11 @@ const SectionMap = ({}) => {
                     } else if (layer instanceof L.Polygon || layer instanceof L.Polyline) {
                         center = bounds.getCenter();
                     }
+
+                    console.log(feature.properties['Unique ID']);
             
                     popup.setContent(`
-                        <h3 class="t-c-teal">${feature.properties.Name}</h3>
+                        <h3 class="t-c-teal"><span style="color:purple;">${feature.properties['Unique ID']}</span><br>${feature.properties.Name}</h3>
                         <div class="card-props t-c-teal">
                             <span class="distance d-flex ai-center">${JSON.stringify(feature.properties.Distance)} km</span>
                             <span class="difficulty d-flex ai-center ${feature.properties.Difficulty.toLowerCase().replace(
@@ -316,7 +318,7 @@ const SectionMap = ({}) => {
 
                     // Open a popup at the clicked location
                     const popupContent = `
-                        <h3 class="t-c-teal">${feature.properties.Name}</h3>
+                        <h3 class="t-c-teal"><span style="color:purple;">${feature.properties['Unique ID']}</span><br>${feature.properties.Name}</h3>
                         <div class="card-props t-c-teal">
                             <span class="distance d-flex ai-center">${JSON.stringify(
                                 feature.properties.Distance
