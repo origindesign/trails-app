@@ -254,7 +254,7 @@ const SectionMap = ({}) => {
                         center = bounds.getCenter();
                     }
 
-                    console.log(feature.properties['Unique ID']);
+                    console.log(feature.properties);
             
                     popup.setContent(`
                         <h3 class="t-c-teal"><span style="color:purple;">${feature.properties['Unique ID']}</span><br>${feature.properties.Name}</h3>
@@ -264,6 +264,7 @@ const SectionMap = ({}) => {
                                 /\s+/g,
                                 "-"
                             )}">${feature.properties.Difficulty}</span>
+                            <span class="type d-flex ai-center ${feature.properties['Optimized Type'].toLowerCase().replace(/\s+/g, '-').replace(/"/g, '')}">${feature.properties['Optimized Type'].replace(/"/g, '')}</span>
                         </div>
                         <span class="link t-c-teal" data-name="${
                             feature.properties.Name
@@ -327,6 +328,7 @@ const SectionMap = ({}) => {
                                 /\s+/g,
                                 "-"
                             )}">${feature.properties.Difficulty}</span>
+                            <span class="type d-flex ai-center ${feature.properties['Optimized Type'].toLowerCase().replace(/\s+/g, '-').replace(/"/g, '')}">${feature.properties['Optimized Type'].replace(/"/g, '')}</span>
                         </div>
                         <span class="link t-c-teal" data-name="${
                             feature.properties.Name

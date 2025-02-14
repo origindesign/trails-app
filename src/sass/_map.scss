@@ -302,6 +302,11 @@
         gap: var(--spacing-sm);
         flex-direction: row;
         margin: 2.5rem 0 3rem;
+        flex-wrap: wrap;
+
+        > span {
+            flex: 1;
+        }
     }
 
     .link {
@@ -354,6 +359,90 @@
             auto,
             $elem: before
         );
+    }
+
+    .type {
+        padding-left: 4rem;
+        height: 3rem;
+
+        @include fonticonSetup();
+
+        &.alpine-ski {
+            @include fonticon(
+                $icon--ski,
+                2.65rem,
+                var(--c-brand-teal),
+                auto,
+                0,
+                auto,
+                auto,
+                $elem: before
+            );
+        }
+        &.biking {
+            @include fonticon(
+                $icon--bike,
+                4rem,
+                var(--c-brand-teal),
+                auto,
+                -0.65rem,
+                auto,
+                auto,
+                $elem: before
+            );
+        }
+        // option: hiking
+        &.hiking {
+            @include fonticon(
+                $icon--hike,
+                3rem,
+                var(--c-brand-teal),
+                auto,
+                0,
+                auto,
+                auto,
+                $elem: before
+            );
+        }
+        // option: nordic
+        &.nordic-ski {
+            @include fonticon(
+                $icon--nordic,
+                3.25rem,
+                var(--c-brand-teal),
+                auto,
+                0,
+                auto,
+                auto,
+                $elem: before
+            );
+        }
+        // option: multi
+        &.multi-use {
+            @include fonticon(
+                $icon--multi,
+                4.5rem,
+                var(--c-brand-teal),
+                auto,
+                -0.75rem,
+                auto,
+                auto,
+                $elem: before
+            );
+        }
+        // option: motorized
+        &.motorized {
+            @include fonticon(
+                $icon--atv,
+                4rem,
+                var(--c-brand-teal),
+                auto,
+                -0.5rem,
+                auto,
+                auto,
+                $elem: before
+            );
+        }
     }
 }
 
