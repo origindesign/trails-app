@@ -178,6 +178,7 @@ const SectionMap = ({}) => {
         document.querySelector(".control--parking").addEventListener("click", toggleParkingMarkers);
 
         // Do NOT call addParkingMarkers() initially – they stay hidden by default
+        addParkingMarkers();
 
         let geojsonLayer = L.geoJSON(trails.features, {
             style(feature) {

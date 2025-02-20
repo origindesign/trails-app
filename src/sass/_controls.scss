@@ -32,6 +32,7 @@
     }
 
     &--parking {
+        display: none;
         @include fonticonSetup(after);
         @include fonticon(
             $icon--car,
