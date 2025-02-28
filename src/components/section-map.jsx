@@ -162,7 +162,7 @@ const SectionMap = ({}) => {
         function addParkingMarkers() {
             parkingMarkers = parkingData.map((marker) => {
                 console.log(marker);
-        
+
                 const { latLng } = marker; // Destructure marker object
                 const lat = latLng[0]; // Assuming latLng is an array [lat, lng]
                 const lng = latLng[1];
