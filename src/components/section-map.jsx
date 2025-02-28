@@ -8,9 +8,10 @@ import "leaflet-search";
 import Logo from "./../assets/pin.png";
 import VernonLogo from "./../assets/vernon-logo.svg";
 
-import parkingData from "./../data/parking";
+// import parkingData from "./../data/parking";
 // import trailsData from "./../data/trails";
 // import tempData from "./../data/temp";
+import { fetchParkingData } from "./../data/parking"; // Import the async fetch function
 import { fetchTrailsData } from "./../data/trails"; // Import the async fetch function
 
 const SectionMap = ({}) => {
@@ -18,6 +19,8 @@ const SectionMap = ({}) => {
 
     // let trails = tempData // import test data
     const [trails, setTrailsData] = useState(null); // State to manage trails data
+    const [parkingData, setParkingData] = useState(null); // Separate state for parking data
+
     const [loading, setLoading] = useState(true); // State to track loading status
 
     /**
@@ -27,13 +30,22 @@ const SectionMap = ({}) => {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true); // Set loading to true before fetching
-            const data = await fetchTrailsData();
-            setTrailsData(data);
+
+            // Fetch both trails and parking data concurrently
+            const [trailsResponse, parkingResponse] = await Promise.all([
+                fetchTrailsData(),
+                fetchParkingData()
+            ]);
+
+            setTrailsData(trailsResponse); // Store trails data separately
+            setParkingData(parkingResponse); // Store parking data separately
+
             setLoading(false); // Set loading to false once data is fetched
         };
 
         fetchData();
     }, []);
+
 
     // Update classes when loading finishes
     useEffect(() => {
@@ -148,11 +160,27 @@ const SectionMap = ({}) => {
 
         // Function to add parking markers to the map
         function addParkingMarkers() {
-            parkingMarkers = parkingData.map((marker) => 
-                L.marker(marker.latLng, { icon: customIcon })
-                    .bindPopup(marker.popupContent)
-                    .addTo(map) // Add to map only when function is called
-            );
+            parkingMarkers = parkingData.map((marker) => {
+                console.log(marker);
+        
+                const { latLng } = marker; // Destructure marker object
+                const lat = latLng[0]; // Assuming latLng is an array [lat, lng]
+                const lng = latLng[1];
+
+                return L.marker(latLng, { icon: customIcon })
+                    .bindPopup(`
+                        <h3 style="color:purple;"'>${marker.unique_id}</h3>
+                        <h3 class='t-c-teal'>${marker.name}</h3>
+                        <p class='t-c-teal'>
+                            ${marker.description}
+                        </p>
+                        <a class='link' href='http://maps.google.com/maps?z=12&t=m&q=loc:${lat}+${lng}' 
+                           data-coord='${lat},${lng}' target="_blank">
+                            Directions
+                        </a>
+                    `)
+                    .addTo(map);
+            });
         }
 
         // Function to remove parking markers from the map
