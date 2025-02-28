@@ -408,8 +408,9 @@ const parkingData = parkingDataRaw.map((item) => {
     return {
         latLng: item.latLng,
         popupContent: `
-            <h3 class='t-c-teal'>Parking</h3>
-            <a class='link--parking' href='http://maps.google.com/maps?z=12&t=m&q=loc:${lat}+${lng}' data-coord='${lat},${lng}' target="_blank">Directions</a>
+            <h3 class='t-c-teal'>{{ Name }}</h3>
+            <p class='t-c-teal'>{{ Bro ipsum dolor sit amet 360 punter dope, twin tip dust on crust north shore clean stoked gondy switch noodle OTB drop Ski. }}</p>
+            <a class='link' href='http://maps.google.com/maps?z=12&t=m&q=loc:${lat}+${lng}' data-coord='${lat},${lng}' target="_blank">Directions</a>
         `,
     };
 });

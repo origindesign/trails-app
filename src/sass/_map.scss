@@ -67,6 +67,7 @@
 
         position: absolute;
         left: 0;
+        width: 35rem;
 
         @media (min-width: $width-tablet-landscape) {
             display: flex;
@@ -118,7 +119,37 @@
         }
 
         .search-cancel {
-            display: none !important;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            display: block;
+            right: 6.5rem;
+            top: 1rem;
+            background: none;
+
+            &::before,
+            &::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 100%;
+                height: 2px;
+                background-color: var(--c-teal);
+            }
+
+            &::before {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+
+            &::after {
+                transform: translate(-50%, -50%) rotate(-45deg);
+            }
+
+            span {
+                display: none !important;
+            }
         }
 
         .search-button {
@@ -173,7 +204,7 @@
             padding-right: 6rem;
             height: 5rem;
             margin: 0;
-            width: calc(100% - 10rem);
+            width: calc(100% - 11.5rem);
             transition: var(--transition-med);
 
             &::placeholder {
@@ -318,6 +349,7 @@
         line-height: 110%;
         text-transform: uppercase;
         padding-right: 3.5rem;
+        text-decoration: none;
 
         @include fonticonSetup(after);
         @include fonticon(
