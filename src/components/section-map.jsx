@@ -164,7 +164,7 @@ const SectionMap = ({}) => {
                 console.log(marker);
 
                 const { latLng } = marker; // Destructure marker object
-                const lat = latLng[0]; // Assuming latLng is an array [lat, lng]
+                const lat = latLng[0];
                 const lng = latLng[1];
 
                 return L.marker(latLng, { icon: customIcon })
@@ -283,7 +283,7 @@ const SectionMap = ({}) => {
                         center = bounds.getCenter();
                     }
 
-                    console.log(feature.properties);
+                    console.log(feature.properties, 'sss');
             
                     popup.setContent(`
                         <h3 class="t-c-teal"><span style="color:purple;">${feature.properties['Unique ID']}</span><br>${feature.properties.Name}</h3>
@@ -297,7 +297,7 @@ const SectionMap = ({}) => {
                         </div>
                         <span class="link t-c-teal" data-name="${
                             feature.properties.Name
-                        }" data-distance="${JSON.stringify(feature.properties.Distance)}" data-difficulty="${feature.properties.Difficulty}" data-description="${feature.properties.Description}" data-access="${feature.properties.Access}" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}">More details</span>
+                        }" data-distance="${JSON.stringify(feature.properties.Distance)}" data-difficulty="${feature.properties.Difficulty}" data-description="${feature.properties.Description}" data-access="${feature.properties.Access}" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}" data-parkingname="${feature.properties.Parking.name}" data-parkingdescription="${feature.properties.Parking.description}" data-area="${feature.properties['Trail Area']}">More details</span>
                     `);
 
                     // Pan the map
@@ -365,7 +365,7 @@ const SectionMap = ({}) => {
                         feature.properties.Distance
                     )}" data-difficulty="${feature.properties.Difficulty}" data-access="${feature.properties.Access}" data-description="${
                         feature.properties.Description
-                    }" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}">More details</span>
+                    }" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}" data-parkingname="${feature.properties.Parking.name}" data-parkingdescription="${feature.properties.Parking.description}" data-area="${feature.properties['Trail Area']}">More details</span>
                     `;
 
                     L.popup()
@@ -577,6 +577,9 @@ const SectionMap = ({}) => {
           description: "",
           access: "",
           elevation: "",
+          parkingname: "",
+          parkingdescription: "",
+          area: "",
           imagery: [],
         });
         const [isModalOpen, setIsModalOpen] = useState(false);
@@ -614,6 +617,9 @@ const SectionMap = ({}) => {
               description,
               access,
               elevation,
+              parkingname,
+              parkingdescription,
+              area,
               imagery,
             } = event.target.dataset;
       
@@ -624,6 +630,9 @@ const SectionMap = ({}) => {
               description,
               access,
               elevation,
+              parkingname,
+              parkingdescription,
+              area,
               imagery: imagery.split(", "),
             });
       
@@ -752,11 +761,29 @@ const SectionMap = ({}) => {
             <div className={"c-trail-detail__internal d-flex flex-direction-column"}>
               <a className="control control--close">Close trail detail modal</a>
               <h2 className="t-c-teal">{trailDetails.name}</h2>
+
+              {trailDetails.access && (
+                <p className="c-area d-flex ai-center">
+                    <strong>Area: </strong> <span>{trailDetails.area}</span>
+                </p>
+              )}
+
               {trailDetails.description && <p>{trailDetails.description}</p>}
               {trailDetails.access && (
                 <div className={"access d-flex flex-direction-column"} style={{ marginTop: "2rem" }}>
                   <h3 className="t-c-teal">Access</h3>
                   <p>{trailDetails.access}</p>
+                </div>
+              )}
+              {trailDetails.parkingname && (
+                <div className="parking d-flex flex-direction-column">
+                    <h3 className="t-c-teal">Parking</h3>
+                    <div class={"parking-item"}>
+                        <span>{trailDetails.parkingname}</span>
+                        {trailDetails.parkingdescription && (
+                            <p>{trailDetails.parkingdescription}</p>
+                        )}
+                    </div>
                 </div>
               )}
               <div className="c-trail-props d-flex t-c-teal">

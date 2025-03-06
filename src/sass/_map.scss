@@ -223,8 +223,7 @@
             max-height: 27rem;
             padding: var(--spacing-xs) 0;
             margin: 0;
-            border-bottom-left-radius: 1rem;
-            border-bottom-right-radius: 1rem;
+            border-radius: 1rem;
 
             .search-tip {
                 font-family: var(--font-regular);
@@ -633,12 +632,13 @@
     }
 
     .access {
+        border: 1px solid #c3c3c3;
         margin-top: 2rem;
         padding: 3rem 2rem 1.5rem;
         background: #f4f4f4;
         border-radius: 1.5rem;
 
-        h3 {
+        > h3 {
             padding-left: 4.5rem;
             margin-bottom: 0;
             @include fonticonSetup();
@@ -657,6 +657,70 @@
         p {
             margin-top: 1rem;
         }
+    }
+
+    .parking {
+        border: 1px solid #c3c3c3;
+        margin-top: 2rem;
+        padding: 3rem 2rem;
+        background: #f4f4f4;
+        border-radius: 1.5rem;
+
+        h3 {
+            &::before {
+                content: "P";
+                position: relative;
+                height: 3rem;
+                width: 3rem;
+                border-radius: 50%;
+                color: white;
+                background-color: var(--c-teal);
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                margin-right: 1rem;
+                font-size: 2rem;
+            }
+            margin-bottom: 2rem;
+        }
+
+        p {
+            margin-top: 1rem;
+        }
+
+        .parking-item {
+            padding: 1.5rem 2rem;
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+            width: 75%;
+
+            span {
+                font-size: 1.4rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+                display: block;
+            }
+
+            p {
+                margin: 0;
+                font-size: 1.4rem;
+            }
+        }
+    }
+}
+
+.c-area {
+    margin: 0;
+
+    strong {
+        margin-right: 1.5rem;
+    }
+    span {
+        font-size: 1.35rem;
+        padding: 0.5rem 1rem;
+        background-color: #f4f4f4;
+        border-radius: 1rem;
     }
 }
 
