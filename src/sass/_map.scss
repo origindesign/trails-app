@@ -591,6 +591,7 @@
 
     p {
         color: var(--c-black);
+        margin: 0 0 1.5rem;
     }
 
     &__internal {
@@ -633,7 +634,7 @@
 
     .access {
         border: 1px solid #c3c3c3;
-        margin-top: 2rem;
+        margin-bottom: 2rem;
         padding: 3rem 2rem 1.5rem;
         background: #f4f4f4;
         border-radius: 1.5rem;
@@ -661,7 +662,7 @@
 
     .parking {
         border: 1px solid #c3c3c3;
-        margin-top: 2rem;
+        margin-bottom: 2rem;
         padding: 3rem 2rem;
         background: #f4f4f4;
         border-radius: 1.5rem;
@@ -698,12 +699,11 @@
             span {
                 font-size: 1.4rem;
                 font-weight: 700;
-                margin-bottom: 0.5rem;
                 display: block;
             }
 
             p {
-                margin: 0;
+                margin: 1.5rem 0 0 0;
                 font-size: 1.4rem;
             }
         }
@@ -711,12 +711,15 @@
 }
 
 .c-area {
-    margin: 0;
+    margin: 0.5rem 0 1.5rem;
 
     strong {
         margin-right: 1.5rem;
     }
+
+    a,
     span {
+        color: var(--c-teal);
         font-size: 1.35rem;
         padding: 0.5rem 1rem;
         background-color: #f4f4f4;
@@ -724,11 +727,113 @@
     }
 }
 
+.c-trail-types {
+    gap: 1.1rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    margin: 0 0 1.5rem;
+
+    .type {
+        font-size: 1.35rem;
+        padding: 0.75rem 0.75rem 0.75rem 3.2rem;
+        border-radius: 1rem;
+        background-color: #f4f4f4;
+
+        @include fonticonSetup();
+
+        &.alpineski {
+            @include fonticon(
+                $icon--ski,
+                1.8rem,
+                var(--c-brand-teal),
+                auto,
+                0.75rem,
+                auto,
+                auto,
+                $elem: before
+            );
+        }
+        &.biking {
+            @include fonticon(
+                $icon--bike,
+                2.4rem,
+                var(--c-brand-teal),
+                auto,
+                0.5rem,
+                auto,
+                auto,
+                $elem: before
+            );
+        }
+        &.hiking {
+            @include fonticon(
+                $icon--hike,
+                2rem,
+                var(--c-brand-teal),
+                auto,
+                0.75rem,
+                auto,
+                auto,
+                $elem: before
+            );
+        }
+        &.xcski {
+            @include fonticon(
+                $icon--nordic,
+                2.2rem,
+                var(--c-brand-teal),
+                auto,
+                0.5rem,
+                auto,
+                auto,
+                $elem: before
+            );
+        }
+        &.snowmobile {
+            @include fonticon(
+                $icon--atv,
+                2.2rem,
+                var(--c-brand-teal),
+                auto,
+                0.75rem,
+                auto,
+                auto,
+                $elem: before
+            );
+        }
+        &.snowshoe {
+            @include fonticon(
+                $icon--hike,
+                2rem,
+                var(--c-brand-teal),
+                auto,
+                0.75rem,
+                auto,
+                auto,
+                $elem: before
+            );
+        }
+        &.winterbike {
+            @include fonticon(
+                $icon--bike,
+                2.4rem,
+                var(--c-brand-teal),
+                auto,
+                0.5rem,
+                auto,
+                auto,
+                $elem: before
+            );
+        }
+    }
+}
+
 .c-trail-props {
     gap: 2.4rem;
     font-size: var(--font-size-label);
     flex-direction: row;
-    margin: 2.5rem 0 3.5rem;
+    margin: 0 0 1.5rem;
 
     .distance {
         padding-left: calc(var(--spacing-md) * 2);

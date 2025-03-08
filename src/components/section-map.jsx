@@ -293,11 +293,11 @@ const SectionMap = ({}) => {
                                 /\s+/g,
                                 "-"
                             )}">${feature.properties.Difficulty}</span>
-                            <span class="type d-flex ai-center ${feature.properties['Optimized Type'].toLowerCase().replace(/\s+/g, '-').replace(/"/g, '')}">${feature.properties['Optimized Type'].replace(/"/g, '')}</span>
+                            <!--<span class="type d-flex ai-center ${feature.properties['Optimized Type'].toLowerCase().replace(/\s+/g, '-').replace(/"/g, '')}">${feature.properties['Optimized Type'].replace(/"/g, '')}</span>-->
                         </div>
                         <span class="link t-c-teal" data-name="${
                             feature.properties.Name
-                        }" data-distance="${JSON.stringify(feature.properties.Distance)}" data-difficulty="${feature.properties.Difficulty}" data-description="${feature.properties.Description}" data-access="${feature.properties.Access}" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}" data-parkingname="${feature.properties.Parking.name}" data-parkingdescription="${feature.properties.Parking.description}" data-area="${feature.properties['Trail Area']}">More details</span>
+                        }" data-distance="${JSON.stringify(feature.properties.Distance)}" data-difficulty="${feature.properties.Difficulty}" data-description="${feature.properties.Description}" data-access="${feature.properties.Access}" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}" data-parkingname="${feature.properties.Parking.name}" data-parkingdescription="${feature.properties.Parking.description}" data-area="${feature.properties['Trail Area']}" data-typehiking="${feature.properties['Hiking']}" data-typebiking="${feature.properties['Biking']}" data-typesnowmobile="${feature.properties['Snowmobile']}" data-typexcski="${feature.properties['XC Ski']}" data-typealpineski="${feature.properties['Alpine Ski']}" data-typesnowshoe="${feature.properties['Snowshoe']}" data-typewinterbike="${feature.properties['Winter Bike']}">More details</span>
                     `);
 
                     // Pan the map
@@ -357,7 +357,7 @@ const SectionMap = ({}) => {
                                 /\s+/g,
                                 "-"
                             )}">${feature.properties.Difficulty}</span>
-                            <span class="type d-flex ai-center ${feature.properties['Optimized Type'].toLowerCase().replace(/\s+/g, '-').replace(/"/g, '')}">${feature.properties['Optimized Type'].replace(/"/g, '')}</span>
+                            <!--<span class="type d-flex ai-center ${feature.properties['Optimized Type'].toLowerCase().replace(/\s+/g, '-').replace(/"/g, '')}">${feature.properties['Optimized Type'].replace(/"/g, '')}</span>-->
                         </div>
                         <span class="link t-c-teal" data-name="${
                             feature.properties.Name
@@ -365,7 +365,7 @@ const SectionMap = ({}) => {
                         feature.properties.Distance
                     )}" data-difficulty="${feature.properties.Difficulty}" data-access="${feature.properties.Access}" data-description="${
                         feature.properties.Description
-                    }" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}" data-parkingname="${feature.properties.Parking.name}" data-parkingdescription="${feature.properties.Parking.description}" data-area="${feature.properties['Trail Area']}">More details</span>
+                    }" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}" data-parkingname="${feature.properties.Parking.name}" data-parkingdescription="${feature.properties.Parking.description}" data-area="${feature.properties['Trail Area']}" data-typehiking="${feature.properties['Hiking']}" data-typebiking="${feature.properties['Biking']}" data-typesnowmobile="${feature.properties['Snowmobile']}" data-typexcski="${feature.properties['XC Ski']}" data-typealpineski="${feature.properties['Alpine Ski']}" data-typesnowshoe="${feature.properties['Snowshoe']}" data-typewinterbike="${feature.properties['Winter Bike']}">More details</span>
                     `;
 
                     L.popup()
@@ -475,9 +475,10 @@ const SectionMap = ({}) => {
             { value: "Alpine Ski", label: "Alpine Ski" },
             { value: "Biking", label: "Biking" },
             { value: "Hiking", label: "Hiking" },
-            { value: "Nordic Ski", label: "Nordic Ski" },
-            { value: "Multi-Use", label: "Multi-Use" },
-            { value: "Motorized", label: "Motorized" },
+            { value: "XC Ski", label: "XC Ski" },
+            { value: "Snowmobile", label: "Snowmobile" },
+            { value: "Snowshoe", label: "Snowshoe" },
+            { value: "Winter Fatbike", label: "Winter Fatbike" },
         ];
 
         const difficultyOptions = [
@@ -512,9 +513,12 @@ const SectionMap = ({}) => {
                     selectedDifficulty.current.value === "All" || 
                     feature.properties["Difficulty"] === selectedDifficulty.current.value;
 
-                const matchesActivity =
-                    selectedActivity.current.value === "All" || 
-                    feature.properties["Optimized Type"] === selectedActivity.current.value;
+                    const matchesActivity = selectedActivity.current.value === "All" || (
+                        Object.keys(feature.properties).some((key) => {
+                            // Check if the key matches the selected activity and the value is "true"
+                            return key === selectedActivity.current.value && feature.properties[key] === "true";
+                        })
+                    );
 
                 // Return true if both conditions are met
                 return matchesDifficulty && matchesActivity;
@@ -580,6 +584,13 @@ const SectionMap = ({}) => {
           parkingname: "",
           parkingdescription: "",
           area: "",
+          typehiking: "",
+          typebiking: "",
+          typesnowmobile: "",
+          typexcski: "",
+          typealpineski: "",
+          typesnowshoe: "",
+          typewinterbike: "",
           imagery: [],
         });
         const [isModalOpen, setIsModalOpen] = useState(false);
@@ -620,6 +631,13 @@ const SectionMap = ({}) => {
               parkingname,
               parkingdescription,
               area,
+              typehiking,
+              typebiking,
+              typesnowmobile,
+              typexcski,
+              typealpineski,
+              typesnowshoe,
+              typewinterbike,
               imagery,
             } = event.target.dataset;
       
@@ -633,6 +651,13 @@ const SectionMap = ({}) => {
               parkingname,
               parkingdescription,
               area,
+              typehiking,
+              typebiking,
+              typesnowmobile,
+              typexcski,
+              typealpineski,
+              typesnowshoe,
+              typewinterbike,
               imagery: imagery.split(", "),
             });
       
@@ -727,6 +752,19 @@ const SectionMap = ({}) => {
             }
           };
         }, [trailDetails.elevation]);
+
+        const areaLinks = {
+            "Ellison Provincial Park": "https://example.com/ellison-provincial-park",
+            "Grey Canal": "",
+            "Kalamalka Lake Provincial Park": "https://bcparks.ca/kalamalka-lake-park/",
+            "Kekuli Bay": "https://bcparks.ca/kekuli-bay-park/",
+            "King Eddy Plateau": "",
+            "Predator Ridge": "https://www.predatorridge.com/",
+            "SilverStar Mountain Resort": "https://www.skisilverstar.com/",
+            "Snowmobile Club": "https://sledvernon.ca/",
+            "Sovereign Lake MTB": "",
+            "Sovereign Lake Nordic Club": "https://www.sovereignlake.com/"
+        };
       
         return (
           <div
@@ -760,32 +798,46 @@ const SectionMap = ({}) => {
               )}
             <div className={"c-trail-detail__internal d-flex flex-direction-column"}>
               <a className="control control--close">Close trail detail modal</a>
+
               <h2 className="t-c-teal">{trailDetails.name}</h2>
 
-              {trailDetails.access && (
-                <p className="c-area d-flex ai-center">
-                    <strong>Area: </strong> <span>{trailDetails.area}</span>
-                </p>
-              )}
-
-              {trailDetails.description && <p>{trailDetails.description}</p>}
-              {trailDetails.access && (
-                <div className={"access d-flex flex-direction-column"} style={{ marginTop: "2rem" }}>
-                  <h3 className="t-c-teal">Access</h3>
-                  <p>{trailDetails.access}</p>
-                </div>
-              )}
-              {trailDetails.parkingname && (
-                <div className="parking d-flex flex-direction-column">
-                    <h3 className="t-c-teal">Parking</h3>
-                    <div class={"parking-item"}>
-                        <span>{trailDetails.parkingname}</span>
-                        {trailDetails.parkingdescription && (
-                            <p>{trailDetails.parkingdescription}</p>
+                {trailDetails.area && (
+                    <p className="c-area d-flex ai-center">
+                        <strong>Area: </strong>
+                        {areaLinks[trailDetails.area] ? (
+                            <a href={areaLinks[trailDetails.area]} target="_blank" rel="noopener noreferrer">
+                                {trailDetails.area}
+                            </a>
+                        ) : (
+                            <span>{trailDetails.area}</span>
                         )}
-                    </div>
-                </div>
-              )}
+                    </p>
+                )}
+
+              <div className={"c-trail-types d-flex flex-direction-row flex-wrap-wrap"}>
+                {trailDetails.typehiking === "true" && (
+                    <span className="type d-flex ai-center hiking">Hiking</span>
+                )}
+                {trailDetails.typebiking === "true" && (
+                    <span className="type d-flex ai-center biking">Biking</span>
+                )}
+                {trailDetails.typesnowmobile === "true" && (
+                    <span className="type d-flex ai-center snowmobile">Snowmobile</span>
+                )}
+                {trailDetails.typexcski === "true" && (
+                    <span className="type d-flex ai-center xcski">XC Ski</span>
+                )}
+                {trailDetails.typealpineski === "true" && (
+                    <span className="type d-flex ai-center alpineski">Alpine Ski</span>
+                )}
+                {trailDetails.typesnowshoe === "true" && (
+                    <span className="type d-flex ai-center snowshoe">Snowshoe</span>
+                )}
+                {trailDetails.typewinterbike === "true" && (
+                    <span className="type d-flex ai-center winterbike">Winter Bike</span>
+                )}
+              </div>
+
               <div className="c-trail-props d-flex t-c-teal">
                 <span className="distance d-flex ai-center">
                   {trailDetails.distance} km
@@ -798,6 +850,28 @@ const SectionMap = ({}) => {
                   {trailDetails.difficulty}
                 </span>
               </div>
+
+              {trailDetails.description && <p>{trailDetails.description}</p>}
+
+              {trailDetails.access && (
+                <div className={"access d-flex flex-direction-column"}>
+                  <h3 className="t-c-teal">Access</h3>
+                  <p>{trailDetails.access}</p>
+                </div>
+              )}
+
+              {trailDetails.parkingname && (
+                <div className="parking d-flex flex-direction-column">
+                    <h3 className="t-c-teal">Parking</h3>
+                    <div class={"parking-item"}>
+                        <span>{trailDetails.parkingname}</span>
+                        {trailDetails.parkingdescription && (
+                            <p>{trailDetails.parkingdescription}</p>
+                        )}
+                    </div>
+                </div>
+              )}
+
               <div className={"chart-container"}>
                 <canvas id="elevationChart"></canvas>
               </div>
