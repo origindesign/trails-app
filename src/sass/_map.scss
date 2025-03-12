@@ -894,3 +894,11 @@
     background-color: var(--c-orange);
     border: 1.5px solid black;
 }
+
+.temp {
+    position: absolute;
+    left: 0;
+    top: -20px;
+    font-size: 12px;
+    font-weight: 700;
+}

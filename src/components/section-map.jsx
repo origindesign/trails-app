@@ -169,7 +169,7 @@ const SectionMap = ({}) => {
 
                 return L.marker(latLng, { icon: customIcon })
                     .bindPopup(`
-                        <h3 style="color:purple;"'>${marker.unique_id}</h3>
+                        <span class="temp">${marker.unique_id}</span>
                         <h3 class='t-c-teal'>${marker.name}</h3>
                         <p class='t-c-teal'>
                             ${marker.description}
@@ -286,7 +286,8 @@ const SectionMap = ({}) => {
                     console.log(feature.properties, 'sss');
             
                     popup.setContent(`
-                        <h3 class="t-c-teal"><span style="color:purple;">${feature.properties['Unique ID']}</span><br>${feature.properties.Name}</h3>
+                        <span class="temp">${feature.properties['Unique ID']}</span>
+                        <h3 class="t-c-teal">${feature.properties.Name}</h3>
                         <div class="card-props t-c-teal">
                             <span class="distance d-flex ai-center">${JSON.stringify(feature.properties.Distance)} km</span>
                             <span class="difficulty d-flex ai-center ${feature.properties.Difficulty.toLowerCase().replace(
