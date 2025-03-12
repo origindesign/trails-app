@@ -109,8 +109,15 @@
             display: block;
             margin-top: var(--spacing-sm);
             color: var(--c-warning);
-            padding-left: var(--spacing-xs);
             height: 100%;
+            position: absolute;
+            left: 0rem;
+            top: 6rem;
+            background: #ffe4e4;
+            height: 2.5rem;
+            align-items: center;
+            padding: 0.25rem 1.5rem;
+            border-radius: 0.5rem;
         }
 
         .search-cancel {
