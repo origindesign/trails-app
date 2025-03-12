@@ -3,12 +3,12 @@ let parkingData = {};
 // Function to fetch and populate parkingData
 export const fetchParkingData = async () => {
     try {
-        // const response = await fetch(
-        //     "https://trails-app-tourismvernon.pantheonsite.io/trail-parking-data/data"
-        // );
         const response = await fetch(
-            "https://tov.lndo.site/trail-parking-data/data"
+            "https://trails-app-tourismvernon.pantheonsite.io/trail-parking-data/data"
         );
+        // const response = await fetch(
+        //     "https://tov.lndo.site/trail-parking-data/data"
+        // );
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
