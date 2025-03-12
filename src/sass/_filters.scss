@@ -182,7 +182,7 @@
                             $elem: after
                         );
                     }
-                    // option: nordic
+                    // option: xc ski
                     &:nth-child(5) {
                         padding: var(--spacing-xs) var(--spacing-md)
                             var(--spacing-xs) 5rem;
@@ -201,15 +201,15 @@
                             $elem: after
                         );
                     }
-                    // option: multi
+                    // option: sled
                     &:nth-child(6) {
                         padding: var(--spacing-xs) var(--spacing-md)
                             var(--spacing-xs) 5rem;
 
                         @include fonticonSetup(after);
                         @include fonticon(
-                            $icon--multi,
-                            3.75rem,
+                            $icon--sled,
+                            3.25rem,
                             var(--c-brand-teal),
                             50%,
                             2.5rem,
@@ -220,15 +220,34 @@
                             $elem: after
                         );
                     }
-                    // option: motorized
+                    // option: snowshoe
                     &:nth-child(7) {
                         padding: var(--spacing-xs) var(--spacing-md)
                             var(--spacing-xs) 5rem;
 
                         @include fonticonSetup(after);
                         @include fonticon(
-                            $icon--atv,
-                            3.4rem,
+                            $icon--snowshoe,
+                            3.2rem,
+                            var(--c-brand-teal),
+                            50%,
+                            2.5rem,
+                            auto,
+                            auto,
+                            true,
+                            true,
+                            $elem: after
+                        );
+                    }
+                    // option: fatbike
+                    &:nth-child(8) {
+                        padding: var(--spacing-xs) var(--spacing-md)
+                            var(--spacing-xs) 5rem;
+
+                        @include fonticonSetup(after);
+                        @include fonticon(
+                            $icon--fatbike,
+                            3.2rem,
                             var(--c-brand-teal),
                             50%,
                             2.5rem,

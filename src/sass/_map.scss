@@ -422,7 +422,6 @@
                 $elem: before
             );
         }
-        // option: hiking
         &.hiking {
             @include fonticon(
                 $icon--hike,
@@ -435,7 +434,6 @@
                 $elem: before
             );
         }
-        // option: nordic
         &.nordic-ski {
             @include fonticon(
                 $icon--nordic,
@@ -448,7 +446,6 @@
                 $elem: before
             );
         }
-        // option: multi
         &.multi-use {
             @include fonticon(
                 $icon--multi,
@@ -461,10 +458,21 @@
                 $elem: before
             );
         }
-        // option: motorized
         &.motorized {
             @include fonticon(
                 $icon--atv,
+                4rem,
+                var(--c-brand-teal),
+                auto,
+                -0.5rem,
+                auto,
+                auto,
+                $elem: before
+            );
+        }
+        &.snowmobile {
+            @include fonticon(
+                $icon--sled,
                 4rem,
                 var(--c-brand-teal),
                 auto,
@@ -792,7 +800,7 @@
         }
         &.snowmobile {
             @include fonticon(
-                $icon--atv,
+                $icon--sled,
                 2.2rem,
                 var(--c-brand-teal),
                 auto,
@@ -804,7 +812,7 @@
         }
         &.snowshoe {
             @include fonticon(
-                $icon--hike,
+                $icon--snowshoe,
                 2rem,
                 var(--c-brand-teal),
                 auto,
@@ -816,7 +824,7 @@
         }
         &.winterbike {
             @include fonticon(
-                $icon--bike,
+                $icon--fatbike,
                 2.4rem,
                 var(--c-brand-teal),
                 auto,
