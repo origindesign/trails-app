@@ -45,7 +45,6 @@
         gap: var(--spacing-xs);
         color: var(--c-teal);
         pointer-events: all;
-        // position: relative;
 
         @media (min-width: $width-tablet-landscape) {
             flex-direction: row;
@@ -58,13 +57,9 @@
         border: none;
         transform: translateX(500rem);
         transition: var(--transition-slow);
-        position: absolute;
         background: none;
-        left: 0;
         width: 100%;
         top: 6rem;
-        left: 50%;
-
         position: absolute;
         left: 0;
         width: 35rem;
@@ -120,8 +115,8 @@
 
         .search-cancel {
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 2rem;
+            height: 2rem;
             cursor: pointer;
             display: block;
             right: 6.5rem;
@@ -135,7 +130,7 @@
                 top: 50%;
                 left: 50%;
                 width: 100%;
-                height: 2px;
+                height: 0.2rem;
                 background-color: var(--c-teal);
             }
 
@@ -153,23 +148,23 @@
         }
 
         .search-button {
+            --btn-size: 5.4rem;
+
             background: none;
             background-color: var(--c-teal);
             border-radius: var(--border-radius);
             color: white;
             cursor: pointer;
             font-size: 0;
-            width: 5rem;
-            height: 5rem;
-            min-width: 5rem;
-            min-height: 5rem;
+            width: var(--btn-size);
+            height: var(--btn-size);
+            min-width: var(--btn-size);
+            min-height: var(--btn-size);
             display: flex;
             align-items: center;
             justify-content: center;
             transition: var(--transition-med);
             margin-left: -5rem;
-            height: 5.4rem;
-            width: 5.4rem;
             position: absolute !important;
             right: 0;
 
@@ -574,14 +569,14 @@
     z-index: 999999999;
     left: 50%;
     transform: translateX(-50%) translateY(500rem);
-    padding: 2rem;
+    padding: var(--spacing-md);
     border-radius: 2rem;
     border: 1px solid var(--c-green);
     transition: 0.35s ease-in-out;
     width: 85vw;
     height: 90dvh;
     min-width: auto;
-    top: 1rem;
+    top: var(--spacing-xs);
     overflow: scroll;
 
     @media (min-width: $width-tablet-landscape) {
@@ -599,7 +594,7 @@
 
     p {
         color: var(--c-black);
-        margin: 0 0 1.5rem;
+        margin: 0 0 var(--spacing-sm);
     }
 
     &__internal {
@@ -643,9 +638,9 @@
     .access {
         border: 1px solid #c3c3c3;
         margin-bottom: 2rem;
-        padding: 3rem 2rem 1.5rem;
-        background: #f4f4f4;
-        border-radius: 1.5rem;
+        padding: 3rem 2rem var(--spacing-sm);
+        background: var(--c-panel-grey);
+        border-radius: var(--spacing-sm);
 
         > h3 {
             padding-left: 4.5rem;
@@ -664,16 +659,16 @@
         }
 
         p {
-            margin-top: 1rem;
+            margin-top: var(--spacing-xs);
         }
     }
 
     .parking {
         border: 1px solid #c3c3c3;
-        margin-bottom: 2rem;
-        padding: 3rem 2rem;
-        background: #f4f4f4;
-        border-radius: 1.5rem;
+        margin-bottom: var(--spacing-md);
+        padding: 3rem var(--spacing-md);
+        background: var(--c-panel-grey);
+        border-radius: var(--border-radius);
 
         h3 {
             &::before {
@@ -687,18 +682,18 @@
                 display: inline-flex;
                 justify-content: center;
                 align-items: center;
-                margin-right: 1rem;
+                margin-right: var(--spacing-xs);
                 font-size: 2rem;
             }
             margin-bottom: 2rem;
         }
 
         p {
-            margin-top: 1rem;
+            margin-top: var(--spacing-xs);
         }
 
         .parking-item {
-            padding: 1.5rem 2rem;
+            padding: var(--spacing-sm) var(--spacing-md);
             background-color: white;
             border-radius: 1rem;
             box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
@@ -711,7 +706,7 @@
             }
 
             p {
-                margin: 1.5rem 0 0 0;
+                margin: var(--spacing-sm) 0 0 0;
                 font-size: 1.4rem;
             }
         }
@@ -719,34 +714,34 @@
 }
 
 .c-area {
-    margin: 0.5rem 0 1.5rem;
+    margin: 0.5rem 0 var(--spacing-sm);
 
     strong {
-        margin-right: 1.5rem;
+        margin-right: var(--spacing-sm);
     }
 
     a,
     span {
         color: var(--c-teal);
         font-size: 1.35rem;
-        padding: 0.5rem 1rem;
-        background-color: #f4f4f4;
+        padding: 0.5rem var(--spacing-xs);
+        background-color: var(--c-panel-grey);
         border-radius: 1rem;
     }
 }
 
 .c-trail-types {
     gap: 1.1rem;
-    padding: 1.5rem 0;
+    padding: var(--spacing-sm) 0;
     border-top: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
-    margin: 0 0 1.5rem;
+    margin: 0 0 var(--spacing-sm);
 
     .type {
         font-size: 1.35rem;
         padding: 0.75rem 0.75rem 0.75rem 3.2rem;
         border-radius: 1rem;
-        background-color: #f4f4f4;
+        background-color: var(--c-panel-grey);
 
         @include fonticonSetup();
 
@@ -841,7 +836,7 @@
     gap: 2.4rem;
     font-size: var(--font-size-label);
     flex-direction: row;
-    margin: 0 0 1.5rem;
+    margin: 0 0 var(--spacing-sm);
 
     .distance {
         padding-left: calc(var(--spacing-md) * 2);
@@ -896,6 +891,6 @@
     height: 0.75rem !important;
     width: 0.75rem !important;
     border-radius: 50%;
-    background-color: #f8764f;
+    background-color: var(--c-orange);
     border: 1.5px solid black;
 }
