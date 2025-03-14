@@ -287,7 +287,7 @@ const SectionMap = ({}) => {
                     console.log(feature.properties, 'sss');
             
                     popup.setContent(`
-                        <span class="temp">${feature.properties['Unique ID']}</span>
+                        <span class="temp">${feature.properties['Unique_ID']}</span>
                         <h3 class="t-c-teal">${feature.properties.Name}</h3>
                         <div class="card-props t-c-teal">
                             <span class="distance d-flex ai-center">${JSON.stringify(feature.properties.Distance)} km</span>
@@ -350,7 +350,7 @@ const SectionMap = ({}) => {
 
                     // Open a popup at the clicked location
                     const popupContent = `
-                        <h3 class="t-c-teal"><span style="color:purple;">${feature.properties['Unique ID']}</span><br>${feature.properties.Name}</h3>
+                        <h3 class="t-c-teal"><span style="color:purple;">${feature.properties['Unique_ID']}</span><br>${feature.properties.Name}</h3>
                         <div class="card-props t-c-teal">
                             <span class="distance d-flex ai-center">${JSON.stringify(
                                 feature.properties.Distance
@@ -396,12 +396,15 @@ const SectionMap = ({}) => {
         // Add the Leaflet Search control
         const searchControl = new L.Control.Search({
             layer: geojsonLayer,
-            propertyName: "Name",
+            propertyName: 'Name',
             initial: false,
             zoom: 16,
             marker: false,
             textPlaceholder: "Search by trail name",
             collapsed: false,
+            moveToLocation: function (latlng, title, map) {
+                map.setView(latlng, 16);
+            },
         });
 
         map.addControl(searchControl);
