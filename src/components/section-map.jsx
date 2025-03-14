@@ -7,6 +7,7 @@ import "leaflet-search";
 
 import Logo from "./../assets/pin.png";
 import VernonLogo from "./../assets/vernon-logo.svg";
+import TCLogo from "./../assets/trails-capital-oval.png";
 
 // import parkingData from "./../data/parking";
 // import trailsData from "./../data/trails";
@@ -991,6 +992,45 @@ const SectionMap = ({}) => {
         );
     };
 
+    const Disclaimer = () => {
+        const [accepted, setAccepted] = useState(false);
+        const [loading, setLoading] = useState(true);
+        const [isVisible, setIsVisible] = useState(false);
+    
+        useEffect(() => {
+            const getCookie = (name) => {
+                return document.cookie.split("; ").some(cookie => cookie.startsWith(name + "="));
+            };
+    
+            if (getCookie("accepted_terms")) {
+                setAccepted(true);
+            } else {
+                setIsVisible(true);
+            }
+    
+            setLoading(false);
+        }, []);
+    
+        const acceptTerms = () => {
+            document.cookie = "accepted_terms=true; path=/; max-age=" + 60 * 60 * 24 * 365;
+            setIsVisible(false);
+            setTimeout(() => setAccepted(true), 500); // Wait for animation before removing
+        };
+    
+        if (loading || accepted) return null;
+    
+        return (
+            <div className={`c-disclaimer d-flex ai-center flex-wrap-wrap ${isVisible ? "show" : "hide"}`}>
+                <img src={TCLogo} alt="Trails Capital Logo" />
+                <p>
+                    This map is for informational purposes only. Please check with the
+                    local authorities for the most up-to-date information.
+                </p>
+                <button onClick={acceptTerms}>Accept</button>
+            </div>
+        );
+    };
+
     return (
         <div>
             <div
@@ -1003,6 +1043,7 @@ const SectionMap = ({}) => {
             </div>
             <TrailDetail />
             {loading && <Loader />} {/* Show Loader only when loading is true */}
+            <Disclaimer />
         </div>
     );
 };

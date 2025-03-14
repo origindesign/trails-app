@@ -889,6 +889,73 @@
     }
 }
 
+.c-disclaimer {
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    padding: 1rem 2.5rem;
+    background: #87ad38;
+    color: white;
+    gap: 1rem;
+
+    img {
+        width: 5rem;
+    }
+
+    p {
+        font-size: 1.4rem;
+        margin-right: 4rem;
+    }
+}
+
+.c-disclaimer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 2.5rem;
+    background: #87ad38;
+    color: white;
+    gap: 1rem;
+    transform: translateY(100%);
+    transition: transform 0.5s ease-in-out;
+
+    img {
+        width: 5rem;
+    }
+
+    p {
+        font-size: 1.4rem;
+        margin-right: 4rem;
+    }
+
+    &.show {
+        transform: translateY(0);
+    }
+
+    &.hide {
+        transform: translateY(100%);
+    }
+
+    button {
+        cursor: pointer;
+        height: 4rem;
+        width: 12rem;
+        font-size: 1.5rem;
+        background: #f8764f;
+        border: none;
+        font-weight: 600;
+        border-radius: 0.4rem;
+        color: white;
+        transition: 0.2s ease-in-out;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}
+
 .trail-active {
     filter: drop-shadow(2px 2px 0px white) drop-shadow(-2px -2px 0px white)
         drop-shadow(2px -2px 0px white) drop-shadow(-2px 2px 0px white);
