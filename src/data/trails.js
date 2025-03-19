@@ -4,7 +4,7 @@ let trailsData = {};
 export const fetchTrailsData = async () => {
     try {
         const response = await fetch(
-            "https://trails-app-tourismvernon.pantheonsite.io/trail-data/geojson"
+            "https://test-tourismvernon.pantheonsite.io/trail-data/geojson"
         );
         // const response = await fetch(
         //     "https://tov.lndo.site/trail-data/geojson"
