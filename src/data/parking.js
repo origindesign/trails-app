@@ -4,7 +4,7 @@ let parkingData = {};
 export const fetchParkingData = async () => {
     try {
         const response = await fetch(
-            "https://test-tourismvernon.pantheonsite.io/trail-parking-data/data"
+            "https://www.tourismvernon.com/trail-data/geojson"
         );
         // const response = await fetch(
         //     "https://tov.lndo.site/trail-parking-data/data"
