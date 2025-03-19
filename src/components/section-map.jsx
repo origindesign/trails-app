@@ -162,7 +162,7 @@ const SectionMap = ({}) => {
         // Function to add parking markers to the map
         function addParkingMarkers() {
             parkingMarkers = parkingData.map((marker) => {
-                console.log(marker);
+                // console.log(marker);
 
                 const { latLng } = marker; // Destructure marker object
                 const lat = latLng[0];
@@ -284,7 +284,7 @@ const SectionMap = ({}) => {
                         center = bounds.getCenter();
                     }
 
-                    console.log(feature.properties, 'sss');
+                    // console.log(feature.properties, 'sss');
             
                     popup.setContent(`
                         <span class="temp">${feature.properties['Unique_ID']}</span>

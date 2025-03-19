@@ -4,7 +4,7 @@ let parkingData = {};
 export const fetchParkingData = async () => {
     try {
         const response = await fetch(
-            "https://www.tourismvernon.com/trail-data/geojson"
+            "https://www.tourismvernon.com/trail-parking-data/data"
         );
         // const response = await fetch(
         //     "https://tov.lndo.site/trail-parking-data/data"
@@ -13,7 +13,7 @@ export const fetchParkingData = async () => {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         parkingData = await response.json(); // Update parkingData with fetched GeoJSON
-        console.log("Parking data fetched successfully:", parkingData);
+        //console.log("Parking data fetched successfully:", parkingData);
         return parkingData; // Return the data before exporting
     } catch (error) {
         console.error("Error fetching parking data:", error);
