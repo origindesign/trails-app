@@ -350,7 +350,7 @@ const SectionMap = ({}) => {
 
                     // Open a popup at the clicked location
                     const popupContent = `
-                        <h3 class="t-c-teal"><span style="color:purple;">${feature.properties['Unique_ID']}</span><br>${feature.properties.Name}</h3>
+                        <h3 class="t-c-teal">${feature.properties.Name}</h3>
                         <div class="card-props t-c-teal">
                             <span class="distance d-flex ai-center">${JSON.stringify(
                                 feature.properties.Distance
