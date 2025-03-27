@@ -59,9 +59,6 @@ const SectionMap = ({}) => {
                     document.querySelector(".c-filter")?.classList.add("in");
                 }, 1100);
             }
-            // setTimeout(() => {
-            //     document.querySelector(".c-loader")?.classList.add("visually-hidden");
-            // }, 2000);
         }
     }, [loading]);
 
@@ -72,6 +69,7 @@ const SectionMap = ({}) => {
         const mapOptions = {
             center: [50.27179, -119.276505],
             zoom: 11.4,
+            maxZoom: 20,
         };
 
         const JAWG_API_KEY =
@@ -85,6 +83,7 @@ const SectionMap = ({}) => {
                 attribution: `
                     <a href="https://www.jawg.io" target="_blank">© Jawg Maps</a>, 
                     <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>`,
+                maxZoom: 20,
             }
         );
 
@@ -95,6 +94,7 @@ const SectionMap = ({}) => {
                 attribution: `
                     <a href="https://www.jawg.io" target="_blank">© Jawg Maps</a>, 
                     <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>`,
+                maxZoom: 20,
             }
         );
 

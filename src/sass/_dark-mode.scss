@@ -103,5 +103,32 @@
         *:before {
             color: var(--dm-text);
         }
+
+        .c-area span,
+        .c-area a {
+            background-color: var(--dm-background) !important;
+            color: var(--dm-text) !important;
+        }
+
+        .c-trail-types .type,
+        .access,
+        .parking {
+            background-color: var(--dm-background) !important;
+        }
+
+        .parking-item {
+            background-color: var(--dm-text) !important;
+            color: var(--dm-background) !important;
+        }
+
+        p {
+            color: var(--dm-text) !important;
+        }
+
+        .chart-container {
+            background-color: var(--dm-text) !important;
+            padding: 2rem;
+            border-radius: 0.4rem;
+        }
     }
 }
