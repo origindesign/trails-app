@@ -18,6 +18,10 @@ import { fetchTrailsData } from "./../data/trails"; // Import the async fetch fu
 const SectionMap = ({}) => {
     const geojsonLayerRef = useRef(null); // Ref to store the GeoJSON layer
 
+    // Ref to store the buffer layers
+    const bufferLayersRef = useRef([]);
+    const mapRef = useRef(null);
+
     // let trails = tempData // import test data
     const [trails, setTrailsData] = useState(null); // State to manage trails data
     const [parkingData, setParkingData] = useState(null); // Separate state for parking data
@@ -47,7 +51,6 @@ const SectionMap = ({}) => {
         fetchData();
     }, []);
 
-
     // Update classes when loading finishes
     useEffect(() => {
         if (!loading) {
@@ -75,6 +78,9 @@ const SectionMap = ({}) => {
         const JAWG_API_KEY =
             "UlhmB9TdxEsUaPuIVrKDpmk5oM2qRX3IsK3hdoLnBDgkztJS86cE1GxVofqZWZmu"; // custom map style here https://www.jawg.io/lab/
         const map = L.map("map", mapOptions);
+
+        // Buffer layer clear functionality: requirement to store map as a reference, wich can then be cleared
+        mapRef.current = map;
 
         // Define Light Mode Tile Layer (Default)
         const lightModeLayer = L.tileLayer(
@@ -318,7 +324,7 @@ const SectionMap = ({}) => {
                         fillOpacity: 0.3,
                     },
                 }).addTo(map);
-            
+
                 bufferLayer.on("click", function (e) {
                     // Get the location of the click
                     const clickLatLng = e.latlng;
@@ -388,6 +394,8 @@ const SectionMap = ({}) => {
                     map.setView(center, map.getZoom(), { animate: true, duration: 1 });
 
                 });
+
+                bufferLayersRef.current.push(bufferLayer);
             },
         }).addTo(map);
 
@@ -501,6 +509,10 @@ const SectionMap = ({}) => {
               color: state.isSelected ? 'white' : '#346d7a',
               cursor: 'pointer',
             }),
+            menuList: (provided) => ({
+                ...provided,
+                maxHeight: 'none',
+            }),
           };
 
         const selectedDifficulty = useRef({ value: 'All' }); // State for difficulty dropdown
@@ -511,6 +523,11 @@ const SectionMap = ({}) => {
             // console.log('ACTIVITY:', selectedActivity.current.value);
     
             geojsonLayerRef.current.clearLayers();
+
+            // Remove old buffer layers
+            bufferLayersRef.current.forEach((layer) => mapRef.current.removeLayer(layer));
+
+            bufferLayersRef.current = [];
 
             // Filter features based on selected difficulty and activity
             const filteredFeatures = trails.features.filter((feature) => {
@@ -601,10 +618,9 @@ const SectionMap = ({}) => {
           imagery: [],
         });
         const [isModalOpen, setIsModalOpen] = useState(false);
-      
         const chartRef = useRef(null);
         const splideRef = useRef(null);
-      
+
         useEffect(() => {
           // Initialize Splide whenever imagery changes
           if (
@@ -624,7 +640,7 @@ const SectionMap = ({}) => {
             splideRef.current.mount();
           }
         }, [trailDetails.imagery]);
-      
+
         // Function to handle click events
         function handleClick(event) {
           if (event.target.matches(".link")) {
@@ -674,7 +690,7 @@ const SectionMap = ({}) => {
       
             setIsModalOpen(true); // Ensure the modal opens on the first click
           }
-      
+
           if (event.target.matches(".control--close")) {
             setIsModalOpen(false); // Close the modal
             if (splideRef.current) {
@@ -683,7 +699,7 @@ const SectionMap = ({}) => {
             }
           }
         }
-      
+
         // Add the event listener when the component mounts
         useEffect(() => {
           document.addEventListener("click", handleClick);
@@ -693,7 +709,7 @@ const SectionMap = ({}) => {
             document.removeEventListener("click", handleClick);
           };
         }, []);
-      
+
         useEffect(() => {
           // scroll trail detail to top each time re-opened
           const trailDetailInt = document.querySelector('.c-trail-detail__internal');
@@ -701,7 +717,6 @@ const SectionMap = ({}) => {
 
           const ctx = document.getElementById("elevationChart");
       
-        //   console.log('elevation: ', trailDetails.elevation);//debug
           let elevationArray = trailDetails.elevation.split(",");
       
           chartRef.current = new Chart(ctx, {
@@ -755,7 +770,7 @@ const SectionMap = ({}) => {
               },
             },
           });
-      
+
           // Cleanup: Destroy the chart when the component unmounts
           return () => {
             if (chartRef.current) {
@@ -763,7 +778,7 @@ const SectionMap = ({}) => {
             }
           };
         }, [trailDetails.elevation]);
-      
+
         return (
           <div
             className={`c-trail-detail bg--white d-flex flex-direction-column pos-absolute scrollable ${

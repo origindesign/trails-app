@@ -2,6 +2,32 @@ body {
     color: black;
 }
 
+#map {
+    &::before {
+        transition: 0.4s ease-in-out;
+    }
+}
+
+#app:has(.c-trail-detail.open) #map {
+    pointer-events: none;
+
+    .leaflet-pane,
+    .leaflet-pane * {
+        pointer-events: none !important;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.35);
+        z-index: 999;
+    }
+}
+
 // map controls
 .map-controls {
     bottom: 0;
