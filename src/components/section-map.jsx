@@ -258,11 +258,11 @@ const SectionMap = ({}) => {
                     // Active trail style
                     map.eachLayer(function (l) {
                         if (l instanceof L.Polyline) {
-                            l.setStyle({ weight: 2.25 }); // Reset weight
+                            l.setStyle({ weight: 2.25 });
                             const el = l.getElement();
                             if (el) {
-                                el.classList.remove("trail-active"); // Remove active class
-                                el.classList.add("trail"); // Reset to default
+                                el.classList.remove("trail-active");
+                                el.classList.add("trail");
                             }
                         }
                     });
@@ -270,8 +270,8 @@ const SectionMap = ({}) => {
                         layer.setStyle({ weight: 5 }); // Highlight weight
                         const el = layer.getElement();
                         if (el) {
-                            el.classList.remove("trail"); // Remove default class
-                            el.classList.add("trail-active"); // Add active class
+                            el.classList.remove("trail");
+                            el.classList.add("trail-active");
                         }
                     }
 
@@ -284,8 +284,8 @@ const SectionMap = ({}) => {
                         center = bounds.getCenter();
                     }
 
-                    // console.log(feature.properties, 'sss');
-            
+                    // console.log(feature.properties, 'fp');
+
                     popup.setContent(`
                         <span class="temp">${feature.properties['Unique_ID']}</span>
                         <h3 class="t-c-teal">${feature.properties.Name}</h3>
@@ -299,7 +299,7 @@ const SectionMap = ({}) => {
                         </div>
                         <span class="link t-c-teal" data-name="${
                             feature.properties.Name
-                        }" data-distance="${JSON.stringify(feature.properties.Distance)}" data-difficulty="${feature.properties.Difficulty}" data-description="${feature.properties.Description}" data-access="${feature.properties.Access}" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}" data-parkingname="${feature.properties.Parking.name}" data-parkingdescription="${feature.properties.Parking.description}" data-area="${feature.properties['Trail Area']}" data-areaurl="${feature.properties['Trail Area URL']}" data-typehiking="${feature.properties['Hiking']}" data-typebiking="${feature.properties['Biking']}" data-typesnowmobile="${feature.properties['Snowmobile']}" data-typexcski="${feature.properties['XC Ski']}" data-typealpineski="${feature.properties['Alpine Ski']}" data-typesnowshoe="${feature.properties['Snowshoe']}" data-typewinterbike="${feature.properties['Winter Bike']}">More details</span>
+                        }" data-distance="${JSON.stringify(feature.properties.Distance)}" data-difficulty="${feature.properties.Difficulty}" data-description="${feature.properties.Description}" data-access="${feature.properties.Access}" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}" data-parkingname="${feature.properties.Parking.name}" data-parkingdescription="${feature.properties.Parking.description}" data-parkingcoords="${feature.properties.Parking.latLng}" data-area="${feature.properties['Trail Area']}" data-areaurl="${feature.properties['Trail Area URL']}" data-typehiking="${feature.properties['Hiking']}" data-typebiking="${feature.properties['Biking']}" data-typesnowmobile="${feature.properties['Snowmobile']}" data-typexcski="${feature.properties['XC Ski']}" data-typealpineski="${feature.properties['Alpine Ski']}" data-typesnowshoe="${feature.properties['Snowshoe']}" data-typewinterbike="${feature.properties['Winter Bike']}">More details</span>
                     `);
 
                     // Pan the map
@@ -331,11 +331,11 @@ const SectionMap = ({}) => {
                      // Active trail style
                      map.eachLayer(function (l) {
                         if (l instanceof L.Polyline) {
-                            l.setStyle({ weight: 2.25 }); // Reset weight
+                            l.setStyle({ weight: 2.25 });
                             const el = l.getElement();
                             if (el) {
-                                el.classList.remove("trail-active"); // Remove active class
-                                el.classList.add("trail"); // Reset to default
+                                el.classList.remove("trail-active");
+                                el.classList.add("trail");
                             }
                         }
                     });
@@ -343,8 +343,8 @@ const SectionMap = ({}) => {
                         layer.setStyle({ weight: 5 }); // Highlight weight
                         const el = layer.getElement();
                         if (el) {
-                            el.classList.remove("trail"); // Remove default class
-                            el.classList.add("trail-active"); // Add active class
+                            el.classList.remove("trail");
+                            el.classList.add("trail-active");
                         }
                     }
 
@@ -367,7 +367,7 @@ const SectionMap = ({}) => {
                         feature.properties.Distance
                     )}" data-difficulty="${feature.properties.Difficulty}" data-access="${feature.properties.Access}" data-description="${
                         feature.properties.Description
-                    }" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}" data-parkingname="${feature.properties.Parking.name}" data-parkingdescription="${feature.properties.Parking.description}" data-area="${feature.properties['Trail Area']}" data-areaurl="${feature.properties['Trail Area URL']}" data-typehiking="${feature.properties['Hiking']}" data-typebiking="${feature.properties['Biking']}" data-typesnowmobile="${feature.properties['Snowmobile']}" data-typexcski="${feature.properties['XC Ski']}" data-typealpineski="${feature.properties['Alpine Ski']}" data-typesnowshoe="${feature.properties['Snowshoe']}" data-typewinterbike="${feature.properties['Winter Bike']}">More details</span>
+                    }" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}" data-parkingname="${feature.properties.Parking.name}" data-parkingdescription="${feature.properties.Parking.description}" data-parkingcoords="${feature.properties.Parking.latLng}" data-area="${feature.properties['Trail Area']}" data-areaurl="${feature.properties['Trail Area URL']}" data-typehiking="${feature.properties['Hiking']}" data-typebiking="${feature.properties['Biking']}" data-typesnowmobile="${feature.properties['Snowmobile']}" data-typexcski="${feature.properties['XC Ski']}" data-typealpineski="${feature.properties['Alpine Ski']}" data-typesnowshoe="${feature.properties['Snowshoe']}" data-typewinterbike="${feature.properties['Winter Bike']}">More details</span>
                     `;
 
                     L.popup()
@@ -588,6 +588,7 @@ const SectionMap = ({}) => {
           elevation: "",
           parkingname: "",
           parkingdescription: "",
+          parkingcoords: "",
           area: "",
           areaurl: "",
           typehiking: "",
@@ -636,6 +637,7 @@ const SectionMap = ({}) => {
               elevation,
               parkingname,
               parkingdescription,
+              parkingcoords,
               area,
               areaurl,
               typehiking,
@@ -657,6 +659,7 @@ const SectionMap = ({}) => {
               elevation,
               parkingname,
               parkingdescription,
+              parkingcoords,
               area,
               areaurl,
               typehiking,
@@ -863,6 +866,19 @@ const SectionMap = ({}) => {
                         {trailDetails.parkingdescription && (
                             <p>{trailDetails.parkingdescription}</p>
                         )}
+                        {trailDetails.parkingcoords && (() => {
+                            const [lat, lng] = trailDetails.parkingcoords.split(',');
+                            return (
+                            <a 
+                                className="link" 
+                                href={`http://maps.google.com/maps?z=12&t=m&q=loc:${lat}+${lng}`} 
+                                data-coord={`${lat},${lng}`} 
+                                target="_blank"
+                            >
+                                Directions
+                            </a>
+                            );
+                        })()}
                     </div>
                 </div>
               )}

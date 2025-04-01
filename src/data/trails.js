@@ -14,7 +14,7 @@ export const fetchTrailsData = async () => {
         }
         trailsData = await response.json(); // Update trailsData with fetched GeoJSON
         console.log("Fetch data from remote " + response.url);
-        console.log("Trails data fetched successfully from:", trailsData);
+        console.log("Data output", trailsData);
         return trailsData; // Return the data before exporting
     } catch (error) {
         console.error("Error fetching trails data:", error);

@@ -721,6 +721,44 @@ body {
             }
         }
     }
+
+    .link {
+        color: var(--c-teal);
+        cursor: pointer;
+        font-size: var(--font-size-link);
+        font-style: normal;
+        font-weight: 700;
+        line-height: 110%;
+        text-transform: uppercase;
+        padding-right: 3.5rem;
+        text-decoration: none;
+        margin-top: 0.85em;
+        display: inline-flex;
+        @include fonticonSetup(after);
+        @include fonticon(
+            $icon--arrow,
+            1.6rem,
+            var(--c-brand-teal),
+            50%,
+            auto,
+            0,
+            auto,
+            true,
+            true,
+            $elem: after
+        );
+        font-size: 1.35em;
+
+        &::after {
+            transition: 0.2s ease-in-out;
+        }
+
+        &:hover {
+            &::after {
+                right: -0.5rem;
+            }
+        }
+    }
 }
 
 .c-area {
