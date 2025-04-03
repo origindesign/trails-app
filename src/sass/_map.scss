@@ -971,6 +971,9 @@ body {
     gap: 1rem;
     transition: transform 0.5s ease-in-out;
     height: 75vh;
+    min-width: 25rem;
+    width: 70vw;
+    max-width: 70rem;
     overflow: scroll;
     border-radius: var(--border-radius);
 
@@ -991,7 +994,6 @@ body {
 
     p {
         font-size: 1.4rem;
-        margin-right: 4rem;
     }
 
     &.show {
