@@ -1056,9 +1056,43 @@ const SectionMap = ({}) => {
         return (
             <div className={`c-disclaimer d-flex ai-center flex-wrap-wrap ${isVisible ? "show" : "hide"}`}>
                 <img src={TCLogo} alt="Trails Capital Logo" />
+                <h3>Disclaimer</h3>
                 <p>
-                    This map is for informational purposes only. Please check with the
-                    local authorities for the most up-to-date information.
+                    The following geographic data available from this web page is provided as a public
+                    service by the City of Vernon (&#39;City&#39;) on the following terms.
+                </p>
+                <p>
+                    1. The information and geographical data on this map are derived from multiple
+                    sources. All rights, titles, and interest (including all copyrights, patents, and other
+                    intellectual property rights) in this map and the information displayed therein
+                    remain vested in the entity that is the source of the information.
+                </p>
+                <p>
+                    2. The geographical data is supplied on an as is, where is basis. The City assumes
+                    no obligation or liability for the use of this data by any person and makes no
+                    representations or promises regarding the completeness or accuracy of the data
+                    or its fitness for a particular purpose. This data represents a one-time capture of
+                    information as it exists at the time the information is posted to this website and
+                    the City makes no representation as to the accuracy of such information and
+                    does not necessarily include the ongoing updates or corrections to the source
+                    databases maintained by the City or other agencies.
+                </p>
+                <p>
+                    3. Where a conflict between the information on this web site and information
+                    contained in any other records of the City or documents that may be prepared by
+                    or delivered to the City, the City reserves the right to rely in all cases upon the
+                    record which it considers to be the most accurate and complete.
+                </p>
+                <p>
+                    4. You hereby expressly waive any and all claims that you may have against the
+                    City, and release from all liability and agree not to sue the City, its elected
+                    officials, officers, employees and agents for any loss, damage, personal or bodily
+                    injury or death sustained or suffered by you as a result of your use of the map
+                    due to any cause whatsoever, including without limitation, negligence, fault or
+                    breach of statutory duty and agree to indemnify the City against claims by third
+                    parties arising from your use of the map. 
+                    By continuing to the map, you confirm you have read, understood, and accepted the
+                    terms of this disclaimer.
                 </p>
                 <button onClick={acceptTerms}>Accept</button>
             </div>

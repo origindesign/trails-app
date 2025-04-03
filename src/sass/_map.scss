@@ -8,6 +8,7 @@ body {
     }
 }
 
+#app:has(.c-disclaimer.show) #map,
 #app:has(.c-trail-detail.open) #map {
     pointer-events: none;
 
@@ -957,39 +958,35 @@ body {
 }
 
 .c-disclaimer {
-    bottom: 0;
-    left: 0;
     z-index: 1000;
-    width: 100%;
-    padding: 1rem 2.5rem;
-    background: #87ad38;
-    color: white;
-    gap: 1rem;
-
-    img {
-        width: 5rem;
-    }
-
-    p {
-        font-size: 1.4rem;
-        margin-right: 4rem;
-    }
-}
-
-.c-disclaimer {
     position: fixed;
     bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 1rem 2.5rem;
-    background: #87ad38;
-    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    padding: 2rem 4rem;
+    background: #ffffff;
+    color: #000000;
     gap: 1rem;
-    transform: translateY(100%);
     transition: transform 0.5s ease-in-out;
+    height: 75vh;
+    overflow: scroll;
+    border-radius: var(--border-radius);
+
+    h3 {
+        margin: 1.5rem 0 0 0;
+        text-align: center;
+    }
 
     img {
-        width: 5rem;
+        filter: brightness(0);
+        width: 10rem;
+        margin: auto;
+    }
+
+    h3 {
+        width: 100%;
     }
 
     p {
@@ -998,7 +995,7 @@ body {
     }
 
     &.show {
-        transform: translateY(0);
+        transform: translate(-50%, -50%);
     }
 
     &.hide {
