@@ -958,6 +958,7 @@ body {
 }
 
 .c-disclaimer {
+    flex-direction: column;
     z-index: 1002;
     position: fixed;
     bottom: 0;
@@ -968,9 +969,9 @@ body {
     padding: 2rem 4rem;
     background: #ffffff;
     color: #000000;
-    gap: 1rem;
     transition: transform 0.5s ease-in-out;
     height: 75vh;
+    max-height: 55rem;
     min-width: 25rem;
     width: 70vw;
     max-width: 70rem;
@@ -994,6 +995,10 @@ body {
 
     p {
         font-size: 1.4rem;
+
+        &:has(button) {
+            width: 100%;
+        }
     }
 
     &.show {
@@ -1013,11 +1018,31 @@ body {
         border: none;
         font-weight: 600;
         border-radius: 0.4rem;
-        color: white;
+        color: var(--c-black);
         transition: 0.2s ease-in-out;
 
         &:hover {
             transform: scale(1.1);
+        }
+    }
+
+    #read-more {
+        background: none;
+        text-decoration: underline;
+        margin-left: -2rem;
+        margin-top: 0rem;
+        margin-bottom: 0rem;
+        font-size: 14px;
+    }
+
+    .read-more {
+        max-height: 20rem;
+        overflow: hidden;
+        padding-bottom: 2rem;
+
+        &[aria-hidden="false"] {
+            max-height: 150rem;
+            overflow: visible;
         }
     }
 }
