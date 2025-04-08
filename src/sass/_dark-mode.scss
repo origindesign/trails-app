@@ -24,11 +24,11 @@
 
     @include fonticonSetup();
     @include fonticon(
-        $icon--satellite,
-        2.1rem,
+        $icon--terrain,
+        3.25rem,
         var(--c-sky-blue),
         auto,
-        1rem,
+        0.35rem,
         auto,
         auto
     );
@@ -36,11 +36,11 @@
     &.dm {
         @include fonticonSetup();
         @include fonticon(
-            $icon--terrain,
-            3.25rem,
+            $icon--satellite,
+            2.1rem,
             var(--c-sky-blue),
             auto,
-            0.35rem,
+            1rem,
             auto,
             auto
         );
@@ -48,7 +48,7 @@
 }
 
 .dark-mode {
-    + .map-controls {
+    ~ .map-controls {
         .c-controls__internal,
         .c-filter__internal,
         .c-controls .leaflet-control-search,
@@ -79,6 +79,11 @@
         .c-controls *:focus-visible {
             outline: 1px solid var(--dm-text);
         }
+
+        .search-cancel::before,
+        .search-cancel::after {
+            background-color: var(--dm-text) !important;
+        }
     }
 
     .leaflet-pane {
@@ -94,7 +99,7 @@
         }
     }
 
-    + .map-controls + .c-trail-detail {
+    ~ .map-controls + .c-trail-detail {
         background: var(--dm-background-hover) !important;
         border: 1px solid var(--dm-text);
         color: var(--dm-text);
