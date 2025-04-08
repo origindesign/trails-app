@@ -1000,6 +1000,10 @@ body {
         &:has(button) {
             width: 100%;
         }
+
+        a {
+            color: inherit;
+        }
     }
 
     &__internal {
