@@ -152,68 +152,68 @@ const SectionMap = ({}) => {
         // Add Dark Mode Control to Map
         map.addControl(new DarkModeControl());
 
-        /**
-         * Parking markers layer
-         */
+        // Parking
         let parkingMarkers = [];
-        let parkingVisible = false; // Markers should be hidden by default
+        let parkingVisible = false;
 
         const customIcon = L.divIcon({
-            className: "parking-marker", // Class for styling
-            html: "<div class='parking-content'></div>", // Custom HTML inside marker
-            iconSize: [30, 30], // Size of the marker
-            iconAnchor: [15, 15] // Center it correctly
+            className: "parking-marker",
+            html: "<div class='parking-content'></div>",
+            iconSize: [30, 30],
+            iconAnchor: [15, 15]
         });
 
-        // Function to add parking markers to the map
-        function addParkingMarkers() {
-            parkingMarkers = parkingData.map((marker) => {
-                // console.log(marker);
-
-                const { latLng } = marker; // Destructure marker object
+        // Add parking markers (but don't add them to map yet)
+        function createParkingMarkers() {
+            return parkingData.map((marker) => {
+                const { latLng } = marker;
                 const lat = latLng[0];
                 const lng = latLng[1];
 
                 return L.marker(latLng, { icon: customIcon })
-                    .bindPopup(`
-                        <span class="temp">${marker.unique_id}</span>
-                        <h3 class='t-c-teal'>${marker.name}</h3>
-                        <p class='t-c-teal'>
-                            ${marker.description}
-                        </p>
-                        <a class='link' href='http://maps.google.com/maps?z=12&t=m&q=loc:${lat}+${lng}' 
-                           data-coord='${lat},${lng}' target="_blank">
-                            Directions
-                        </a>
-                    `)
-                    .addTo(map);
+                .bindPopup(`
+                    <span class="temp">${marker.unique_id}</span>
+                    <h3 class='t-c-teal'>${marker.name}</h3>
+                    <p class='t-c-teal'>
+                    ${marker.description}
+                    </p>
+                    <a class='link' href='http://maps.google.com/maps?z=12&t=m&q=loc:${lat}+${lng}' 
+                    data-coord='${lat},${lng}' target="_blank">
+                    Directions
+                    </a>
+                `);
             });
         }
 
-        // Function to remove parking markers from the map
+        function addParkingMarkers() {
+            parkingMarkers.forEach(marker => marker.addTo(map));
+            parkingVisible = true;
+        }
+
         function removeParkingMarkers() {
             parkingMarkers.forEach(marker => map.removeLayer(marker));
-            parkingMarkers = []; // Clear the array
+            parkingVisible = false;
         }
 
-        // Function to toggle parking markers
-        function toggleParkingMarkers() {
-            let parkingControl = document.querySelector(".control--parking");
-            if (parkingVisible) {
-                removeParkingMarkers();
-                parkingControl.classList.remove('control--active');
-            } else {
+        function updateParkingMarkersVisibility() {
+            const currentZoom = map.getZoom();
+            const zoomThreshold = 14;
+
+            if (currentZoom >= zoomThreshold && !parkingVisible) {
                 addParkingMarkers();
-                parkingControl.classList.add('control--active');
+            } else if (currentZoom < zoomThreshold && parkingVisible) {
+                removeParkingMarkers();
             }
-            parkingVisible = !parkingVisible; // Toggle visibility state
         }
 
-        // Add event listener to the button
-        document.querySelector(".control--parking").addEventListener("click", toggleParkingMarkers);
+        // Build marker array once
+        parkingMarkers = createParkingMarkers();
 
-        // Do NOT call addParkingMarkers() initially – they stay hidden by default
-        addParkingMarkers();
+        // Update marker visibility on zoom
+        map.on('zoomend', updateParkingMarkersVisibility);
+
+        // Optional: also trigger once on load
+        updateParkingMarkersVisibility();
 
         let geojsonLayer = L.geoJSON(trails.features, {
             style(feature) {
@@ -1062,49 +1062,53 @@ const SectionMap = ({}) => {
         return (
             <div className={`c-disclaimer d-flex ${isVisible ? "show" : "hide"}`}>
                 <img src={TCLogo} alt="Trails Capital Logo" />
-                <h3>Disclaimer</h3>
-                
-                <div class={'read-more'} aria-hidden={!isExpanded}>
-                    <p>
-                        The following geographic data available from this web page is provided as a public
-                        service by the City of Vernon (&#39;City&#39;) on the following terms.
-                    </p>
-                    <p>
-                        1. The information and geographical data on this map are derived from multiple
-                        sources. All rights, titles, and interest (including all copyrights, patents, and other
-                        intellectual property rights) in this map and the information displayed therein
-                        remain vested in the entity that is the source of the information.
-                    </p>
+
+                <div class={"c-disclaimer__internal"} aria-hidden={!isExpanded}>
+                    <h3>Welcome to Greater Vernon, the official Trails Capital of BC.</h3>
+                    <p>The existence and maintenance of Vernon’s impressive trail system is thanks to our incredible non-profit trail organizations: <a target="_blank" href="https://www.ribbonsofgreen.ca/">Ribbons of Green Trail Society</a>, the <a target="_blank" href="https://nocs.ca/">North Okanagan Cycling Society</a>, <a target="_blank" href="https://www.sovereignlake.com/">Sovereign Lake Nordic Club</a>, the <a target="_blank" href="https://www.vernonoutdoorsclub.org/">Vernon Outdoors Club</a>, and the <a target="_blank" href="https://okanaganrailtrail.ca/friends-of-the-trail/about-fort/">Friends of the Okanagan Rail Trail</a>. Thank you to these trail groups, as well as Predator Ridge Resort, SilverStar Mountain Resort, Destination Silver Star, BC Parks, the Regional District of North Okanagan, and the City of Vernon for their assistance in creating this map. This map is managed by <a target="_blank" href="https://www.tourismvernon.com/about-vernon/contact-us">Tourism Vernon</a> and includes trails in the jurisdiction of Greater Vernon (City of Vernon, District of Coldstream, Regional District Areas B&C).</p>
+                    <div class="disclaimer-content">
+                        <h3>Disclaimer</h3>
                         <p>
-                        2. The geographical data is supplied on an as is, where is basis. The City assumes
-                        no obligation or liability for the use of this data by any person and makes no
-                        representations or promises regarding the completeness or accuracy of the data
-                        or its fitness for a particular purpose. This data represents a one-time capture of
-                        information as it exists at the time the information is posted to this website and
-                        the City makes no representation as to the accuracy of such information and
-                        does not necessarily include the ongoing updates or corrections to the source
-                        databases maintained by the City or other agencies.
-                    </p>
-                    <p>
-                        3. Where a conflict between the information on this web site and information
-                        contained in any other records of the City or documents that may be prepared by
-                        or delivered to the City, the City reserves the right to rely in all cases upon the
-                        record which it considers to be the most accurate and complete.
-                    </p>
-                    <p>
-                        4. You hereby expressly waive any and all claims that you may have against the
-                        City, and release from all liability and agree not to sue the City, its elected
-                        officials, officers, employees and agents for any loss, damage, personal or bodily
-                        injury or death sustained or suffered by you as a result of your use of the map
-                        due to any cause whatsoever, including without limitation, negligence, fault or
-                        breach of statutory duty and agree to indemnify the City against claims by third
-                        parties arising from your use of the map. 
-                        By continuing to the map, you confirm you have read, understood, and accepted the
-                        terms of this disclaimer.
-                    </p>
+                            The following geographic data available from this web page is provided as a public
+                            service by the City of Vernon (&#39;City&#39;) on the following terms.
+                        </p>
+                        <p>
+                            1. The information and geographical data on this map are derived from multiple
+                            sources. All rights, titles, and interest (including all copyrights, patents, and other
+                            intellectual property rights) in this map and the information displayed therein
+                            remain vested in the entity that is the source of the information.
+                        </p>
+                            <p>
+                            2. The geographical data is supplied on an as is, where is basis. The City assumes
+                            no obligation or liability for the use of this data by any person and makes no
+                            representations or promises regarding the completeness or accuracy of the data
+                            or its fitness for a particular purpose. This data represents a one-time capture of
+                            information as it exists at the time the information is posted to this website and
+                            the City makes no representation as to the accuracy of such information and
+                            does not necessarily include the ongoing updates or corrections to the source
+                            databases maintained by the City or other agencies.
+                        </p>
+                        <p>
+                            3. Where a conflict between the information on this web site and information
+                            contained in any other records of the City or documents that may be prepared by
+                            or delivered to the City, the City reserves the right to rely in all cases upon the
+                            record which it considers to be the most accurate and complete.
+                        </p>
+                        <p>
+                            4. You hereby expressly waive any and all claims that you may have against the
+                            City, and release from all liability and agree not to sue the City, its elected
+                            officials, officers, employees and agents for any loss, damage, personal or bodily
+                            injury or death sustained or suffered by you as a result of your use of the map
+                            due to any cause whatsoever, including without limitation, negligence, fault or
+                            breach of statutory duty and agree to indemnify the City against claims by third
+                            parties arising from your use of the map. 
+                            By continuing to the map, you confirm you have read, understood, and accepted the
+                            terms of this disclaimer.
+                        </p>
+                    </div>
                 </div>
-                <button id={'read-more'} onClick={toggleReadMore}>{isExpanded ? "Read less" : "Read more"}</button>
-                <p><button onClick={acceptTerms}>Accept</button></p>
+                <button id={'read-more'} onClick={toggleReadMore}>{isExpanded ? "Read less" : "... Read more"}</button>
+                <p><button onClick={acceptTerms}>Accept Disclaimer</button></p>
             </div>
         );
     };
