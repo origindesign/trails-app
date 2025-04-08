@@ -95,11 +95,10 @@ const SectionMap = ({}) => {
 
         // Define Dark Mode Tile Layer
         const darkModeLayer = L.tileLayer(
-            "https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}.png?access-token=" + JAWG_API_KEY,
+            "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
             {
                 attribution: `
-                    <a href="https://www.jawg.io" target="_blank">© Jawg Maps</a>, 
-                    <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>`,
+                    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'`,
                 maxZoom: 20,
             }
         );
@@ -123,13 +122,13 @@ const SectionMap = ({}) => {
         
             onAdd: function (map) {
                 const container = L.DomUtil.create("div", "leaflet-bar leaflet-control leaflet-control-mode");
-        
+
                 container.classList.add('dm');
 
                 const app = document.querySelector('#map');
-        
+
                 let darkModeEnabled = false;
-        
+
                 container.onclick = function () {
                     if (darkModeEnabled) {
                         map.removeLayer(darkModeLayer);
@@ -218,7 +217,7 @@ const SectionMap = ({}) => {
         let geojsonLayer = L.geoJSON(trails.features, {
             style(feature) {
                 const colorMap = {
-                    Difficult: "#1A2A33",
+                    Difficult: "black",
                     "Most Difficult": "#1A2A33",
                     Easy: "#88AD38",
                     Moderate: "#0BB1D6",

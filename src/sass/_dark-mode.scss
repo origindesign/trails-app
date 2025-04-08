@@ -24,11 +24,11 @@
 
     @include fonticonSetup();
     @include fonticon(
-        $icon--sun,
-        3.25rem,
+        $icon--satellite,
+        2.1rem,
         var(--c-sky-blue),
         auto,
-        auto,
+        1rem,
         auto,
         auto
     );
@@ -36,11 +36,11 @@
     &.dm {
         @include fonticonSetup();
         @include fonticon(
-            $icon--moon,
-            2.25rem,
+            $icon--terrain,
+            3.25rem,
             var(--c-sky-blue),
             auto,
-            auto,
+            0.35rem,
             auto,
             auto
         );
