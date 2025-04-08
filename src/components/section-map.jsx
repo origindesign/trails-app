@@ -1112,12 +1112,21 @@ const SectionMap = ({}) => {
         );
     };
 
+    const Hero = () => {
+        return (
+            <div className={`c-hero`}>
+                <h1 class="h3">Greater Vernon Trails Map</h1>
+            </div>
+        );
+    };
+
     return (
         <div>
             <div
                 id="map"
                 style="width: 100%; height: 100%; top: 0; bottom: 0; position: absolute;"
             />
+            <Hero />
             <div className={"map-controls pos-absolute d-flex jc-space-between"}>
                 <ControlsPrimary />
                 <Filters />

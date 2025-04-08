@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import preact from "@preact/preset-vite";
+import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,6 +12,11 @@ export default defineConfig({
                 changeOrigin: true,
                 secure: false, // Set to true if the target has a valid SSL certificate
             },
+        },
+    },
+    resolve: {
+        alias: {
+            "@": path.resolve(__dirname, "src"),
         },
     },
 });
