@@ -106,23 +106,6 @@ const SectionMap = ({}) => {
         // Start with Light Mode
         map.addLayer(lightModeLayer);
 
-        const vernonPolygonCoords = [
-            [50.3500, -119.4000], // Top-left
-            [50.3500, -119.1000], // Top-right
-            [50.2000, -119.1000], // Bottom-right
-            [50.2000, -119.4000], // Bottom-left
-            [50.3500, -119.4000] 
-        ];
-
-          const vernonPolygon = L.polygon(vernonPolygonCoords, {
-            color: 'grey',
-            fillColor: '#3388ff',
-            fillOpacity: 0.1
-          }).addTo(map);
-          
-          // Optional: Zoom to fit the polygon
-          map.fitBounds(vernonPolygon.getBounds());
-
         L.control
             .zoom({
                 position: "bottomright",
@@ -1030,7 +1013,7 @@ const SectionMap = ({}) => {
                 >
                     <a
                         className="control control--home"
-                        href="https://www.tourismvernon.com"
+                        href="https://www.tourismvernon.com/things-to-do/trails"
                     >
                         Home
                     </a>
