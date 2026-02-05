@@ -302,15 +302,18 @@ const SectionMap = ({}) => {
 
                     // console.log(feature.properties, 'fp');
 
+                    const isPaddleTrail = feature.properties['Paddle'] === "true";
+                    const difficultyHtml = isPaddleTrail ? '' : `<span class="difficulty d-flex ai-center ${feature.properties.Difficulty.toLowerCase().replace(
+                                /\s+/g,
+                                "-"
+                            )}">${feature.properties.Difficulty}</span>`;
+
                     popup.setContent(`
                         <span class="temp">${feature.properties['Unique_ID']}</span>
                         <h3 class="t-c-teal">${feature.properties.Name}</h3>
                         <div class="card-props t-c-teal">
                             <span class="distance d-flex ai-center">${JSON.stringify(feature.properties.Distance)} km</span>
-                            <span class="difficulty d-flex ai-center ${feature.properties.Difficulty.toLowerCase().replace(
-                                /\s+/g,
-                                "-"
-                            )}">${feature.properties.Difficulty}</span>
+                            ${difficultyHtml}
                             <!--<span class="type d-flex ai-center ${feature.properties['Optimized Type'].toLowerCase().replace(/\s+/g, '-').replace(/"/g, '')}">${feature.properties['Optimized Type'].replace(/"/g, '')}</span>-->
                         </div>
                         <span class="link t-c-teal" data-name="${
@@ -365,16 +368,19 @@ const SectionMap = ({}) => {
                     }
 
                     // Open a popup at the clicked location
+                    const isPaddleTrailBuffer = feature.properties['Paddle'] === "true";
+                    const difficultyHtmlBuffer = isPaddleTrailBuffer ? '' : `<span class="difficulty d-flex ai-center ${feature.properties.Difficulty.toLowerCase().replace(
+                                /\s+/g,
+                                "-"
+                            )}">${feature.properties.Difficulty}</span>`;
+
                     const popupContent = `
                         <h3 class="t-c-teal">${feature.properties.Name}</h3>
                         <div class="card-props t-c-teal">
                             <span class="distance d-flex ai-center">${JSON.stringify(
                                 feature.properties.Distance
                             )} km</span>
-                            <span class="difficulty d-flex ai-center ${feature.properties.Difficulty.toLowerCase().replace(
-                                /\s+/g,
-                                "-"
-                            )}">${feature.properties.Difficulty}</span>
+                            ${difficultyHtmlBuffer}
                             <!--<span class="type d-flex ai-center ${feature.properties['Optimized Type'].toLowerCase().replace(/\s+/g, '-').replace(/"/g, '')}">${feature.properties['Optimized Type'].replace(/"/g, '')}</span>-->
                         </div>
                         <span class="link t-c-teal" data-name="${
@@ -875,13 +881,15 @@ const SectionMap = ({}) => {
                 <span className="distance d-flex ai-center">
                   {trailDetails.distance} km
                 </span>
-                <span
-                  className={`difficulty d-flex ai-center ${trailDetails.difficulty
-                    ?.toLowerCase()
-                    .replace(/\s+/g, "-")}`}
-                >
-                  {trailDetails.difficulty}
-                </span>
+                {trailDetails.typepaddle !== "true" && (
+                  <span
+                    className={`difficulty d-flex ai-center ${trailDetails.difficulty
+                      ?.toLowerCase()
+                      .replace(/\s+/g, "-")}`}
+                  >
+                    {trailDetails.difficulty}
+                  </span>
+                )}
               </div>
 
               {trailDetails.description && <p>{trailDetails.description}</p>}
