@@ -1,3 +1,5 @@
+@use "breakpoints";
+
 @keyframes rotate {
     from {
         transform: rotate(0deg); /* Start at 0 degrees */
@@ -18,7 +20,7 @@
     align-items: center;
     justify-content: center;
 
-    @media (min-width: $width-tablet-portrait) {
+    @media (min-width: breakpoints.$width-tablet-portrait) {
         padding-right: 0;
     }
 
@@ -37,7 +39,7 @@
         justify-content: center;
         transform: scale(0.7);
 
-        @media (min-width: $width-tablet-portrait) {
+        @media (min-width: breakpoints.$width-tablet-portrait) {
             transform: scale(1);
         }
     }

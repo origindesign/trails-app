@@ -1,3 +1,6 @@
+@use "breakpoints";
+@use "icons";
+
 body {
     color: black;
 }
@@ -37,7 +40,7 @@ body {
     height: 100%;
     pointer-events: none;
 
-    @media (min-width: $width-tablet-landscape) {
+    @media (min-width: breakpoints.$width-tablet-landscape) {
         top: 0;
     }
 }
@@ -54,7 +57,7 @@ body {
     height: 100%;
     align-items: flex-end;
 
-    @media (min-width: $width-tablet-landscape) {
+    @media (min-width: breakpoints.$width-tablet-landscape) {
         left: unset;
         transform: translate(-500%, 0%);
         top: 0;
@@ -64,7 +67,7 @@ body {
     &.in {
         transform: translate(-50%, 0%);
 
-        @media (min-width: $width-tablet-landscape) {
+        @media (min-width: breakpoints.$width-tablet-landscape) {
             transform: translate(0%, 0%);
         }
     }
@@ -77,7 +80,7 @@ body {
         color: var(--c-teal);
         pointer-events: all;
 
-        @media (min-width: $width-tablet-landscape) {
+        @media (min-width: breakpoints.$width-tablet-landscape) {
             flex-direction: row;
             position: unset;
         }
@@ -95,7 +98,7 @@ body {
         left: 0;
         width: 35rem;
 
-        @media (min-width: $width-tablet-landscape) {
+        @media (min-width: breakpoints.$width-tablet-landscape) {
             display: flex;
             transform: translateX(0);
             transition: none;
@@ -103,7 +106,7 @@ body {
             top: 9.5rem;
         }
 
-        @media (min-width: $width-tablet-landscape) {
+        @media (min-width: breakpoints.$width-tablet-landscape) {
             background: white;
             left: unset;
             top: unset;
@@ -210,9 +213,9 @@ body {
                 transform: scale(1.05);
             }
 
-            @include fonticonSetup(after);
-            @include fonticon(
-                $icon--search,
+            @include icons.fonticonSetup(after);
+            @include icons.fonticon(
+                icons.$icon--search,
                 2.25rem,
                 var(--c-sky-blue),
                 auto,
@@ -289,7 +292,7 @@ body {
         margin: var(--spacing-md);
         display: none;
 
-        @media (min-width: $width-tablet-landscape) {
+        @media (min-width: breakpoints.$width-tablet-landscape) {
             display: block;
         }
 
@@ -313,9 +316,9 @@ body {
         &-in {
             margin-bottom: 0.35rem;
 
-            @include fonticonSetup(after);
-            @include fonticon(
-                $icon--plus,
+            @include icons.fonticonSetup(after);
+            @include icons.fonticon(
+                icons.$icon--plus,
                 2rem,
                 var(--c-sky-blue),
                 auto,
@@ -327,9 +330,9 @@ body {
         }
 
         &-out {
-            @include fonticonSetup(after);
-            @include fonticon(
-                $icon--minus,
+            @include icons.fonticonSetup(after);
+            @include icons.fonticon(
+                icons.$icon--minus,
                 0.2rem,
                 var(--c-sky-blue),
                 auto,
@@ -383,9 +386,9 @@ body {
         padding-right: 3.5rem;
         text-decoration: none;
 
-        @include fonticonSetup(after);
-        @include fonticon(
-            $icon--arrow,
+        @include icons.fonticonSetup(after);
+        @include icons.fonticon(
+            icons.$icon--arrow,
             1.6rem,
             var(--c-brand-teal),
             50%,
@@ -412,9 +415,9 @@ body {
         padding-left: 4rem;
         height: 3rem;
 
-        @include fonticonSetup();
-        @include fonticon(
-            $icon--map,
+        @include icons.fonticonSetup();
+        @include icons.fonticon(
+            icons.$icon--map,
             3rem,
             var(--c-teal),
             auto,
@@ -429,11 +432,11 @@ body {
         padding-left: 4rem;
         height: 3rem;
 
-        @include fonticonSetup();
+        @include icons.fonticonSetup();
 
         &.alpine-ski {
-            @include fonticon(
-                $icon--ski,
+            @include icons.fonticon(
+                icons.$icon--ski,
                 2.65rem,
                 var(--c-brand-teal),
                 auto,
@@ -444,8 +447,8 @@ body {
             );
         }
         &.biking {
-            @include fonticon(
-                $icon--bike,
+            @include icons.fonticon(
+                icons.$icon--bike,
                 4rem,
                 var(--c-brand-teal),
                 auto,
@@ -456,8 +459,8 @@ body {
             );
         }
         &.hiking {
-            @include fonticon(
-                $icon--hike,
+            @include icons.fonticon(
+                icons.$icon--hike,
                 3rem,
                 var(--c-brand-teal),
                 auto,
@@ -468,8 +471,8 @@ body {
             );
         }
         &.nordic-ski {
-            @include fonticon(
-                $icon--nordic,
+            @include icons.fonticon(
+                icons.$icon--nordic,
                 3.25rem,
                 var(--c-brand-teal),
                 auto,
@@ -480,8 +483,8 @@ body {
             );
         }
         &.multi-use {
-            @include fonticon(
-                $icon--multi,
+            @include icons.fonticon(
+                icons.$icon--multi,
                 4.5rem,
                 var(--c-brand-teal),
                 auto,
@@ -492,8 +495,8 @@ body {
             );
         }
         &.motorized {
-            @include fonticon(
-                $icon--atv,
+            @include icons.fonticon(
+                icons.$icon--atv,
                 4rem,
                 var(--c-brand-teal),
                 auto,
@@ -504,8 +507,8 @@ body {
             );
         }
         &.snowmobile {
-            @include fonticon(
-                $icon--sled,
+            @include icons.fonticon(
+                icons.$icon--sled,
                 4rem,
                 var(--c-brand-teal),
                 auto,
@@ -617,7 +620,7 @@ body {
     top: var(--spacing-xs);
     overflow: scroll;
 
-    @media (min-width: $width-tablet-landscape) {
+    @media (min-width: breakpoints.$width-tablet-landscape) {
         padding: var(--spacing-md) calc(var(--spacing-md) * 2) var(--spacing-md)
             var(--spacing-md);
         max-width: 61rem;
@@ -626,7 +629,7 @@ body {
         height: auto;
     }
 
-    @media (min-width: $width-tablet-landscape) {
+    @media (min-width: breakpoints.$width-tablet-landscape) {
         flex-direction: row;
     }
 
@@ -641,13 +644,13 @@ body {
         margin-top: 6rem;
         margin-bottom: calc(var(--spacing-md) * 2);
 
-        @media (min-width: $width-tablet-landscape) {
+        @media (min-width: breakpoints.$width-tablet-landscape) {
             max-height: 50vh;
             overflow-y: scroll;
             overflow-x: hidden;
             padding-right: calc(var(--spacing-md) * 2);
         }
-        @media (min-width: $width-laptop) {
+        @media (min-width: breakpoints.$width-laptop) {
             max-height: 58vh;
         }
     }
@@ -658,7 +661,7 @@ body {
 
     // image gallery
     &.has-gallery {
-        @media (min-width: $width-tablet-portrait) {
+        @media (min-width: breakpoints.$width-tablet-portrait) {
             max-width: 130rem;
             gap: 6rem;
         }
@@ -666,7 +669,7 @@ body {
         .c-trail-detail__internal {
             margin-top: calc(var(--spacing-md) * 2);
 
-            @media (min-width: $width-tablet-landscape) {
+            @media (min-width: breakpoints.$width-tablet-landscape) {
                 width: 50%;
                 margin-top: 8rem;
             }
@@ -683,9 +686,9 @@ body {
         > h3 {
             padding-left: 4.5rem;
             margin-bottom: 0;
-            @include fonticonSetup();
-            @include fonticon(
-                $icon--car,
+            @include icons.fonticonSetup();
+            @include icons.fonticon(
+                icons.$icon--car,
                 1.7rem,
                 var(--c-teal),
                 auto,
@@ -761,9 +764,9 @@ body {
         text-decoration: none;
         margin-top: 0.85em;
         display: inline-flex;
-        @include fonticonSetup(after);
-        @include fonticon(
-            $icon--arrow,
+        @include icons.fonticonSetup(after);
+        @include icons.fonticon(
+            icons.$icon--arrow,
             1.6rem,
             var(--c-brand-teal),
             50%,
@@ -818,11 +821,11 @@ body {
         border-radius: 1rem;
         background-color: var(--c-panel-grey);
 
-        @include fonticonSetup();
+        @include icons.fonticonSetup();
 
         &.alpineski {
-            @include fonticon(
-                $icon--ski,
+            @include icons.fonticon(
+                icons.$icon--ski,
                 1.8rem,
                 var(--c-brand-teal),
                 auto,
@@ -833,8 +836,8 @@ body {
             );
         }
         &.biking {
-            @include fonticon(
-                $icon--bike,
+            @include icons.fonticon(
+                icons.$icon--bike,
                 2.4rem,
                 var(--c-brand-teal),
                 auto,
@@ -845,8 +848,8 @@ body {
             );
         }
         &.hiking {
-            @include fonticon(
-                $icon--hike,
+            @include icons.fonticon(
+                icons.$icon--hike,
                 2rem,
                 var(--c-brand-teal),
                 auto,
@@ -857,8 +860,8 @@ body {
             );
         }
         &.xcski {
-            @include fonticon(
-                $icon--nordic,
+            @include icons.fonticon(
+                icons.$icon--nordic,
                 2.2rem,
                 var(--c-brand-teal),
                 auto,
@@ -869,8 +872,8 @@ body {
             );
         }
         &.snowmobile {
-            @include fonticon(
-                $icon--sled,
+            @include icons.fonticon(
+                icons.$icon--sled,
                 2.2rem,
                 var(--c-brand-teal),
                 auto,
@@ -881,8 +884,8 @@ body {
             );
         }
         &.snowshoe {
-            @include fonticon(
-                $icon--snowshoe,
+            @include icons.fonticon(
+                icons.$icon--snowshoe,
                 2rem,
                 var(--c-brand-teal),
                 auto,
@@ -893,8 +896,8 @@ body {
             );
         }
         &.winterbike {
-            @include fonticon(
-                $icon--fatbike,
+            @include icons.fonticon(
+                icons.$icon--fatbike,
                 2.4rem,
                 var(--c-brand-teal),
                 auto,
@@ -902,6 +905,18 @@ body {
                 auto,
                 auto,
                 $elem: before
+            );
+        }
+        &.paddle {
+            @include icons.fonticon(
+                            icons.$icon--paddle,
+                            2.4rem,
+                            var(--c-brand-teal),
+                            auto,
+                            0.5rem,
+                            auto,
+                            auto,
+                    $elem: before
             );
         }
     }
@@ -917,9 +932,9 @@ body {
         padding-left: calc(var(--spacing-md) * 2);
         height: 3rem;
 
-        @include fonticonSetup();
-        @include fonticon(
-            $icon--map,
+        @include icons.fonticonSetup();
+        @include icons.fonticon(
+            icons.$icon--map,
             3rem,
             var(--c-teal),
             auto,
@@ -989,7 +1004,7 @@ body {
         width: 7rem;
         margin: auto;
 
-        @media (min-width: $width-tablet-landscape) {
+        @media (min-width: breakpoints.$width-tablet-landscape) {
             width: 10rem;
         }
     }
@@ -1099,7 +1114,7 @@ body {
     left: 2rem;
     width: max-content;
 
-    @media (min-width: $width-tablet-landscape) {
+    @media (min-width: breakpoints.$width-tablet-landscape) {
         top: auto;
         bottom: 1rem;
         left: 50%;
@@ -1121,7 +1136,7 @@ body {
     }
 
     ~ .map-controls {
-        @media (max-width: $width-tablet-landscape) {
+        @media (max-width: breakpoints.$width-tablet-landscape) {
             top: 5.5rem;
             height: calc(100% - 5.5rem);
         }

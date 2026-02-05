@@ -1,3 +1,6 @@
+@use "breakpoints";
+@use "icons";
+
 .c-filter {
     height: max-content;
     padding: var(--spacing-md);
@@ -9,12 +12,12 @@
     &.in {
         transform: translateX(0);
 
-        @media (min-width: $width-tablet-portrait) {
+        @media (min-width: breakpoints.$width-tablet-portrait) {
             width: 76vw;
             transform: translateX(0);
         }
 
-        @media (min-width: $width-tablet-landscape) {
+        @media (min-width: breakpoints.$width-tablet-landscape) {
             width: 42vw;
             transform: translateX(0);
         }
@@ -58,9 +61,9 @@
     [class*="indicatorContainer"] {
         padding-right: 4rem;
         transition: var(--transition-med);
-        @include fonticonSetup(after);
-        @include fonticon(
-            $icon--arrow-down,
+        @include icons.fonticonSetup(after);
+        @include icons.fonticon(
+            icons.$icon--arrow-down,
             1.1rem,
             var(--c-teal),
             50%,
@@ -92,7 +95,7 @@
     }
 
     .filter {
-        @media (min-width: $width-tablet-portrait) {
+        @media (min-width: breakpoints.$width-tablet-portrait) {
             width: 50%;
         }
 
@@ -107,9 +110,9 @@
         z-index: 10;
 
         [class*="control"] {
-            @include fonticonSetup(after);
-            @include fonticon(
-                $icon--recycle,
+            @include icons.fonticonSetup(after);
+            @include icons.fonticon(
+                icons.$icon--recycle,
                 2.15rem,
                 var(--c-brand-teal),
                 50%,
@@ -125,139 +128,69 @@
         [class*="menu"] {
             > [role="listbox"] {
                 > [role="option"] {
+					padding: var(--spacing-xs) var(--spacing-md)
+					var(--spacing-xs) 5rem;
+					@include icons.fonticonSetup(after);
+					@include icons.fonticon(
+									'',
+									2.3rem,
+									var(--c-brand-teal),
+									50%,
+									2.5rem,
+									auto,
+									auto,
+									true,
+									true,
+							$elem: after
+					);
                     // option: alpine ski
                     &:nth-child(2) {
-                        padding: var(--spacing-xs) var(--spacing-md)
-                            var(--spacing-xs) 5rem;
-
-                        @include fonticonSetup(after);
-                        @include fonticon(
-                            $icon--ski,
-                            2.3rem,
-                            var(--c-brand-teal),
-                            50%,
-                            2.5rem,
-                            auto,
-                            auto,
-                            true,
-                            true,
-                            $elem: after
-                        );
+						&:after{
+							content: icons.$icon--ski;
+						}
                     }
                     // option: biking
                     &:nth-child(3) {
-                        padding: var(--spacing-xs) var(--spacing-md)
-                            var(--spacing-xs) 5rem;
-
-                        @include fonticonSetup(after);
-                        @include fonticon(
-                            $icon--bike,
-                            3.5rem,
-                            var(--c-brand-teal),
-                            50%,
-                            2.5rem,
-                            auto,
-                            auto,
-                            true,
-                            true,
-                            $elem: after
-                        );
+						&:after{
+							content: icons.$icon--bike;
+						}
                     }
                     // option: hiking
                     &:nth-child(4) {
-                        padding: var(--spacing-xs) var(--spacing-md)
-                            var(--spacing-xs) 5rem;
-
-                        @include fonticonSetup(after);
-                        @include fonticon(
-                            $icon--hike,
-                            2.75rem,
-                            var(--c-brand-teal),
-                            50%,
-                            2.5rem,
-                            auto,
-                            auto,
-                            true,
-                            true,
-                            $elem: after
-                        );
+						&:after{
+							content: icons.$icon--hike;
+						}
                     }
                     // option: xc ski
                     &:nth-child(5) {
-                        padding: var(--spacing-xs) var(--spacing-md)
-                            var(--spacing-xs) 5rem;
-
-                        @include fonticonSetup(after);
-                        @include fonticon(
-                            $icon--nordic,
-                            3rem,
-                            var(--c-brand-teal),
-                            50%,
-                            2.5rem,
-                            auto,
-                            auto,
-                            true,
-                            true,
-                            $elem: after
-                        );
+						&:after{
+							content: icons.$icon--nordic;
+						}
                     }
                     // option: sled
                     &:nth-child(6) {
-                        padding: var(--spacing-xs) var(--spacing-md)
-                            var(--spacing-xs) 5rem;
-
-                        @include fonticonSetup(after);
-                        @include fonticon(
-                            $icon--sled,
-                            3.25rem,
-                            var(--c-brand-teal),
-                            50%,
-                            2.5rem,
-                            auto,
-                            auto,
-                            true,
-                            true,
-                            $elem: after
-                        );
+						&:after{
+							content: icons.$icon--sled;
+						}
                     }
                     // option: snowshoe
                     &:nth-child(7) {
-                        padding: var(--spacing-xs) var(--spacing-md)
-                            var(--spacing-xs) 5rem;
-
-                        @include fonticonSetup(after);
-                        @include fonticon(
-                            $icon--snowshoe,
-                            3.2rem,
-                            var(--c-brand-teal),
-                            50%,
-                            2.5rem,
-                            auto,
-                            auto,
-                            true,
-                            true,
-                            $elem: after
-                        );
+						&:after{
+							content: icons.$icon--snowshoe;
+						}
                     }
                     // option: fatbike
                     &:nth-child(8) {
-                        padding: var(--spacing-xs) var(--spacing-md)
-                            var(--spacing-xs) 5rem;
-
-                        @include fonticonSetup(after);
-                        @include fonticon(
-                            $icon--fatbike,
-                            3.2rem,
-                            var(--c-brand-teal),
-                            50%,
-                            2.5rem,
-                            auto,
-                            auto,
-                            true,
-                            true,
-                            $elem: after
-                        );
+						&:after{
+							content: icons.$icon--fatbike;
+						}
                     }
+					// option: paddle
+					&:nth-child(9) {
+						&:after{
+							content: icons.$icon--paddle;
+						}
+					}
                 }
             }
         }
@@ -265,9 +198,9 @@
 
     .filter-difficulty {
         [class*="control"] {
-            @include fonticonSetup(after);
-            @include fonticon(
-                $icon--gauge,
+            @include icons.fonticonSetup(after);
+            @include icons.fonticon(
+                icons.$icon--gauge,
                 3.5rem,
                 var(--c-brand-teal),
                 50%,

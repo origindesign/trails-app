@@ -1,3 +1,6 @@
+@use "breakpoints";
+@use "icons";
+
 .control {
     --size: 5rem;
 
@@ -20,9 +23,9 @@
     }
 
     &--home {
-        @include fonticonSetup(after);
-        @include fonticon(
-            $icon--home,
+        @include icons.fonticonSetup(after);
+        @include icons.fonticon(
+            icons.$icon--home,
             2.25rem,
             var(--c-sky-blue),
             auto,
@@ -35,9 +38,9 @@
 
     &--parking {
         display: none;
-        @include fonticonSetup(after);
-        @include fonticon(
-            $icon--car,
+        @include icons.fonticonSetup(after);
+        @include icons.fonticon(
+            icons.$icon--car,
             1.45rem,
             var(--c-sky-blue),
             auto,
@@ -49,9 +52,9 @@
     }
 
     &--search {
-        @include fonticonSetup(after);
-        @include fonticon(
-            $icon--search,
+        @include icons.fonticonSetup(after);
+        @include icons.fonticon(
+            icons.$icon--search,
             2.25rem,
             var(--c-sky-blue),
             auto,
@@ -61,15 +64,15 @@
             $elem: after
         );
 
-        @media (min-width: $width-tablet-landscape) {
+        @media (min-width: breakpoints.$width-tablet-landscape) {
             display: none;
         }
     }
 
     &--filters {
-        @include fonticonSetup(after);
-        @include fonticon(
-            $icon--filter,
+        @include icons.fonticonSetup(after);
+        @include icons.fonticon(
+            icons.$icon--filter,
             1.8rem,
             var(--c-sky-blue),
             auto,
@@ -79,7 +82,7 @@
             $elem: after
         );
 
-        @media (min-width: $width-tablet-landscape) {
+        @media (min-width: breakpoints.$width-tablet-landscape) {
             display: none;
         }
     }
@@ -89,9 +92,9 @@
         right: var(--spacing-md);
         top: var(--spacing-md);
 
-        @include fonticonSetup(after);
-        @include fonticon(
-            $icon--close,
+        @include icons.fonticonSetup(after);
+        @include icons.fonticon(
+            icons.$icon--close,
             1.8rem,
             var(--c-sky-blue),
             auto,

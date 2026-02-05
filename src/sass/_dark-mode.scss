@@ -1,3 +1,6 @@
+@use "breakpoints";
+@use "icons";
+
 :root {
     --dm-text: #cae8e5;
     --dm-background: #4a585c;
@@ -5,7 +8,7 @@
 }
 
 .leaflet-bottom:has(.leaflet-control-mode) {
-    @media (max-width: $width-tablet-landscape) {
+    @media (max-width: breakpoints.$width-tablet-landscape) {
         top: 1.1rem;
         display: none;
     }
@@ -22,9 +25,9 @@
     justify-content: center;
     margin: 1rem;
 
-    @include fonticonSetup();
-    @include fonticon(
-        $icon--terrain,
+    @include icons.fonticonSetup();
+    @include icons.fonticon(
+        icons.$icon--terrain,
         3.25rem,
         var(--c-sky-blue),
         auto,
@@ -34,9 +37,9 @@
     );
 
     &.dm {
-        @include fonticonSetup();
-        @include fonticon(
-            $icon--satellite,
+        @include icons.fonticonSetup();
+        @include icons.fonticon(
+            icons.$icon--satellite,
             2.1rem,
             var(--c-sky-blue),
             auto,

@@ -216,6 +216,17 @@ const SectionMap = ({}) => {
 
         let geojsonLayer = L.geoJSON(trails.features, {
             style(feature) {
+                // Check if this is a Paddle trail first
+                if (feature.properties['Paddle'] === "true") {
+                    return {
+                        color: "#9B59B6", // Purple for Paddle trails
+                        weight: 2.25,
+                        opacity: 1,
+                        interactive: true
+                    };
+                }
+
+                // Otherwise use difficulty-based colors
                 const colorMap = {
                     Difficult: "black",
                     "Most Difficult": "#1A2A33",
@@ -304,7 +315,7 @@ const SectionMap = ({}) => {
                         </div>
                         <span class="link t-c-teal" data-name="${
                             feature.properties.Name
-                        }" data-distance="${JSON.stringify(feature.properties.Distance)}" data-difficulty="${feature.properties.Difficulty}" data-description="${feature.properties.Description}" data-access="${feature.properties.Access}" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}" data-parkingname="${feature.properties.Parking.name}" data-parkingdescription="${feature.properties.Parking.description}" data-parkingcoords="${feature.properties.Parking.latLng}" data-area="${feature.properties['Trail Area']}" data-areaurl="${feature.properties['Trail Area URL']}" data-typehiking="${feature.properties['Hiking']}" data-typebiking="${feature.properties['Biking']}" data-typesnowmobile="${feature.properties['Snowmobile']}" data-typexcski="${feature.properties['XC Ski']}" data-typealpineski="${feature.properties['Alpine Ski']}" data-typesnowshoe="${feature.properties['Snowshoe']}" data-typewinterbike="${feature.properties['Winter Fatbike']}">More details</span>
+                        }" data-distance="${JSON.stringify(feature.properties.Distance)}" data-difficulty="${feature.properties.Difficulty}" data-description="${feature.properties.Description}" data-access="${feature.properties.Access}" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}" data-parkingname="${feature.properties.Parking.name}" data-parkingdescription="${feature.properties.Parking.description}" data-parkingcoords="${feature.properties.Parking.latLng}" data-area="${feature.properties['Trail Area']}" data-areaurl="${feature.properties['Trail Area URL']}" data-typehiking="${feature.properties['Hiking']}" data-typebiking="${feature.properties['Biking']}" data-typesnowmobile="${feature.properties['Snowmobile']}" data-typexcski="${feature.properties['XC Ski']}" data-typealpineski="${feature.properties['Alpine Ski']}" data-typesnowshoe="${feature.properties['Snowshoe']}" data-typewinterbike="${feature.properties['Winter Fatbike']}" data-typepaddle="${feature.properties['Paddle']}">More details</span>
                     `);
 
                     // Pan the map
@@ -372,7 +383,7 @@ const SectionMap = ({}) => {
                         feature.properties.Distance
                     )}" data-difficulty="${feature.properties.Difficulty}" data-access="${feature.properties.Access}" data-description="${
                         feature.properties.Description
-                    }" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}" data-parkingname="${feature.properties.Parking.name}" data-parkingdescription="${feature.properties.Parking.description}" data-parkingcoords="${feature.properties.Parking.latLng}" data-area="${feature.properties['Trail Area']}" data-areaurl="${feature.properties['Trail Area URL']}" data-typehiking="${feature.properties['Hiking']}" data-typebiking="${feature.properties['Biking']}" data-typesnowmobile="${feature.properties['Snowmobile']}" data-typexcski="${feature.properties['XC Ski']}" data-typealpineski="${feature.properties['Alpine Ski']}" data-typesnowshoe="${feature.properties['Snowshoe']}" data-typewinterbike="${feature.properties['Winter Fatbike']}">More details</span>
+                    }" data-elevation="${elevationArray}" data-imagery="${feature.properties.Images}" data-parkingname="${feature.properties.Parking.name}" data-parkingdescription="${feature.properties.Parking.description}" data-parkingcoords="${feature.properties.Parking.latLng}" data-area="${feature.properties['Trail Area']}" data-areaurl="${feature.properties['Trail Area URL']}" data-typehiking="${feature.properties['Hiking']}" data-typebiking="${feature.properties['Biking']}" data-typesnowmobile="${feature.properties['Snowmobile']}" data-typexcski="${feature.properties['XC Ski']}" data-typealpineski="${feature.properties['Alpine Ski']}" data-typesnowshoe="${feature.properties['Snowshoe']}" data-typewinterbike="${feature.properties['Winter Fatbike']}" data-typepaddle="${feature.properties['Paddle']}">More details</span>
                     `;
 
                     L.popup()
@@ -491,6 +502,7 @@ const SectionMap = ({}) => {
             { value: "Snowmobile", label: "Snowmobile" },
             { value: "Snowshoe", label: "Snowshoe" },
             { value: "Winter Fatbike", label: "Winter Fatbike" },
+            { value: "Paddle", label: "Paddle" },
         ];
 
         const difficultyOptions = [
@@ -530,8 +542,11 @@ const SectionMap = ({}) => {
 
             // Filter features based on selected difficulty and activity
             const filteredFeatures = trails.features.filter((feature) => {
-                const matchesDifficulty =
-                    selectedDifficulty.current.value === "All" || 
+                // Check if this is a Paddle trail - they bypass difficulty filtering
+                const isPaddleTrail = feature.properties['Paddle'] === "true";
+
+                const matchesDifficulty = isPaddleTrail ||
+                    selectedDifficulty.current.value === "All" ||
                     feature.properties["Difficulty"] === selectedDifficulty.current.value;
 
                     const matchesActivity = selectedActivity.current.value === "All" || (
@@ -614,6 +629,7 @@ const SectionMap = ({}) => {
           typealpineski: "",
           typesnowshoe: "",
           typewinterbike: "",
+          typepaddle: "",
           imagery: [],
         });
         const [isModalOpen, setIsModalOpen] = useState(false);
@@ -662,6 +678,7 @@ const SectionMap = ({}) => {
               typealpineski,
               typesnowshoe,
               typewinterbike,
+              typepaddle,
               imagery,
             } = event.target.dataset;
       
@@ -684,6 +701,7 @@ const SectionMap = ({}) => {
               typealpineski,
               typesnowshoe,
               typewinterbike,
+              typepaddle,
               imagery: imagery.split(", "),
             });
       
@@ -848,6 +866,9 @@ const SectionMap = ({}) => {
                 {trailDetails.typewinterbike === "true" && (
                     <span className="type d-flex ai-center winterbike">Winter Fatbike</span>
                 )}
+                  {trailDetails.typepaddle === "true" && (
+                      <span className="type d-flex ai-center paddle">Paddle</span>
+                  )}
               </div>
 
               <div className="c-trail-props d-flex t-c-teal">

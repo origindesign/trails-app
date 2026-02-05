@@ -1,8 +1,11 @@
+@use "breakpoints";
+@use "icons";
+
 .splide {
     --border-radius: 1rem;
     --control-size: 5.3rem;
 
-    @media (min-width: $width-tablet-landscape) {
+    @media (min-width: breakpoints.$width-tablet-landscape) {
         width: 50%;
     }
 
@@ -39,9 +42,9 @@
             display: none;
         }
 
-        @include fonticonSetup();
-        @include fonticon(
-            $icon--arrow,
+        @include icons.fonticonSetup();
+        @include icons.fonticon(
+            icons.$icon--arrow,
             2.2rem,
             var(--c-black),
             auto,

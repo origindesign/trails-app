@@ -1,10 +1,12 @@
+@use "breakpoints";
+
 .chart-container {
     // max-width: 47rem;
     height: 140px;
     width: 300px;
     padding-right: calc(var(--spacing-md) * 2);
 
-    @media (min-width: $width-tablet-portrait) {
+    @media (min-width: breakpoints.$width-tablet-portrait) {
         height: 160px;
         width: 420px;
         padding-right: 0;
