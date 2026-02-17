@@ -6,9 +6,9 @@ export const fetchParkingData = async () => {
         const response = await fetch(
             "https://www.tourismvernon.com/trail-parking-data/data"
         );
-        // const response = await fetch(
-        //     "https://tov.lndo.site/trail-parking-data/data"
-        // );
+        /*const response = await fetch(
+            "https://tov.lndo.site/trail-parking-data/data"
+        );*/
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }

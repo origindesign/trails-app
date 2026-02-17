@@ -6,9 +6,9 @@ export const fetchTrailsData = async () => {
         const response = await fetch(
             "https://www.tourismvernon.com/trail-data/geojson"
         );
-        // const response = await fetch(
-        //     "https://tov.lndo.site/trail-data/geojson"
-        // );
+       /* const response = await fetch(
+            "https://tov.lndo.site/trail-data/geojson"
+        );*/
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
