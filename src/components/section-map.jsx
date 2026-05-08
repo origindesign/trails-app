@@ -77,6 +77,7 @@ const SectionMap = ({}) => {
 
         const JAWG_API_KEY =
             "UlhmB9TdxEsUaPuIVrKDpmk5oM2qRX3IsK3hdoLnBDgkztJS86cE1GxVofqZWZmu"; // custom map style here https://www.jawg.io/lab/
+        const THUNDER_API_KEY = '41fd33b955ef4c3691d89f6911d5a0f9';
         const map = L.map("map", mapOptions);
 
         // Buffer layer clear functionality: requirement to store map as a reference, wich can then be cleared
@@ -84,11 +85,9 @@ const SectionMap = ({}) => {
 
         // Define Light Mode Tile Layer (Default)
         const lightModeLayer = L.tileLayer(
-            "https://{s}.tile.jawg.io/jawg-terrain/{z}/{x}/{y}.png?access-token=" + JAWG_API_KEY,
+            "https://api.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=" + THUNDER_API_KEY,
             {
-                attribution: `
-                    <a href="https://www.jawg.io" target="_blank">© Jawg Maps</a>, 
-                    <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>`,
+                attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors`,
                 maxZoom: 20,
             }
         );
