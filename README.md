@@ -31,3 +31,6 @@ It is imported to Drupal, then exported in JSON format for us to read.
 
 Users can open specific trails from a URL, by following the URL parameter pattern. Search for the `selectTrailFromURL` function in `section-map.jsx`;
 URL Pattern: `?trail=<trail-name>`
+
+Users can also open specific parking lots from a URL, by following the URL parameter pattern. Search for the `selectParkingFromURL` function in `section-map.jsx`;
+URL Pattern: `?parking=<parking-name>`
