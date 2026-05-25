@@ -66,7 +66,7 @@ const SectionMap = ({}) => {
     }, [loading]);
 
     useEffect(() => {
-        if (!trails) return; 
+        if (!trails || !parkingData) return; 
 
         // Creating map options
         const mapOptions = {
@@ -168,8 +168,10 @@ const SectionMap = ({}) => {
                 const lat = latLng[0];
                 const lng = latLng[1];
 
-                return L.marker(latLng, { icon: customIcon })
-                .bindPopup(`
+                const parkingMarker = L.marker(latLng, { icon: customIcon })
+                parkingMarker.parkingData = marker;
+
+                return parkingMarker.bindPopup(`
                     <span class="temp">${marker.unique_id}</span>
                     <h3 class='t-c-teal'>${marker.name}</h3>
                     <p class='t-c-teal'>
@@ -450,8 +452,9 @@ const SectionMap = ({}) => {
             }
         });
 
-        // Call the URL param function
+        // Call the URL param functions
         selectTrailFromURL(map);
+        selectParkingFromURL(map);
 
         /**
          * Open trail popup based on URL parameters
@@ -490,7 +493,30 @@ const SectionMap = ({}) => {
                 }
             }
         }
-    }, [trails]);
+
+        /**
+         * Open parking popup based on URL parameters
+         * @param {*} map 
+         */
+        function selectParkingFromURL(map) {
+            const params = new URLSearchParams(window.location.search);
+            const parkingName = params.get("parking"); // URL Pattern: ?parking=<parking-name>
+
+            if (parkingName) {
+                const parkingMarker = parkingMarkers.find((marker) => {
+                    return marker.parkingData && marker.parkingData.name === parkingName;
+                });
+
+                if (parkingMarker) {
+                    addParkingMarkers();
+                    map.setView(parkingMarker.getLatLng(), Math.max(map.getZoom(), 14), { animate: true, duration: 1 });
+                    parkingMarker.openPopup();
+                } else {
+                    console.warn(`No parking lot found with the name: ${parkingName}`);
+                }
+            }
+        }
+    }, [trails, parkingData]);
 
     /**
      * Filters() function returns html for the UI filters.
