@@ -231,12 +231,12 @@ const SectionMap = ({}) => {
                 const colorMap = {
                     Difficult: "black",
                     "Most Difficult": "#1A2A33",
-                    Easy: "#88AD38",
+                    Easy: "#38ad3a",
                     Moderate: "#0BB1D6",
                 };
 
                 return {
-                    color: colorMap[feature.properties.Difficulty] || "#88AD38",
+                    color: colorMap[feature.properties.Difficulty] || "#38ad3a",
                     weight: 2.25,
                     opacity: 1,
                     interactive: true
@@ -796,7 +796,7 @@ const SectionMap = ({}) => {
                   },
                   grid: {
                     display: false, // Disable vertical grid lines
-                    color: "#88AD38",
+                    color: "#38ad3a",
                   },
                 },
                 y: {
@@ -809,10 +809,10 @@ const SectionMap = ({}) => {
                     maxTicksLimit: 5,
                   },
                   grid: {
-                    color: "#88AD38",
+                    color: "#38ad3a",
                   },
                   border: {
-                    color: "#88AD38",
+                    color: "#38ad3a",
                   },
                 },
               },
