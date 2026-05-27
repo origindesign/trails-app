@@ -2,8 +2,12 @@
 
 import { useEffect, useState, useRef } from "react";
 import Select from "react-select";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 import "leaflet-search/dist/leaflet-search.min.css";
 import "leaflet-search";
+import "maplibre-gl/dist/maplibre-gl.css";
+import "@maplibre/maplibre-gl-leaflet";
 
 import Logo from "./../assets/pin.png";
 import VernonLogo from "./../assets/vernon-logo.svg";
@@ -72,6 +76,7 @@ const SectionMap = ({}) => {
         const mapOptions = {
             center: [50.27179, -119.276505],
             zoom: 11.4,
+            minZoom: 1,
             maxZoom: 20,
         };
 
@@ -82,13 +87,17 @@ const SectionMap = ({}) => {
         // Buffer layer clear functionality: requirement to store map as a reference, wich can then be cleared
         mapRef.current = map;
 
-        // Define Light Mode Tile Layer (Default)
-        const lightModeLayer = L.tileLayer(
-            "https://{s}.tile.jawg.io/jawg-terrain/{z}/{x}/{y}.png?access-token=" + JAWG_API_KEY,
-            {
-                attribution: `
+        const jawgAttribution = `
                     <a href="https://www.jawg.io" target="_blank">© Jawg Maps</a>, 
-                    <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>`,
+                    <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>`;
+
+        // Define Light Mode Vector Layer (Default)
+        const lightModeLayer = L.maplibreGL(
+            {
+                style: "https://api.jawg.io/styles/jawg-terrain.json?access-token=" + JAWG_API_KEY,
+                attributionControl: {
+                    customAttribution: jawgAttribution,
+                },
                 maxZoom: 20,
             }
         );
@@ -178,7 +187,7 @@ const SectionMap = ({}) => {
                     <p class='t-c-teal'>
                     ${marker.description}
                     </p>
-                    <a class='link' href='http://maps.google.com/maps?z=12&t=m&q=loc:${lat}+${lng}' 
+                    <a class='link' href='https://www.google.com/maps/search/?api=1&query=${lat}%2C${lng}' 
                     data-coord='${lat},${lng}' target="_blank">
                     Directions
                     </a>
@@ -517,6 +526,13 @@ const SectionMap = ({}) => {
                 }
             }
         }
+
+        return () => {
+            map.remove();
+            mapRef.current = null;
+            geojsonLayerRef.current = null;
+            bufferLayersRef.current = [];
+        };
     }, [trails, parkingData]);
 
     /**
@@ -940,7 +956,7 @@ const SectionMap = ({}) => {
                             return (
                             <a 
                                 className="link" 
-                                href={`http://maps.google.com/maps?z=12&t=m&q=loc:${lat}+${lng}`} 
+                                href={`https://www.google.com/maps/search/?api=1&query=${lat}%2C${lng}`} 
                                 data-coord={`${lat},${lng}`} 
                                 target="_blank"
                             >

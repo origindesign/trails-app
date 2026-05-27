@@ -5,6 +5,9 @@ import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [preact()],
+    build: {
+        chunkSizeWarningLimit: 1400
+    },
     server: {
         proxy: {
             "/trail-data": {
